@@ -94,4 +94,3 @@ void mover_izquierda()
   multi.moveTo(posiciones);
   multi.runSpeedToPosition(); // bloquea hasta llegar
 }
-
