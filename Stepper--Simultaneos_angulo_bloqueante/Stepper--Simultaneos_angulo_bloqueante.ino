@@ -3,8 +3,18 @@
 Este programa controla dos motores paso a paso usando drivers tipo STEP/DIR,
 la librería AccelStepper y el objeto MultiStepper para lograr movimientos
 sincronizados. Cada motor se mueve al ángulo deseado de forma sincronizada.
+1️⃣ Variante con multi.runSpeedToPosition()
+Bloquea hasta llegar a la posición sin usar un bucle while.
+Ventajas:
+Muy simple: llamas una vez y espera a que ambos motores lleguen.
+Bloqueante: no hace falta un bucle extra para controlar el movimiento.
+Ideal para movimientos discretos, como dar una vuelta completa a la derecha o izquierda, y luego hacer otra acción.
+Desventajas:
+Es bloqueante, por lo que durante ese tiempo tu Arduino no puede ejecutar nada más (lectura de sensores, actualizar display, etc.).
+Menos flexible si quieres intercalar acciones mientras los motores se mueven.
+Solo funciona bien si la velocidad y aceleración son seguras para el motor; si están muy altas, puede fallar.
 
-  K. Michalsky – 11.2025
+K. Michalsky – 11.2025
 *************************************************************************************************************/
 
 #include <AccelStepper.h>
