@@ -1,3 +1,5 @@
+#include <Arduino.h>
+#line 1 "C:\\Users\\Benutzer1\\Documents\\Arduino\\Stepper\\Stepper--Simultaneos_angulo_flexible\\Stepper--Simultaneos_angulo_flexible.ino"
 /************************************************************************************************************
  🔹 POSICIONAMIENTO DEL ANGULO DE DOS MOTORES PASO A PASO CON MultiStepper (VERSIÓN PREMIUM) 🔹
 Movimiento continuo derecha-izquierda con MultiStepper sin bloquear el loop,
@@ -33,6 +35,13 @@ MultiStepper multi;
 bool moverDerecha = true;
 long posiciones[2];
 
+#line 36 "C:\\Users\\Benutzer1\\Documents\\Arduino\\Stepper\\Stepper--Simultaneos_angulo_flexible\\Stepper--Simultaneos_angulo_flexible.ino"
+void setup();
+#line 65 "C:\\Users\\Benutzer1\\Documents\\Arduino\\Stepper\\Stepper--Simultaneos_angulo_flexible\\Stepper--Simultaneos_angulo_flexible.ino"
+void loop();
+#line 95 "C:\\Users\\Benutzer1\\Documents\\Arduino\\Stepper\\Stepper--Simultaneos_angulo_flexible\\Stepper--Simultaneos_angulo_flexible.ino"
+bool motoresEnMovimiento();
+#line 36 "C:\\Users\\Benutzer1\\Documents\\Arduino\\Stepper\\Stepper--Simultaneos_angulo_flexible\\Stepper--Simultaneos_angulo_flexible.ino"
 void setup()
 {
     // Desactivar motores
@@ -96,3 +105,4 @@ bool motoresEnMovimiento()
 {
     return (motor1.distanceToGo() != 0 || motor2.distanceToGo() != 0);
 }
+
