@@ -6,14 +6,14 @@
       "includePath": [
         "C:\\Users\\Benutzer1\\Documents\\Arduino\\libraries/**",
         "C:\\Users\\Benutzer1\\Documents\\Arduino\\Stepper\\Stepper--Simultaneos_angulo_flexible/**",
-        "c:\\Users\\Benutzer1\\Documents\\Arduino\\Stepper\\Stepper--Simultaneos_angulo_flexible\\build\\core/**"
+        "C:\\Users\\Benutzer1\\Documents\\Arduino\\Stepper\\Stepper--Simultaneos_angulo_flexible\\build\\core/**"
       ],
       "forcedInclude": [],
       "compilerPath": "C:\\Users\\Benutzer1\\AppData\\Local\\Arduino15\\packages\\rp2040\\tools\\pqt-gcc\\4.0.1-8ec9d6f/bin/arm-none-eabi-g++",
       "compilerArgs": [
         "C:\\Users\\Benutzer1\\AppData\\Local\\Arduino15\\packages\\rp2040\\tools\\pqt-gcc\\4.0.1-8ec9d6f/bin/arm-none-eabi-g++",
         "-I",
-        "c:\\Users\\Benutzer1\\Documents\\Arduino\\Stepper\\Stepper--Simultaneos_angulo_flexible\\build/core",
+        "C:\\Users\\Benutzer1\\Documents\\Arduino\\Stepper\\Stepper--Simultaneos_angulo_flexible\\build/core",
         "-c",
         "-Werror=return-type",
         "-Wno-psabi",
@@ -57,9 +57,9 @@
         "-IC:\\Users\\Benutzer1\\AppData\\Local\\Arduino15\\packages\\rp2040\\hardware\\rp2040\\4.5.2\\cores\\rp2040",
         "-IC:\\Users\\Benutzer1\\AppData\\Local\\Arduino15\\packages\\rp2040\\hardware\\rp2040\\4.5.2\\variants\\waveshare_rp2040_zero",
         "-IC:\\Users\\Benutzer1\\Documents\\Arduino\\libraries\\AccelStepper\\src",
-        "c:\\Users\\Benutzer1\\Documents\\Arduino\\Stepper\\Stepper--Simultaneos_angulo_flexible\\build\\sketch\\Stepper--Simultaneos_angulo_flexible.ino.cpp",
+        "C:\\Users\\Benutzer1\\Documents\\Arduino\\Stepper\\Stepper--Simultaneos_angulo_flexible\\build\\sketch\\Stepper--Simultaneos_angulo_flexible.ino.cpp",
         "-o",
-        "c:\\Users\\Benutzer1\\Documents\\Arduino\\Stepper\\Stepper--Simultaneos_angulo_flexible\\build\\sketch\\Stepper--Simultaneos_angulo_flexible.ino.cpp.o"
+        "C:\\Users\\Benutzer1\\Documents\\Arduino\\Stepper\\Stepper--Simultaneos_angulo_flexible\\build\\sketch\\Stepper--Simultaneos_angulo_flexible.ino.cpp.o"
       ],
       "defines": [
         "USBD_PID=0x0003",

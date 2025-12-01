@@ -34,14 +34,15 @@ MultiStepper multi;
 // Variables de control de dirección
 bool moverDerecha = true;
 long posiciones[2];
+bool mostrarAngulo = true;
 
-#line 36 "C:\\Users\\Benutzer1\\Documents\\Arduino\\Stepper\\Stepper--Simultaneos_angulo_flexible\\Stepper--Simultaneos_angulo_flexible.ino"
+#line 37 "C:\\Users\\Benutzer1\\Documents\\Arduino\\Stepper\\Stepper--Simultaneos_angulo_flexible\\Stepper--Simultaneos_angulo_flexible.ino"
 void setup();
-#line 65 "C:\\Users\\Benutzer1\\Documents\\Arduino\\Stepper\\Stepper--Simultaneos_angulo_flexible\\Stepper--Simultaneos_angulo_flexible.ino"
+#line 72 "C:\\Users\\Benutzer1\\Documents\\Arduino\\Stepper\\Stepper--Simultaneos_angulo_flexible\\Stepper--Simultaneos_angulo_flexible.ino"
 void loop();
-#line 95 "C:\\Users\\Benutzer1\\Documents\\Arduino\\Stepper\\Stepper--Simultaneos_angulo_flexible\\Stepper--Simultaneos_angulo_flexible.ino"
+#line 110 "C:\\Users\\Benutzer1\\Documents\\Arduino\\Stepper\\Stepper--Simultaneos_angulo_flexible\\Stepper--Simultaneos_angulo_flexible.ino"
 bool motoresEnMovimiento();
-#line 36 "C:\\Users\\Benutzer1\\Documents\\Arduino\\Stepper\\Stepper--Simultaneos_angulo_flexible\\Stepper--Simultaneos_angulo_flexible.ino"
+#line 37 "C:\\Users\\Benutzer1\\Documents\\Arduino\\Stepper\\Stepper--Simultaneos_angulo_flexible\\Stepper--Simultaneos_angulo_flexible.ino"
 void setup()
 {
     // Desactivar motores
@@ -49,6 +50,12 @@ void setup()
     pinMode(ENABLE2, OUTPUT);
     digitalWrite(ENABLE1, HIGH);
     digitalWrite(ENABLE2, HIGH);
+
+    // Iniciar comunicación serial
+    Serial.begin(115200);
+    Serial1.setTX(0);
+    Serial1.setRX(1);
+    Serial1.begin(115200);
 
     // Configurar motores
     motor1.setMaxSpeed(2000);     // pasos/seg
@@ -73,10 +80,19 @@ void setup()
 
 void loop()
 {
-    // Ejecutar movimiento paso a paso no bloqueante
+    // Si ya terminó el movimiento
     if (!motoresEnMovimiento())
     {
-        // Cuando llegan a la posición, cambiar dirección
+        if (mostrarAngulo) // solo una vez
+        {
+            Serial1.println((motor1.currentPosition() * angulo_por_paso) / (microstepping * (360 / angulo)));
+            Serial1.println((motor2.currentPosition() * angulo_por_paso) / (microstepping * (360 / angulo)));
+            mostrarAngulo = false;
+        }
+
+        delay(1000); // Pausa entre movimientos
+
+        // Preparar siguiente movimiento
         moverDerecha = !moverDerecha;
 
         if (moverDerecha)
@@ -89,15 +105,14 @@ void loop()
             posiciones[0] = motor1.currentPosition() - pasos;
             posiciones[1] = motor2.currentPosition() - pasos;
         }
-
         multi.moveTo(posiciones);
+
+        // Volver a permitir que se muestre en el próximo ciclo
+        mostrarAngulo = true;
     }
 
-    // Ejecutar los motores sin bloquear
+    // Ejecutar motores
     multi.run();
-
-    // Aquí puedes agregar otras tareas mientras los motores se mueven
-    // Por ejemplo: leer sensores, actualizar pantalla, enviar datos, etc.
 }
 
 // Función para comprobar si los motores aún se están moviendo
