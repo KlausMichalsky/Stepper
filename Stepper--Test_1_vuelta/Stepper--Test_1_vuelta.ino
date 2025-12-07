@@ -23,7 +23,8 @@ AccelStepper motor(AccelStepper::DRIVER, STEP, DIR);
 // ==== CONFIGURACIÓN DEL MOTOR ====
 // Motor de 200 pasos por vuelta con microstepping 1/16
 // 200 * 16 = 3200 pasos por vuelta
-const int pasosPorVuelta = 200;
+const int microstepping = 16;
+const int pasosPorVuelta = 200*microstepping;
 
 void setup() {
   pinMode(ENABLE, OUTPUT);
