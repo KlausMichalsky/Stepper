@@ -1,3 +1,4 @@
+#line 1 "C:\\Users\\Benutzer1\\Documents\\Arduino\\Stepper\\Homing_2Motors_Hall_AS5600_I2C\\Homing_2Motors_Hall_AS5600_I2C.ino"
 // Homing dual con AccelStepper + AS5600 (Wire + Wire1) + KY-035 (activo LOW)
 // Centrado entre 2 imanes, offset software para 0° ±180°
 // Envía "0,0" por Serial al Pico cuando termina (Motor1,Motor2)
@@ -70,6 +71,19 @@ bool ledFinalPhase = false; // para los 2 parpadeos finales
 const uint8_t AS5600_ADDR = 0x36;
 
 // Lee el registro RAW (12 bits) del AS5600 usando el bus pasado (Wire o Wire1)
+#line 73 "C:\\Users\\Benutzer1\\Documents\\Arduino\\Stepper\\Homing_2Motors_Hall_AS5600_I2C\\Homing_2Motors_Hall_AS5600_I2C.ino"
+uint16_t readAS5600_raw(TwoWire &i2c);
+#line 90 "C:\\Users\\Benutzer1\\Documents\\Arduino\\Stepper\\Homing_2Motors_Hall_AS5600_I2C\\Homing_2Motors_Hall_AS5600_I2C.ino"
+float rawToDegrees(uint16_t raw);
+#line 100 "C:\\Users\\Benutzer1\\Documents\\Arduino\\Stepper\\Homing_2Motors_Hall_AS5600_I2C\\Homing_2Motors_Hall_AS5600_I2C.ino"
+bool homingAccel(AccelStepper &motor, uint8_t hallPin, float fastSpeed, float fineSpeed, float accel, long &outCentroSteps);
+#line 214 "C:\\Users\\Benutzer1\\Documents\\Arduino\\Stepper\\Homing_2Motors_Hall_AS5600_I2C\\Homing_2Motors_Hall_AS5600_I2C.ino"
+void setup();
+#line 252 "C:\\Users\\Benutzer1\\Documents\\Arduino\\Stepper\\Homing_2Motors_Hall_AS5600_I2C\\Homing_2Motors_Hall_AS5600_I2C.ino"
+void loop();
+#line 388 "C:\\Users\\Benutzer1\\Documents\\Arduino\\Stepper\\Homing_2Motors_Hall_AS5600_I2C\\Homing_2Motors_Hall_AS5600_I2C.ino"
+void cambiarEstadoBoton();
+#line 73 "C:\\Users\\Benutzer1\\Documents\\Arduino\\Stepper\\Homing_2Motors_Hall_AS5600_I2C\\Homing_2Motors_Hall_AS5600_I2C.ino"
 uint16_t readAS5600_raw(TwoWire &i2c)
 {
     uint16_t angle = 0;
