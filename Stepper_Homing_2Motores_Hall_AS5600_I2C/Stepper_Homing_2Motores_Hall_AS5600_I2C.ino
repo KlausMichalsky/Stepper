@@ -1,17 +1,21 @@
-// Homing dual con AccelStepper + AS5600 (Wire + Wire1) + KY-035 (activo LOW)
-// Centrado entre 2 imanes, offset software para 0° ±180°
-// Envía "0,0" por Serial al Pico cuando termina (Motor1,Motor2)
-// LED en PIN_LED parpadea durante homing y 2 ciclos al finalizar.
+// =======================================================================
+//                     🔸P I C O   —   H O M I N G (Testcode)🔸
+// =======================================================================
+//  Archivo    : homing_dual.cpp
+//  Autor      : Klaus Michalsky
+//  Fecha      : 2025-12-11
+// -----------------------------------------------------------------------
+//  ▫️ DESCRIPCIÓN
+//      Homing dual para dos motores paso a paso usando AccelStepper,
+//      con sensores AS5600 (I2C) y KY-035 (activo LOW).
+//      Centrado entre 2 imanes y aplicación de offset software a 0° ±180°.
 //
-// Pines usados (confirmados antes):
-// MOTOR1_ENABLE 6, MOTOR1_DIR 7,  MOTOR1_STEP 8
-// MOTOR2_ENABLE 12, MOTOR2_DIR 13, MOTOR2_STEP 14
-// AS5600_1 -> Wire SDA=4 SCL=5
-// AS5600_2 -> Wire1 SDA=26 SCL=27
-// HALL_1 = 3, HALL_2 = 15
-// LED_PIN = 2
-//
-// Nótese: KY-035 -> activo LOW (cuando pasa imán = LOW)
+//  ▫️ RESPONSABILIDADES
+//      - Ejecutar homing preciso de ambos motores.
+//      - Filtrar lecturas de AS5600 con filtro exponencial.
+//      - Controlar LED de estado durante homing y parpadeos finales.
+//      - Manejar inicio mediante botón con debounce y ISR.
+// =======================================================================
 
 #include <Arduino.h>
 #include <AccelStepper.h>
