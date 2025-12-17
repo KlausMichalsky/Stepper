@@ -55,6 +55,7 @@
 
 // ------------------ Parámetros ------------------
 const int reduccion = 9;                // Relación de reducción del motor
+const int microstepping = 16;           // Microstepping configurado en el driver
 const float HOMING_FAST_SPEED = 2400.0; // pasos/s
 const float HOMING_FINE_SPEED = 1200.0; // pasos/s
 const float HOMING_ACCEL = 1000.0;      // pasos/s²
