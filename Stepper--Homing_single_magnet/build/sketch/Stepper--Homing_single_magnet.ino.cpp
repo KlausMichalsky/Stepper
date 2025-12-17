@@ -1,3 +1,4 @@
+#line 1 "C:\\Users\\Benutzer1\\Documents\\Arduino\\Stepper\\Stepper--Homing_single_magnet\\Stepper--Homing_single_magnet.ino"
 // =======================================================================
 //                    🔸 P I C O  —  H O M I N G  (SCARA) 🔸
 // =======================================================================
@@ -71,6 +72,13 @@ Bounce debouncer = Bounce();
 //                    FUNCIÓN DE HOMING (1 IMÁN)
 // =======================================================================
 
+#line 74 "C:\\Users\\Benutzer1\\Documents\\Arduino\\Stepper\\Stepper--Homing_single_magnet\\Stepper--Homing_single_magnet.ino"
+bool homingSingleMagnet(AccelStepper &motor, uint8_t hallPin, float fastSpeed);
+#line 102 "C:\\Users\\Benutzer1\\Documents\\Arduino\\Stepper\\Stepper--Homing_single_magnet\\Stepper--Homing_single_magnet.ino"
+void setup();
+#line 126 "C:\\Users\\Benutzer1\\Documents\\Arduino\\Stepper\\Stepper--Homing_single_magnet\\Stepper--Homing_single_magnet.ino"
+void loop();
+#line 74 "C:\\Users\\Benutzer1\\Documents\\Arduino\\Stepper\\Stepper--Homing_single_magnet\\Stepper--Homing_single_magnet.ino"
 bool homingSingleMagnet(AccelStepper &motor, uint8_t hallPin, float fastSpeed)
 {
     // Girar CW hasta encontrar el imán
@@ -152,3 +160,4 @@ void loop()
         }
     }
 }
+

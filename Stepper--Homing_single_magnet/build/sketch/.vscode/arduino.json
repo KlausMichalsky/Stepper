@@ -1,4 +1,4 @@
-#line 1 "C:\\Users\\Benutzer1\\Documents\\Arduino\\Stepper\\Stepper_Homing_2Motores_Hall_AS5600_I2C\\.vscode\\arduino.json"
+#line 1 "C:\\Users\\Benutzer1\\Documents\\Arduino\\Stepper\\Stepper--Homing_single_magnet\\.vscode\\arduino.json"
 {
   "port": "COM21",
   "configuration": "flash=2097152_0,freq=200,opt=Small,profile=Disabled,rtti=Disabled,stackprotect=Disabled,exceptions=Disabled,dbgport=Disabled,dbglvl=None,usbstack=picosdk,ipbtstack=ipv4only,uploadmethod=default",

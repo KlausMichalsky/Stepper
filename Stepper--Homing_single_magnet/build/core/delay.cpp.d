@@ -1,4 +1,4 @@
-c:\Users\Benutzer1\Documents\Arduino\Stepper\Stepper_Homing_2Motores_Hall_AS5600_I2C\build\core\delay.cpp.o: \
+C:\Users\Benutzer1\Documents\Arduino\Stepper\Stepper--Homing_single_magnet\build\core\delay.cpp.o: \
  C:\Users\Benutzer1\AppData\Local\Arduino15\packages\rp2040\hardware\rp2040\4.5.2\cores\rp2040\delay.cpp \
  C:/Users/Benutzer1/AppData/Local/Arduino15/packages/rp2040/hardware/rp2040/4.5.2/pico-sdk/src/common/pico_base_headers/include/pico.h \
  C:/Users/Benutzer1/AppData/Local/Arduino15/packages/rp2040/hardware/rp2040/4.5.2/pico-sdk/src/common/pico_base_headers/include/pico/types.h \
