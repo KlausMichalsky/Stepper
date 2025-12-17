@@ -54,6 +54,7 @@
 #define BTN_HOME 28
 
 // ------------------ Parámetros ------------------
+const int reduccion = 9;                // Relación de reducción del motor
 const float HOMING_FAST_SPEED = 2400.0; // pasos/s
 const float HOMING_FINE_SPEED = 1200.0; // pasos/s
 const float HOMING_ACCEL = 1000.0;      // pasos/s²
