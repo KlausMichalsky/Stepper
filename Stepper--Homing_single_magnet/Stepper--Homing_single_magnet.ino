@@ -1,45 +1,3 @@
-// =======================================================================
-//                    🔸 P I C O  —  H O M I N G  (SCARA) 🔸
-// =======================================================================
-//  Archivo    : homing_single_magnet.cpp
-//  Autor      : Klaus Michalsky
-//  Fecha      : 2025-12-11
-// -----------------------------------------------------------------------
-//  DESCRIPCIÓN
-//  -----------------------------------------------------------------------
-//  Rutina de homing para UN motor paso a paso usando AccelStepper
-//  y UN sensor Hall KY-035 (activo en LOW).
-//
-//  El algoritmo:
-//   • Limita la búsqueda a ±90° mecánicos durante el homing
-//   • Detecta flancos de entrada y salida del imán
-//   • Calcula el centro geométrico del imán
-//   • Define ese centro como posición 0 (referencia absoluta)
-//
-//  -----------------------------------------------------------------------
-//  HARDWARE
-//  -----------------------------------------------------------------------
-//   • MCU        : Raspberry Pi Pico / RP2040
-//   • Driver     : Step/Dir compatible con AccelStepper
-//   • Sensor     : KY-035 (Hall, salida digital, LOW = imán)
-//   • Botón      : Inicio de homing (con debounce)
-//   • LED        : Estado del homing
-//
-//  -----------------------------------------------------------------------
-//  NOTAS IMPORTANTES
-//  -----------------------------------------------------------------------
-//   • NO usa AS5600 (este archivo es solo para KY-035)
-//   • No se usan interrupciones para el sensor Hall
-//   • No se usa moveTo() durante la búsqueda (solo runSpeed())
-//   • El valor STEPS_90_DEG debe ajustarse a la mecánica real
-//
-//  -----------------------------------------------------------------------
-//  ESTADO
-//  -----------------------------------------------------------------------
-//   ✔ Funcional
-//   ⚠ Ajuste fino pendiente (velocidades / pasos de retroceso)
-// =======================================================================
-
 #include <Arduino.h>
 #include <AccelStepper.h>
 #include <Bounce2.h>
@@ -54,61 +12,167 @@
 #define BTN_HOME 28
 
 // ------------------ Parámetros ------------------
-const int stepsPerRevolution = 200;     // Pasos por revolución del motor
-const int microstepping = 16;           // Microstepping configurado en el driver
-const int reduccion = 1;                // Relación de reducción del motor
-const float HOMING_FAST_SPEED = 1400.0; // pasos/s
-const float HOMING_FINE_SPEED = 600.0;  // pasos/s
-const float HOMING_ACCEL = 1000.0;      // pasos/s²
+const int microstepping = 16;
+const int reduccion = 9;
 
-const long STEPS_90_DEG = (stepsPerRevolution * microstepping * reduccion) / 4; // AJUSTAR a tu mecánica
+const float HOMING_FAST_SPEED = 2400.0;
+const float HOMING_FINE_SPEED = 1200.0;
+const float HOMING_ACCEL = 1000.0;
+
+const long STEPS_90_DEG = 7200;
+const unsigned long HOMING_TIMEOUT = 15000;
 
 // ------------------ Objetos ------------------
 AccelStepper motor(AccelStepper::DRIVER, MOTOR_STEP, MOTOR_DIR);
-Bounce debouncer = Bounce();
+Bounce debouncer;
 
-// =======================================================================
-//                    FUNCIÓN DE HOMING (1 IMÁN)
-// =======================================================================
-
-bool homingSingleMagnet(AccelStepper &motor, uint8_t hallPin, float fastSpeed)
+// ------------------ Estado de Homing ------------------
+enum HomingState
 {
-    // Girar CW hasta encontrar el imán
-    motor.setSpeed(fastSpeed);           // + = CW
-    while (digitalRead(hallPin) == HIGH) // mientras NO haya imán
+    HOMING_IDLE,
+    HOMING_EXIT_MAGNET,
+    HOMING_SEARCH_CW,
+    HOMING_SEARCH_CCW,
+    HOMING_BACK_OFF,
+    HOMING_FINE_ENTRY,
+    HOMING_FINE_EXIT,
+    HOMING_MOVE_CENTER,
+    HOMING_DONE,
+    HOMING_ERROR
+};
+
+HomingState homingState = HOMING_IDLE;
+unsigned long homingStartTime = 0;
+
+long posEntrada = 0;
+long posSalida = 0;
+long centro = 0;
+
+// ======================================================
+//                  HOMING STEP (NO BLOQUEA)
+// ======================================================
+void homingStep()
+{
+    if (millis() - homingStartTime > HOMING_TIMEOUT)
     {
-        motor.runSpeed();
-    }
-    // entrar lentamente hacia el segundo borde
-    motor.setSpeed(HOMING_FINE_SPEED);
-    while (digitalRead(hallPin) == LOW) // mientras haya imán
-    {
-        motor.runSpeed();
-    }
-    {
-        motor.runSpeed();
+        homingState = HOMING_ERROR;
     }
 
-    // Motor llega al segundo borde
-    motor.setSpeed(0); // detener motor
+    switch (homingState)
+    {
+    case HOMING_EXIT_MAGNET:
+        motor.setSpeed(HOMING_FINE_SPEED);
+        if (digitalRead(HALL_PIN) == LOW)
+        {
+            motor.runSpeed();
+        }
+        else
+        {
+            homingState = HOMING_SEARCH_CW;
+        }
+        break;
 
-    // homing completado exitosamente
-    return true;
+    case HOMING_SEARCH_CW:
+        motor.setSpeed(HOMING_FAST_SPEED);
+        motor.runSpeed();
+
+        if (digitalRead(HALL_PIN) == LOW)
+        {
+            homingState = HOMING_BACK_OFF;
+        }
+        else if (motor.currentPosition() > STEPS_90_DEG)
+        {
+            homingState = HOMING_SEARCH_CCW;
+        }
+        break;
+
+    case HOMING_SEARCH_CCW:
+        motor.setSpeed(-HOMING_FAST_SPEED);
+        motor.runSpeed();
+
+        if (digitalRead(HALL_PIN) == LOW)
+        {
+            homingState = HOMING_BACK_OFF;
+        }
+        else if (motor.currentPosition() < -STEPS_90_DEG)
+        {
+            homingState = HOMING_ERROR;
+        }
+        break;
+
+    case HOMING_BACK_OFF:
+        motor.setSpeed(-HOMING_FINE_SPEED);
+        motor.runSpeed();
+
+        if (digitalRead(HALL_PIN) == HIGH)
+        {
+            homingState = HOMING_FINE_ENTRY;
+        }
+        break;
+
+    case HOMING_FINE_ENTRY:
+        motor.setSpeed(HOMING_FINE_SPEED);
+        motor.runSpeed();
+
+        if (digitalRead(HALL_PIN) == LOW)
+        {
+            posEntrada = motor.currentPosition();
+            homingState = HOMING_FINE_EXIT;
+        }
+        break;
+
+    case HOMING_FINE_EXIT:
+        motor.setSpeed(HOMING_FINE_SPEED);
+        motor.runSpeed();
+
+        if (digitalRead(HALL_PIN) == HIGH)
+        {
+            posSalida = motor.currentPosition();
+            centro = (posEntrada + posSalida) / 2;
+            motor.moveTo(centro);
+            homingState = HOMING_MOVE_CENTER;
+        }
+        break;
+
+    case HOMING_MOVE_CENTER:
+        motor.run();
+        if (motor.distanceToGo() == 0)
+        {
+            motor.setCurrentPosition(0);
+            homingState = HOMING_DONE;
+        }
+        break;
+
+    case HOMING_DONE:
+        Serial.println("✅ Homing OK. Centro = 0");
+        digitalWrite(LED_PIN, HIGH);
+        homingState = HOMING_IDLE;
+        break;
+
+    case HOMING_ERROR:
+        Serial.println("❌ ERROR de homing");
+        while (1)
+            ; // bloqueo seguro
+        break;
+
+    default:
+        break;
+    }
 }
 
-// =======================================================================
-//                              SETUP
-// =======================================================================
+// ======================================================
+//                        SETUP
+// ======================================================
 void setup()
 {
     Serial.begin(115200);
 
-    pinMode(HALL_PIN, INPUT_PULLUP); // KY-035
+    pinMode(HALL_PIN, INPUT_PULLUP);
     pinMode(LED_PIN, OUTPUT);
     pinMode(MOTOR_ENABLE, OUTPUT);
     pinMode(BTN_HOME, INPUT_PULLUP);
 
-    digitalWrite(MOTOR_ENABLE, LOW); // habilita driver (ajusta si es activo HIGH)
+    digitalWrite(MOTOR_ENABLE, LOW);
     digitalWrite(LED_PIN, LOW);
 
     debouncer.attach(BTN_HOME);
@@ -120,35 +184,23 @@ void setup()
     Serial.println("Sistema listo. Presiona el botón para homing.");
 }
 
-// =======================================================================
-//                               LOOP
-// =======================================================================
+// ======================================================
+//                         LOOP
+// ======================================================
 void loop()
 {
-    // Actualizar el debouncer del botón
     debouncer.update();
 
-    if (debouncer.fell())
+    if (debouncer.fell() && homingState == HOMING_IDLE)
     {
-        Serial.println("🔹 Iniciando homing...");
+        Serial.println("🔹 Iniciando homing....");
+        motor.setCurrentPosition(0);
+        homingStartTime = millis();
+        homingState = HOMING_EXIT_MAGNET;
+    }
 
-        // Llamamos a la función mínima de homing
-        bool ok = homingSingleMagnet(
-            motor,            // motor a controlar
-            HALL_PIN,         // pin del sensor Hall
-            HOMING_FAST_SPEED // velocidad rápida CW
-        );
-
-        if (ok)
-        {
-            Serial.println("✅ Homing OK. Imán detectado.");
-            digitalWrite(LED_PIN, HIGH); // indicar homing completado
-        }
-        else
-        {
-            Serial.println("❌ ERROR de homing.");
-            while (1)
-                ; // bloqueo seguro
-        }
+    if (homingState != HOMING_IDLE)
+    {
+        homingStep();
     }
 }
