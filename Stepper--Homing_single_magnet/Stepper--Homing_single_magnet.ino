@@ -13,13 +13,14 @@
 
 // ------------------ Parámetros ------------------
 const int microstepping = 16;
-const int reduccion = 9;
+const int reduccion = 1;
+const int pasos_por_vuelta_motor = 200;
 
 const float HOMING_FAST_SPEED = 2400.0;
 const float HOMING_FINE_SPEED = 1200.0;
 const float HOMING_ACCEL = 1000.0;
 
-const long STEPS_90_DEG = 7200;
+const long STEPS_90_DEG = microstepping * reduccion * pasos_por_vuelta_motor / 4; // 200 pasos por vuelta, 1/4 de vuelta = 90 grados
 const unsigned long HOMING_TIMEOUT = 15000;
 
 // ------------------ Objetos ------------------
@@ -47,6 +48,51 @@ unsigned long homingStartTime = 0;
 long posEntrada = 0;
 long posSalida = 0;
 long centro = 0;
+
+// ======================================================
+//                        SETUP
+// ======================================================
+void setup()
+{
+    Serial.begin(115200);
+
+    pinMode(HALL_PIN, INPUT_PULLUP);
+    pinMode(LED_PIN, OUTPUT);
+    pinMode(MOTOR_ENABLE, OUTPUT);
+    pinMode(BTN_HOME, INPUT_PULLUP);
+
+    digitalWrite(MOTOR_ENABLE, LOW);
+    digitalWrite(LED_PIN, LOW);
+
+    debouncer.attach(BTN_HOME);
+    debouncer.interval(25);
+
+    motor.setMaxSpeed(HOMING_FAST_SPEED);
+    motor.setAcceleration(HOMING_ACCEL);
+
+    Serial.println("Sistema listo. Presiona el botón para homing.");
+}
+
+// ======================================================
+//                         LOOP
+// ======================================================
+void loop()
+{
+    debouncer.update();
+
+    if (debouncer.fell() && homingState == HOMING_IDLE)
+    {
+        Serial.println("🔹 Iniciando homing....");
+        motor.setCurrentPosition(0);
+        homingStartTime = millis();
+        homingState = HOMING_EXIT_MAGNET;
+    }
+
+    if (homingState != HOMING_IDLE)
+    {
+        homingStep();
+    }
+}
 
 // ======================================================
 //                  HOMING STEP (NO BLOQUEA)
@@ -157,50 +203,5 @@ void homingStep()
 
     default:
         break;
-    }
-}
-
-// ======================================================
-//                        SETUP
-// ======================================================
-void setup()
-{
-    Serial.begin(115200);
-
-    pinMode(HALL_PIN, INPUT_PULLUP);
-    pinMode(LED_PIN, OUTPUT);
-    pinMode(MOTOR_ENABLE, OUTPUT);
-    pinMode(BTN_HOME, INPUT_PULLUP);
-
-    digitalWrite(MOTOR_ENABLE, LOW);
-    digitalWrite(LED_PIN, LOW);
-
-    debouncer.attach(BTN_HOME);
-    debouncer.interval(25);
-
-    motor.setMaxSpeed(HOMING_FAST_SPEED);
-    motor.setAcceleration(HOMING_ACCEL);
-
-    Serial.println("Sistema listo. Presiona el botón para homing.");
-}
-
-// ======================================================
-//                         LOOP
-// ======================================================
-void loop()
-{
-    debouncer.update();
-
-    if (debouncer.fell() && homingState == HOMING_IDLE)
-    {
-        Serial.println("🔹 Iniciando homing....");
-        motor.setCurrentPosition(0);
-        homingStartTime = millis();
-        homingState = HOMING_EXIT_MAGNET;
-    }
-
-    if (homingState != HOMING_IDLE)
-    {
-        homingStep();
     }
 }

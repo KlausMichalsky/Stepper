@@ -14,13 +14,14 @@
 
 // ------------------ Parámetros ------------------
 const int microstepping = 16;
-const int reduccion = 9;
+const int reduccion = 1;
+const int pasos_por_vuelta_motor = 200;
 
 const float HOMING_FAST_SPEED = 2400.0;
 const float HOMING_FINE_SPEED = 1200.0;
 const float HOMING_ACCEL = 1000.0;
 
-const long STEPS_90_DEG = 7200;
+const long STEPS_90_DEG = microstepping * reduccion * pasos_por_vuelta_motor / 4; // 200 pasos por vuelta, 1/4 de vuelta = 90 grados
 const unsigned long HOMING_TIMEOUT = 15000;
 
 // ------------------ Objetos ------------------
@@ -52,13 +53,13 @@ long centro = 0;
 // ======================================================
 //                  HOMING STEP (NO BLOQUEA)
 // ======================================================
-#line 54 "C:\\Users\\Benutzer1\\Documents\\Arduino\\Stepper\\Stepper--Homing_single_magnet\\Stepper--Homing_single_magnet.ino"
+#line 55 "C:\\Users\\Benutzer1\\Documents\\Arduino\\Stepper\\Stepper--Homing_single_magnet\\Stepper--Homing_single_magnet.ino"
 void homingStep();
-#line 166 "C:\\Users\\Benutzer1\\Documents\\Arduino\\Stepper\\Stepper--Homing_single_magnet\\Stepper--Homing_single_magnet.ino"
+#line 167 "C:\\Users\\Benutzer1\\Documents\\Arduino\\Stepper\\Stepper--Homing_single_magnet\\Stepper--Homing_single_magnet.ino"
 void setup();
-#line 190 "C:\\Users\\Benutzer1\\Documents\\Arduino\\Stepper\\Stepper--Homing_single_magnet\\Stepper--Homing_single_magnet.ino"
+#line 191 "C:\\Users\\Benutzer1\\Documents\\Arduino\\Stepper\\Stepper--Homing_single_magnet\\Stepper--Homing_single_magnet.ino"
 void loop();
-#line 54 "C:\\Users\\Benutzer1\\Documents\\Arduino\\Stepper\\Stepper--Homing_single_magnet\\Stepper--Homing_single_magnet.ino"
+#line 55 "C:\\Users\\Benutzer1\\Documents\\Arduino\\Stepper\\Stepper--Homing_single_magnet\\Stepper--Homing_single_magnet.ino"
 void homingStep()
 {
     if (millis() - homingStartTime > HOMING_TIMEOUT)

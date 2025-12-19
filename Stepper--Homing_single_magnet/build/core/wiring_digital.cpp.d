@@ -53,7 +53,7 @@ C:\Users\Benutzer1\Documents\Arduino\Stepper\Stepper--Homing_single_magnet\build
  C:/Users/Benutzer1/AppData/Local/Arduino15/packages/rp2040/hardware/rp2040/4.5.2/ArduinoCore-API/api/Compat.h \
  C:\Users\Benutzer1\AppData\Local\Arduino15\packages\rp2040\hardware\rp2040\4.5.2\cores\rp2040\api/itoa.h \
  C:/Users/Benutzer1/AppData/Local/Arduino15/packages/rp2040/hardware/rp2040/4.5.2/ArduinoCore-API/api/itoa.h \
- C:\Users\Benutzer1\AppData\Local\Arduino15\packages\rp2040\hardware\rp2040\4.5.2\variants\waveshare_rp2040_zero/pins_arduino.h \
+ C:\Users\Benutzer1\AppData\Local\Arduino15\packages\rp2040\hardware\rp2040\4.5.2\variants\rpipico/pins_arduino.h \
  C:/Users/Benutzer1/AppData/Local/Arduino15/packages/rp2040/hardware/rp2040/4.5.2/variants/generic/common.h \
  C:/Users/Benutzer1/AppData/Local/Arduino15/packages/rp2040/hardware/rp2040/4.5.2/pico-sdk/src/rp2_common/hardware_gpio/include/hardware/gpio.h \
  C:/Users/Benutzer1/AppData/Local/Arduino15/packages/rp2040/hardware/rp2040/4.5.2/pico-sdk/src/rp2040/hardware_structs/include/hardware/structs/sio.h \
