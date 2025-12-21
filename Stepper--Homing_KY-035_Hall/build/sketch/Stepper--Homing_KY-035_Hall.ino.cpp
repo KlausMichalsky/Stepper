@@ -57,15 +57,15 @@
 #define BTN_HOME A0 // A0 Nano -> cambiar para el Pico
 
 // ------------------ Parámetros ------------------
-const int microstepping = 16;
-const int reduccion = 1;
-const int pasos_por_vuelta_motor = 200;
+const int MICROSTEPPING = 16;
+const int REDUCCION = 1;
+const int PASOS_POR_VUELTA_MOTOR = 200;
 
 const float HOMING_FAST_SPEED = 2400.0;
 const float HOMING_FINE_SPEED = 1200.0;
 const float HOMING_ACCEL = 1000.0;
 
-const long STEPS_90_DEG = microstepping * reduccion * pasos_por_vuelta_motor / 4; // 200 pasos por vuelta, 1/4 de vuelta = 90 grados
+const long STEPS_90_DEG = MICROSTEPPING * REDUCCION * PASOS_POR_VUELTA_MOTOR / 4; // 200 pasos por vuelta, 1/4 de vuelta = 90 grados
 const unsigned long HOMING_TIMEOUT = 15000;
 
 // ------------------ Objetos ------------------
@@ -84,9 +84,12 @@ enum HomingState
     HOMING_EXIT_MAGNET,
     HOMING_SEARCH_CW,
     HOMING_SEARCH_CCW,
-    HOMING_BACK_OFF,
-    HOMING_FINE_ENTRY,
-    HOMING_FINE_EXIT,
+    HOMING_BACK_OFF_CW,
+    HOMING_BACK_OFF_CCW,
+    HOMING_FINE_ENTRY_CW,
+    HOMING_FINE_ENTRY_CCW,
+    HOMING_FINE_EXIT_CW,
+    HOMING_FINE_EXIT_CCW,
     HOMING_MOVE_CENTER,
     HOMING_DONE,
     HOMING_ERROR
@@ -96,9 +99,11 @@ enum HomingState
 HomingState homingState = HOMING_IDLE; // declara y asigna estado inicial
 unsigned long homingStartTime = 0;
 
-long posEntrada = 0;
-long posSalida = 0;
-long centro = 0;
+int8_t CW = 1;       // sentido horario
+int8_t CCW = -1;     // sentido antihorario
+long posEntrada = 0; // posición de entrada al imán
+long posSalida = 0;  // posición de salida del imán
+long centro = 0;     // posición central calculada
 
 // ⚠ bandera de error latched
 bool homingFault = false;
@@ -106,13 +111,13 @@ bool homingFault = false;
 // ======================================================
 //                        SETUP
 // ======================================================
-#line 108 "C:\\Users\\Benutzer1\\Documents\\Arduino\\Stepper\\Stepper--Homing_KY-035_Hall\\Stepper--Homing_KY-035_Hall.ino"
+#line 113 "C:\\Users\\Benutzer1\\Documents\\Arduino\\Stepper\\Stepper--Homing_KY-035_Hall\\Stepper--Homing_KY-035_Hall.ino"
 void setup();
-#line 137 "C:\\Users\\Benutzer1\\Documents\\Arduino\\Stepper\\Stepper--Homing_KY-035_Hall\\Stepper--Homing_KY-035_Hall.ino"
+#line 142 "C:\\Users\\Benutzer1\\Documents\\Arduino\\Stepper\\Stepper--Homing_KY-035_Hall\\Stepper--Homing_KY-035_Hall.ino"
 void loop();
-#line 173 "C:\\Users\\Benutzer1\\Documents\\Arduino\\Stepper\\Stepper--Homing_KY-035_Hall\\Stepper--Homing_KY-035_Hall.ino"
+#line 178 "C:\\Users\\Benutzer1\\Documents\\Arduino\\Stepper\\Stepper--Homing_KY-035_Hall\\Stepper--Homing_KY-035_Hall.ino"
 void homingStep();
-#line 108 "C:\\Users\\Benutzer1\\Documents\\Arduino\\Stepper\\Stepper--Homing_KY-035_Hall\\Stepper--Homing_KY-035_Hall.ino"
+#line 113 "C:\\Users\\Benutzer1\\Documents\\Arduino\\Stepper\\Stepper--Homing_KY-035_Hall\\Stepper--Homing_KY-035_Hall.ino"
 void setup()
 {
     Serial.begin(115200);
@@ -188,8 +193,8 @@ void homingStep()
     switch (homingState)
     {
     case HOMING_EXIT_MAGNET:
-        motor.setSpeed(HOMING_FINE_SPEED);
-        if (digitalRead(HALL_PIN) == LOW)
+        motor.setSpeed(CW * HOMING_FINE_SPEED);
+        if (digitalRead(HALL_PIN) == LOW) // iman presente
         {
             motor.runSpeed();
         }
@@ -200,12 +205,12 @@ void homingStep()
         break;
 
     case HOMING_SEARCH_CW:
-        motor.setSpeed(HOMING_FAST_SPEED);
+        motor.setSpeed(CW * HOMING_FAST_SPEED);
         motor.runSpeed();
 
-        if (digitalRead(HALL_PIN) == LOW)
+        if (digitalRead(HALL_PIN) == LOW) // iman presente
         {
-            homingState = HOMING_BACK_OFF;
+            homingState = HOMING_BACK_OFF_CCW;
         }
         else if (motor.currentPosition() > STEPS_90_DEG)
         {
@@ -214,12 +219,12 @@ void homingStep()
         break;
 
     case HOMING_SEARCH_CCW:
-        motor.setSpeed(-HOMING_FAST_SPEED);
+        motor.setSpeed(CCW * HOMING_FAST_SPEED);
         motor.runSpeed();
 
-        if (digitalRead(HALL_PIN) == LOW)
+        if (digitalRead(HALL_PIN) == LOW) // iman presente
         {
-            homingState = HOMING_BACK_OFF;
+            homingState = HOMING_BACK_OFF_CW;
         }
         else if (motor.currentPosition() < -STEPS_90_DEG)
         {
@@ -227,29 +232,63 @@ void homingStep()
         }
         break;
 
-    case HOMING_BACK_OFF:
-        motor.setSpeed(-HOMING_FINE_SPEED / 4);
+    case HOMING_BACK_OFF_CW:
+        motor.setSpeed(CW * HOMING_FINE_SPEED);
         motor.runSpeed();
 
         if (digitalRead(HALL_PIN) == HIGH)
         {
-            homingState = HOMING_FINE_ENTRY;
+            homingState = HOMING_FINE_ENTRY_CCW;
         }
         break;
 
-    case HOMING_FINE_ENTRY:
-        motor.setSpeed(HOMING_FINE_SPEED);
+    case HOMING_BACK_OFF_CCW:
+        motor.setSpeed(CCW * HOMING_FINE_SPEED);
+        motor.runSpeed();
+
+        if (digitalRead(HALL_PIN) == HIGH)
+        {
+            homingState = HOMING_FINE_ENTRY_CW;
+        }
+        break;
+
+    case HOMING_FINE_ENTRY_CW:
+        motor.setSpeed(CW * HOMING_FINE_SPEED);
         motor.runSpeed();
 
         if (digitalRead(HALL_PIN) == LOW)
         {
             posEntrada = motor.currentPosition();
-            homingState = HOMING_FINE_EXIT;
+            homingState = HOMING_FINE_EXIT_CW;
         }
         break;
 
-    case HOMING_FINE_EXIT:
-        motor.setSpeed(HOMING_FINE_SPEED);
+    case HOMING_FINE_ENTRY_CCW:
+        motor.setSpeed(CCW * HOMING_FINE_SPEED);
+        motor.runSpeed();
+
+        if (digitalRead(HALL_PIN) == LOW)
+        {
+            posEntrada = motor.currentPosition();
+            homingState = HOMING_FINE_EXIT_CCW;
+        }
+        break;
+
+    case HOMING_FINE_EXIT_CW:
+        motor.setSpeed(CW * HOMING_FINE_SPEED);
+        motor.runSpeed();
+
+        if (digitalRead(HALL_PIN) == HIGH)
+        {
+            posSalida = motor.currentPosition();
+            centro = (posEntrada + posSalida) / 2;
+            motor.moveTo(centro);
+            homingState = HOMING_MOVE_CENTER;
+        }
+        break;
+
+    case HOMING_FINE_EXIT_CCW:
+        motor.setSpeed(CCW * HOMING_FINE_SPEED);
         motor.runSpeed();
 
         if (digitalRead(HALL_PIN) == HIGH)
