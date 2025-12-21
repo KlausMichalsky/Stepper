@@ -10,7 +10,7 @@
 
 #define HALL_PIN 3
 #define LED_PIN 2
-#define BTN_HOME 28
+#define BTN_HOME A0
 
 // ------------------ Parámetros ------------------
 const int microstepping = 16;
@@ -51,15 +51,60 @@ long posSalida = 0;
 long centro = 0;
 
 // ======================================================
-//                  HOMING STEP (NO BLOQUEA)
+//                        SETUP
 // ======================================================
 #line 55 "C:\\Users\\Benutzer1\\Documents\\Arduino\\Stepper\\Stepper--Homing_single_magnet\\Stepper--Homing_single_magnet.ino"
-void homingStep();
-#line 167 "C:\\Users\\Benutzer1\\Documents\\Arduino\\Stepper\\Stepper--Homing_single_magnet\\Stepper--Homing_single_magnet.ino"
 void setup();
-#line 191 "C:\\Users\\Benutzer1\\Documents\\Arduino\\Stepper\\Stepper--Homing_single_magnet\\Stepper--Homing_single_magnet.ino"
+#line 79 "C:\\Users\\Benutzer1\\Documents\\Arduino\\Stepper\\Stepper--Homing_single_magnet\\Stepper--Homing_single_magnet.ino"
 void loop();
+#line 100 "C:\\Users\\Benutzer1\\Documents\\Arduino\\Stepper\\Stepper--Homing_single_magnet\\Stepper--Homing_single_magnet.ino"
+void homingStep();
 #line 55 "C:\\Users\\Benutzer1\\Documents\\Arduino\\Stepper\\Stepper--Homing_single_magnet\\Stepper--Homing_single_magnet.ino"
+void setup()
+{
+    Serial.begin(115200);
+
+    pinMode(HALL_PIN, INPUT_PULLUP);
+    pinMode(LED_PIN, OUTPUT);
+    pinMode(MOTOR_ENABLE, OUTPUT);
+    pinMode(BTN_HOME, INPUT_PULLUP);
+
+    digitalWrite(MOTOR_ENABLE, LOW);
+    digitalWrite(LED_PIN, LOW);
+
+    debouncer.attach(BTN_HOME);
+    debouncer.interval(25);
+
+    motor.setMaxSpeed(HOMING_FAST_SPEED);
+    motor.setAcceleration(HOMING_ACCEL);
+
+    Serial.println("Sistema listo. Presiona el botón para homing.");
+}
+
+// ======================================================
+//                         LOOP
+// ======================================================
+void loop()
+{
+    debouncer.update();
+
+    if (debouncer.fell() && homingState == HOMING_IDLE)
+    {
+        Serial.println("🔹 Iniciando homing...");
+        motor.setCurrentPosition(0);
+        homingStartTime = millis();
+        homingState = HOMING_EXIT_MAGNET;
+    }
+
+    if (homingState != HOMING_IDLE)
+    {
+        homingStep();
+    }
+}
+
+// ======================================================
+//                  HOMING STEP (NO BLOQUEA)
+// ======================================================
 void homingStep()
 {
     if (millis() - homingStartTime > HOMING_TIMEOUT)
@@ -168,49 +213,3 @@ void homingStep()
         break;
     }
 }
-
-// ======================================================
-//                        SETUP
-// ======================================================
-void setup()
-{
-    Serial.begin(115200);
-
-    pinMode(HALL_PIN, INPUT_PULLUP);
-    pinMode(LED_PIN, OUTPUT);
-    pinMode(MOTOR_ENABLE, OUTPUT);
-    pinMode(BTN_HOME, INPUT_PULLUP);
-
-    digitalWrite(MOTOR_ENABLE, LOW);
-    digitalWrite(LED_PIN, LOW);
-
-    debouncer.attach(BTN_HOME);
-    debouncer.interval(25);
-
-    motor.setMaxSpeed(HOMING_FAST_SPEED);
-    motor.setAcceleration(HOMING_ACCEL);
-
-    Serial.println("Sistema listo. Presiona el botón para homing.");
-}
-
-// ======================================================
-//                         LOOP
-// ======================================================
-void loop()
-{
-    debouncer.update();
-
-    if (debouncer.fell() && homingState == HOMING_IDLE)
-    {
-        Serial.println("🔹 Iniciando homing....");
-        motor.setCurrentPosition(0);
-        homingStartTime = millis();
-        homingState = HOMING_EXIT_MAGNET;
-    }
-
-    if (homingState != HOMING_IDLE)
-    {
-        homingStep();
-    }
-}
-

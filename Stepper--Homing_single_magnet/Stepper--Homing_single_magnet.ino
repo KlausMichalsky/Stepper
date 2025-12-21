@@ -9,7 +9,7 @@
 
 #define HALL_PIN 3
 #define LED_PIN 2
-#define BTN_HOME 28
+#define BTN_HOME A0 // A0 Nano -> cambiar para el Pico
 
 // ------------------ Parámetros ------------------
 const int microstepping = 16;
@@ -28,6 +28,7 @@ AccelStepper motor(AccelStepper::DRIVER, MOTOR_STEP, MOTOR_DIR);
 Bounce debouncer;
 
 // ------------------ Estado de Homing ------------------
+// A partir de ahora, existe un tipo llamado HomingState que solo puede tomar uno de estos valores
 enum HomingState
 {
     HOMING_IDLE,
@@ -42,7 +43,7 @@ enum HomingState
     HOMING_ERROR
 };
 
-HomingState homingState = HOMING_IDLE;
+HomingState homingState = HOMING_IDLE; // declara y asigna estado inicial
 unsigned long homingStartTime = 0;
 
 long posEntrada = 0;
@@ -82,7 +83,7 @@ void loop()
 
     if (debouncer.fell() && homingState == HOMING_IDLE)
     {
-        Serial.println("🔹 Iniciando homing....");
+        Serial.println("🔹 Iniciando homing...");
         motor.setCurrentPosition(0);
         homingStartTime = millis();
         homingState = HOMING_EXIT_MAGNET;
