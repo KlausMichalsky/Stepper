@@ -102,9 +102,6 @@ long primerFlanco = 0;  // posición de entrada al imán
 long segundoFlanco = 0; // posición de salida del imán
 long centro = 0;        // posición central calculada
 
-bool flancoEncontrado = false;     // memoria lógica
-bool estadoAnteriorSensor = false; // estado anterior del estadoAnteriorSensor Hall
-
 // ⚠ bandera de error latched
 bool homingFallo = false;
 
@@ -164,7 +161,7 @@ void loop()
         Serial.println("🔹 Iniciando homing...");
         motor.setCurrentPosition(0);
         homingStartTime = millis();
-        estadoHoming = HOMING_BUSCAR_LENTO_CW;
+        estadoHoming = HOMING_BUSCAR_RAPIDO_CW;
     }
 
     if (estadoHoming != HOMING_INACTIVO)
@@ -178,7 +175,7 @@ void loop()
 // ======================================================
 void homingStep()
 {
-    bool imanPresente = (digitalRead(HALL_PIN) == LOW); // estadoAnteriorSensor activo LOW
+    bool imanPresente = (digitalRead(HALL_PIN) == LOW);
 
     if (millis() - homingStartTime > HOMING_TIMEOUT)
     {
@@ -187,51 +184,64 @@ void homingStep()
 
     switch (estadoHoming)
     {
-    case HOMING_BUSCAR_LENTO_CW:
-        motor.setSpeed(CW * HOMING_VEL_LENTA);
+    case HOMING_BUSCAR_RAPIDO_CW:
+        motor.setSpeed(CW * HOMING_VEL_RAPIDA);
+        motor.runSpeed();
         if (imanPresente) // iman presente
         {
-            motor.runSpeed();
+            estadoHoming = HOMING_BUSCAR_LENTO_CW;
         }
-        else
+
+        else if (motor.currentPosition() > STEPS_90_DEG)
         {
+            estadoHoming = HOMING_BUSCAR_RAPIDO_CCW;
+        }
+        break;
+
+    case HOMING_BUSCAR_RAPIDO_CCW:
+        motor.setSpeed(CCW * HOMING_VEL_RAPIDA);
+        motor.runSpeed();
+        if (imanPresente)
+        {
+            estadoHoming = HOMING_BUSCAR_LENTO_CCW;
+        }
+        else if (motor.currentPosition() < -STEPS_90_DEG)
+        {
+            estadoHoming = HOMING_ERROR; // no se encontró el imán en el rango
+        }
+        break;
+
+    case HOMING_BUSCAR_LENTO_CW:
+        motor.setSpeed(CW * HOMING_VEL_LENTA);
+        motor.runSpeed();
+        if (!imanPresente)
+        {
+            primerFlanco = motor.currentPosition();
+            Serial.print("Primer flanco en: ");
+            Serial.println(primerFlanco);
             estadoHoming = HOMING_PRIMER_FLANCO_CW;
         }
         break;
 
     case HOMING_PRIMER_FLANCO_CW:
-        primerFlanco = motor.currentPosition();
-        Serial.print("Primer flanco en: ");
-        Serial.println(primerFlanco);
         motor.setSpeed(CCW * HOMING_VEL_LENTA);
-        if (!imanPresente) // iman no presente
-        {
-            motor.runSpeed();
-        }
-        else
+        motor.runSpeed();
+        if (imanPresente)
         {
             estadoHoming = HOMING_BUSCAR_LENTO_CCW;
         }
-
         break;
 
     case HOMING_BUSCAR_LENTO_CCW:
         motor.setSpeed(CCW * HOMING_VEL_LENTA);
-        if (imanPresente) // iman presente
+        motor.runSpeed();
+        if (!imanPresente)
         {
-            motor.runSpeed();
+            segundoFlanco = motor.currentPosition();
+            Serial.print("Segundo flanco en: ");
+            Serial.println(segundoFlanco);
+            estadoHoming = HOMING_CALC_CENTRO;
         }
-        else
-        {
-            estadoHoming = HOMING_SEGUNDO_FLANCO_CCW;
-        }
-        break;
-
-    case HOMING_SEGUNDO_FLANCO_CCW:
-        segundoFlanco = motor.currentPosition();
-        Serial.print("Segundo flanco en: ");
-        Serial.println(segundoFlanco);
-        estadoHoming = HOMING_CALC_CENTRO;
         break;
 
     case HOMING_CALC_CENTRO:
