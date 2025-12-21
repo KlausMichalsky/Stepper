@@ -60,8 +60,8 @@ const int MICROSTEPPING = 16;
 const int REDUCCION = 1;
 const int PASOS_POR_VUELTA_MOTOR = 200;
 
-const float HOMING_FAST_SPEED = 2400.0;
-const float HOMING_FINE_SPEED = 1200.0;
+const float HOMING_FAST_SPEED = 1000.0;
+const float HOMING_FINE_SPEED = 500.0;
 const float HOMING_ACCEL = 1000.0;
 
 const long STEPS_90_DEG = MICROSTEPPING * REDUCCION * PASOS_POR_VUELTA_MOTOR / 4; // 200 pasos por vuelta, 1/4 de vuelta = 90 grados
