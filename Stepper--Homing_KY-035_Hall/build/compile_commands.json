@@ -57,11 +57,11 @@
    "-IC:\\Users\\Benutzer1\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.6\\variants\\eightanaloginputs",
    "-IC:\\Users\\Benutzer1\\Documents\\Arduino\\libraries\\AccelStepper\\src",
    "-IC:\\Users\\Benutzer1\\Documents\\Arduino\\libraries\\Bounce2\\src",
-   "C:\\Users\\Benutzer1\\Documents\\Arduino\\libraries\\AccelStepper\\src\\MultiStepper.cpp",
+   "C:\\Users\\Benutzer1\\Documents\\Arduino\\libraries\\AccelStepper\\src\\AccelStepper.cpp",
    "-o",
-   "C:\\Users\\Benutzer1\\Documents\\Arduino\\Stepper\\Stepper--Homing_KY-035_Hall\\build\\libraries\\AccelStepper\\MultiStepper.cpp.o"
+   "C:\\Users\\Benutzer1\\Documents\\Arduino\\Stepper\\Stepper--Homing_KY-035_Hall\\build\\libraries\\AccelStepper\\AccelStepper.cpp.o"
   ],
-  "file": "C:\\Users\\Benutzer1\\Documents\\Arduino\\libraries\\AccelStepper\\src\\MultiStepper.cpp"
+  "file": "C:\\Users\\Benutzer1\\Documents\\Arduino\\libraries\\AccelStepper\\src\\AccelStepper.cpp"
  },
  {
   "directory": "C:\\Users\\Benutzer1\\AppData\\Local\\Programs\\Microsoft VS Code",
@@ -89,11 +89,11 @@
    "-IC:\\Users\\Benutzer1\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.6\\variants\\eightanaloginputs",
    "-IC:\\Users\\Benutzer1\\Documents\\Arduino\\libraries\\AccelStepper\\src",
    "-IC:\\Users\\Benutzer1\\Documents\\Arduino\\libraries\\Bounce2\\src",
-   "C:\\Users\\Benutzer1\\Documents\\Arduino\\libraries\\AccelStepper\\src\\AccelStepper.cpp",
+   "C:\\Users\\Benutzer1\\Documents\\Arduino\\libraries\\AccelStepper\\src\\MultiStepper.cpp",
    "-o",
-   "C:\\Users\\Benutzer1\\Documents\\Arduino\\Stepper\\Stepper--Homing_KY-035_Hall\\build\\libraries\\AccelStepper\\AccelStepper.cpp.o"
+   "C:\\Users\\Benutzer1\\Documents\\Arduino\\Stepper\\Stepper--Homing_KY-035_Hall\\build\\libraries\\AccelStepper\\MultiStepper.cpp.o"
   ],
-  "file": "C:\\Users\\Benutzer1\\Documents\\Arduino\\libraries\\AccelStepper\\src\\AccelStepper.cpp"
+  "file": "C:\\Users\\Benutzer1\\Documents\\Arduino\\libraries\\AccelStepper\\src\\MultiStepper.cpp"
  },
  {
   "directory": "C:\\Users\\Benutzer1\\AppData\\Local\\Programs\\Microsoft VS Code",
@@ -211,11 +211,11 @@
    "-DARDUINO_ARCH_AVR",
    "-IC:\\Users\\Benutzer1\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.6\\cores\\arduino",
    "-IC:\\Users\\Benutzer1\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.6\\variants\\eightanaloginputs",
-   "C:\\Users\\Benutzer1\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.6\\cores\\arduino\\HardwareSerial.cpp",
+   "C:\\Users\\Benutzer1\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.6\\cores\\arduino\\HardwareSerial1.cpp",
    "-o",
-   "C:\\Users\\Benutzer1\\Documents\\Arduino\\Stepper\\Stepper--Homing_KY-035_Hall\\build\\core\\HardwareSerial.cpp.o"
+   "C:\\Users\\Benutzer1\\Documents\\Arduino\\Stepper\\Stepper--Homing_KY-035_Hall\\build\\core\\HardwareSerial1.cpp.o"
   ],
-  "file": "C:\\Users\\Benutzer1\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.6\\cores\\arduino\\HardwareSerial.cpp"
+  "file": "C:\\Users\\Benutzer1\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.6\\cores\\arduino\\HardwareSerial1.cpp"
  },
  {
   "directory": "C:\\Users\\Benutzer1\\AppData\\Local\\Programs\\Microsoft VS Code",
@@ -271,36 +271,6 @@
    "-DARDUINO_ARCH_AVR",
    "-IC:\\Users\\Benutzer1\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.6\\cores\\arduino",
    "-IC:\\Users\\Benutzer1\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.6\\variants\\eightanaloginputs",
-   "C:\\Users\\Benutzer1\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.6\\cores\\arduino\\IPAddress.cpp",
-   "-o",
-   "C:\\Users\\Benutzer1\\Documents\\Arduino\\Stepper\\Stepper--Homing_KY-035_Hall\\build\\core\\IPAddress.cpp.o"
-  ],
-  "file": "C:\\Users\\Benutzer1\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.6\\cores\\arduino\\IPAddress.cpp"
- },
- {
-  "directory": "C:\\Users\\Benutzer1\\AppData\\Local\\Programs\\Microsoft VS Code",
-  "arguments": [
-   "C:\\Users\\Benutzer1\\AppData\\Local\\Arduino15\\packages\\arduino\\tools\\avr-gcc\\7.3.0-atmel3.6.1-arduino7/bin/avr-g++",
-   "-c",
-   "-g",
-   "-Os",
-   "-w",
-   "-std=gnu++11",
-   "-fpermissive",
-   "-fno-exceptions",
-   "-ffunction-sections",
-   "-fdata-sections",
-   "-fno-threadsafe-statics",
-   "-Wno-error=narrowing",
-   "-MMD",
-   "-flto",
-   "-mmcu=atmega328p",
-   "-DF_CPU=16000000L",
-   "-DARDUINO=10607",
-   "-DARDUINO_AVR_NANO",
-   "-DARDUINO_ARCH_AVR",
-   "-IC:\\Users\\Benutzer1\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.6\\cores\\arduino",
-   "-IC:\\Users\\Benutzer1\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.6\\variants\\eightanaloginputs",
    "C:\\Users\\Benutzer1\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.6\\cores\\arduino\\HardwareSerial0.cpp",
    "-o",
    "C:\\Users\\Benutzer1\\Documents\\Arduino\\Stepper\\Stepper--Homing_KY-035_Hall\\build\\core\\HardwareSerial0.cpp.o"
@@ -331,11 +301,11 @@
    "-DARDUINO_ARCH_AVR",
    "-IC:\\Users\\Benutzer1\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.6\\cores\\arduino",
    "-IC:\\Users\\Benutzer1\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.6\\variants\\eightanaloginputs",
-   "C:\\Users\\Benutzer1\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.6\\cores\\arduino\\HardwareSerial2.cpp",
+   "C:\\Users\\Benutzer1\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.6\\cores\\arduino\\HardwareSerial.cpp",
    "-o",
-   "C:\\Users\\Benutzer1\\Documents\\Arduino\\Stepper\\Stepper--Homing_KY-035_Hall\\build\\core\\HardwareSerial2.cpp.o"
+   "C:\\Users\\Benutzer1\\Documents\\Arduino\\Stepper\\Stepper--Homing_KY-035_Hall\\build\\core\\HardwareSerial.cpp.o"
   ],
-  "file": "C:\\Users\\Benutzer1\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.6\\cores\\arduino\\HardwareSerial2.cpp"
+  "file": "C:\\Users\\Benutzer1\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.6\\cores\\arduino\\HardwareSerial.cpp"
  },
  {
   "directory": "C:\\Users\\Benutzer1\\AppData\\Local\\Programs\\Microsoft VS Code",
@@ -361,11 +331,41 @@
    "-DARDUINO_ARCH_AVR",
    "-IC:\\Users\\Benutzer1\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.6\\cores\\arduino",
    "-IC:\\Users\\Benutzer1\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.6\\variants\\eightanaloginputs",
-   "C:\\Users\\Benutzer1\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.6\\cores\\arduino\\HardwareSerial1.cpp",
+   "C:\\Users\\Benutzer1\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.6\\cores\\arduino\\IPAddress.cpp",
    "-o",
-   "C:\\Users\\Benutzer1\\Documents\\Arduino\\Stepper\\Stepper--Homing_KY-035_Hall\\build\\core\\HardwareSerial1.cpp.o"
+   "C:\\Users\\Benutzer1\\Documents\\Arduino\\Stepper\\Stepper--Homing_KY-035_Hall\\build\\core\\IPAddress.cpp.o"
   ],
-  "file": "C:\\Users\\Benutzer1\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.6\\cores\\arduino\\HardwareSerial1.cpp"
+  "file": "C:\\Users\\Benutzer1\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.6\\cores\\arduino\\IPAddress.cpp"
+ },
+ {
+  "directory": "C:\\Users\\Benutzer1\\AppData\\Local\\Programs\\Microsoft VS Code",
+  "arguments": [
+   "C:\\Users\\Benutzer1\\AppData\\Local\\Arduino15\\packages\\arduino\\tools\\avr-gcc\\7.3.0-atmel3.6.1-arduino7/bin/avr-g++",
+   "-c",
+   "-g",
+   "-Os",
+   "-w",
+   "-std=gnu++11",
+   "-fpermissive",
+   "-fno-exceptions",
+   "-ffunction-sections",
+   "-fdata-sections",
+   "-fno-threadsafe-statics",
+   "-Wno-error=narrowing",
+   "-MMD",
+   "-flto",
+   "-mmcu=atmega328p",
+   "-DF_CPU=16000000L",
+   "-DARDUINO=10607",
+   "-DARDUINO_AVR_NANO",
+   "-DARDUINO_ARCH_AVR",
+   "-IC:\\Users\\Benutzer1\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.6\\cores\\arduino",
+   "-IC:\\Users\\Benutzer1\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.6\\variants\\eightanaloginputs",
+   "C:\\Users\\Benutzer1\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.6\\cores\\arduino\\HardwareSerial2.cpp",
+   "-o",
+   "C:\\Users\\Benutzer1\\Documents\\Arduino\\Stepper\\Stepper--Homing_KY-035_Hall\\build\\core\\HardwareSerial2.cpp.o"
+  ],
+  "file": "C:\\Users\\Benutzer1\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.6\\cores\\arduino\\HardwareSerial2.cpp"
  },
  {
   "directory": "C:\\Users\\Benutzer1\\AppData\\Local\\Programs\\Microsoft VS Code",

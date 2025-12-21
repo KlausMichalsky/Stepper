@@ -9,7 +9,7 @@
 //  DESCRIPCIÓN
 //  -----------------------------------------------------------------------
 //  Rutina de homing para UN motor paso a paso usando AccelStepper
-//  y UN sensor Hall KY-035 (activo en LOW) y ctivando el homing con un botón
+//  y UN estadoAnteriorSensor Hall KY-035 (activo en LOW) y ctivando el homing con un botón
 //
 //  El algoritmo:
 //   • Limita la búsqueda a ±90° mecánicos durante el homing
@@ -24,7 +24,7 @@
 //  -----------------------------------------------------------------------
 //   • MCU        : Nano / (opcion para RP2040 cambiando pins)
 //   • Driver     : Step/Dir compatible con AccelStepper
-//   • Sensor     : KY-035 (Hall, salida digital, LOW = imán)
+//   • estadoAnteriorSensor     : KY-035 (Hall, salida digital, LOW = imán)
 //   • Botón      : Inicio de homing (con debounce)
 //   • LED        : Estado del homing
 //
@@ -32,7 +32,7 @@
 //  NOTAS IMPORTANTES
 //  -----------------------------------------------------------------------
 //   • NO usa AS5600 (este archivo es solo para KY-035)
-//   • No se usan interrupciones para el sensor Hall
+//   • No se usan interrupciones para el estadoAnteriorSensor Hall
 //   • No se usa moveTo() durante la búsqueda (solo runSpeed())
 //   • El valor STEPS_90_DEG debe ajustarse a la mecánica real
 //
@@ -61,8 +61,8 @@ const int MICROSTEPPING = 16;
 const int REDUCCION = 1;
 const int PASOS_POR_VUELTA_MOTOR = 200;
 
-const float HOMING_FAST_SPEED = 2400.0;
-const float HOMING_FINE_SPEED = 1200.0;
+const float HOMING_VEL_RAPIDA = 500.0;
+const float HOMING_VEL_LENTA = 100.0;
 const float HOMING_ACCEL = 1000.0;
 
 const long STEPS_90_DEG = MICROSTEPPING * REDUCCION * PASOS_POR_VUELTA_MOTOR / 4; // 200 pasos por vuelta, 1/4 de vuelta = 90 grados
@@ -73,51 +73,52 @@ AccelStepper motor(AccelStepper::DRIVER, MOTOR_STEP, MOTOR_DIR);
 Bounce debouncer;
 
 // ------------------ Estado de Homing ------------------
-// A partir de ahora, existe un tipo llamado HomingState que solo puede tomar uno de estos valores
-// enum HomingState { ... }	Definición de un tipo
-// HomingState	            El tipo de dato
-// HOMING_IDLE	            Un valor válido de ese tipo
-// homingState	            Variable de ese tipo
-enum HomingState
+// A partir de ahora, existe un tipo llamado EstadoHoming que solo puede tomar uno de estos valores
+// enum EstadoHoming { ... }	Definición de un tipo
+// EstadoHoming	            El tipo de dato
+// HOMING_INACTIVO	            Un valor válido de ese tipo
+// estadoHoming	            Variable de ese tipo
+enum EstadoHoming
 {
-    HOMING_IDLE,
-    HOMING_EXIT_MAGNET,
-    HOMING_SEARCH_CW,
-    HOMING_SEARCH_CCW,
-    HOMING_BACK_OFF_CW,
-    HOMING_BACK_OFF_CCW,
-    HOMING_FINE_ENTRY_CW,
-    HOMING_FINE_ENTRY_CCW,
-    HOMING_FINE_EXIT_CW,
-    HOMING_FINE_EXIT_CCW,
-    HOMING_MOVE_CENTER,
-    HOMING_DONE,
+    HOMING_INACTIVO,
+    HOMING_BUSCAR_LENTO_CW,  // buscar imán lentamente en sentido horario
+    HOMING_BUSCAR_LENTO_CCW, // buscar imán lentamente en sentido antihorario
+    HOMING_BUSCAR_RAPIDO_CW,
+    HOMING_BUSCAR_RAPIDO_CCW,
+    HOMING_PRIMER_FLANCO_CW,
+    HOMING_SEGUNDO_FLANCO_CCW,
+    HOMING_CALC_CENTRO,
+    HOMING_MOVER_CENTRO,
+    HOMING_OK,
     HOMING_ERROR
 };
 
 // ------------------ Control y variables de Homing ------------------
-HomingState homingState = HOMING_IDLE; // declara y asigna estado inicial
+EstadoHoming estadoHoming = HOMING_INACTIVO;
 unsigned long homingStartTime = 0;
 
-int8_t CW = 1;       // sentido horario
-int8_t CCW = -1;     // sentido antihorario
-long posEntrada = 0; // posición de entrada al imán
-long posSalida = 0;  // posición de salida del imán
-long centro = 0;     // posición central calculada
+int8_t CW = 1;          // sentido horario
+int8_t CCW = -1;        // sentido antihorario
+long primerFlanco = 0;  // posición de entrada al imán
+long segundoFlanco = 0; // posición de salida del imán
+long centro = 0;        // posición central calculada
+
+bool flancoEncontrado = false;     // memoria lógica
+bool estadoAnteriorSensor = false; // estado anterior del estadoAnteriorSensor Hall
 
 // ⚠ bandera de error latched
-bool homingFault = false;
+bool homingFallo = false;
 
 // ======================================================
 //                        SETUP
 // ======================================================
-#line 113 "C:\\Users\\Benutzer1\\Documents\\Arduino\\Stepper\\Stepper--Homing_KY-035_Hall\\Stepper--Homing_KY-035_Hall.ino"
+#line 114 "C:\\Users\\Benutzer1\\Documents\\Arduino\\Stepper\\Stepper--Homing_KY-035_Hall\\Stepper--Homing_KY-035_Hall.ino"
 void setup();
-#line 142 "C:\\Users\\Benutzer1\\Documents\\Arduino\\Stepper\\Stepper--Homing_KY-035_Hall\\Stepper--Homing_KY-035_Hall.ino"
+#line 143 "C:\\Users\\Benutzer1\\Documents\\Arduino\\Stepper\\Stepper--Homing_KY-035_Hall\\Stepper--Homing_KY-035_Hall.ino"
 void loop();
-#line 178 "C:\\Users\\Benutzer1\\Documents\\Arduino\\Stepper\\Stepper--Homing_KY-035_Hall\\Stepper--Homing_KY-035_Hall.ino"
+#line 179 "C:\\Users\\Benutzer1\\Documents\\Arduino\\Stepper\\Stepper--Homing_KY-035_Hall\\Stepper--Homing_KY-035_Hall.ino"
 void homingStep();
-#line 113 "C:\\Users\\Benutzer1\\Documents\\Arduino\\Stepper\\Stepper--Homing_KY-035_Hall\\Stepper--Homing_KY-035_Hall.ino"
+#line 114 "C:\\Users\\Benutzer1\\Documents\\Arduino\\Stepper\\Stepper--Homing_KY-035_Hall\\Stepper--Homing_KY-035_Hall.ino"
 void setup()
 {
     Serial.begin(115200);
@@ -138,7 +139,7 @@ void setup()
     debouncer.attach(BTN_HOME);
     debouncer.interval(25);
 
-    motor.setMaxSpeed(HOMING_FAST_SPEED);
+    motor.setMaxSpeed(HOMING_VEL_RAPIDA);
     motor.setAcceleration(HOMING_ACCEL);
 
     Serial.println("Sistema listo. Presiona el botón para homing.");
@@ -151,30 +152,30 @@ void loop()
 {
     debouncer.update();
 
-    // 🔄 Reset de homingFault al soltar el botón
+    // 🔄 Reset de homingFallo al soltar el botón
     if (debouncer.rose() && digitalRead(BTN_HOME) == HIGH)
     {
-        homingFault = false;
+        homingFallo = false;
         Serial.println("🔄 Homing reset");
     }
 
     // 🔒 si hay error latched, no hacemos nada
-    if (homingFault)
+    if (homingFallo)
     {
         return;
     }
     // 🔹 Inicia homing al apretar el botón
-    if (debouncer.fell() && homingState == HOMING_IDLE)
+    if (debouncer.fell() && estadoHoming == HOMING_INACTIVO)
     {
         digitalWrite(MOTOR_ENABLE, LOW); // habilita motor
         digitalWrite(LED_PIN, LOW);
         Serial.println("🔹 Iniciando homing...");
         motor.setCurrentPosition(0);
         homingStartTime = millis();
-        homingState = HOMING_EXIT_MAGNET;
+        estadoHoming = HOMING_BUSCAR_LENTO_CW;
     }
 
-    if (homingState != HOMING_IDLE)
+    if (estadoHoming != HOMING_INACTIVO)
     {
         homingStep();
     }
@@ -185,145 +186,96 @@ void loop()
 // ======================================================
 void homingStep()
 {
+    bool imanPresente = (digitalRead(HALL_PIN) == LOW); // estadoAnteriorSensor activo LOW
+
     if (millis() - homingStartTime > HOMING_TIMEOUT)
     {
-        homingState = HOMING_ERROR;
+        estadoHoming = HOMING_ERROR;
     }
 
-    switch (homingState)
+    switch (estadoHoming)
     {
-    case HOMING_EXIT_MAGNET:
-        motor.setSpeed(CW * HOMING_FINE_SPEED);
-        if (digitalRead(HALL_PIN) == LOW) // iman presente
+    case HOMING_BUSCAR_LENTO_CW:
+        motor.setSpeed(CW * HOMING_VEL_LENTA);
+        if (imanPresente) // iman presente
         {
             motor.runSpeed();
         }
         else
         {
-            homingState = HOMING_SEARCH_CW;
+            estadoHoming = HOMING_PRIMER_FLANCO_CW;
         }
         break;
 
-    case HOMING_SEARCH_CW:
-        motor.setSpeed(CW * HOMING_FAST_SPEED);
-        motor.runSpeed();
-
-        if (digitalRead(HALL_PIN) == LOW) // iman presente
+    case HOMING_PRIMER_FLANCO_CW:
+        primerFlanco = motor.currentPosition();
+        Serial.print("Primer flanco en: ");
+        Serial.println(primerFlanco);
+        motor.setSpeed(CCW * HOMING_VEL_LENTA);
+        if (!imanPresente) // iman no presente
         {
-            homingState = HOMING_BACK_OFF_CCW;
+            motor.runSpeed();
         }
-        else if (motor.currentPosition() > STEPS_90_DEG)
+        else
         {
-            homingState = HOMING_SEARCH_CCW;
+            estadoHoming = HOMING_BUSCAR_LENTO_CCW;
+        }
+
+        break;
+
+    case HOMING_BUSCAR_LENTO_CCW:
+        motor.setSpeed(CCW * HOMING_VEL_LENTA);
+        if (imanPresente) // iman presente
+        {
+            motor.runSpeed();
+        }
+        else
+        {
+            estadoHoming = HOMING_SEGUNDO_FLANCO_CCW;
         }
         break;
 
-    case HOMING_SEARCH_CCW:
-        motor.setSpeed(CCW * HOMING_FAST_SPEED);
-        motor.runSpeed();
-
-        if (digitalRead(HALL_PIN) == LOW) // iman presente
-        {
-            homingState = HOMING_BACK_OFF_CW;
-        }
-        else if (motor.currentPosition() < -STEPS_90_DEG)
-        {
-            homingState = HOMING_ERROR;
-        }
+    case HOMING_SEGUNDO_FLANCO_CCW:
+        segundoFlanco = motor.currentPosition();
+        Serial.print("Segundo flanco en: ");
+        Serial.println(segundoFlanco);
+        estadoHoming = HOMING_CALC_CENTRO;
         break;
 
-    case HOMING_BACK_OFF_CW:
-        motor.setSpeed(CW * HOMING_FINE_SPEED);
-        motor.runSpeed();
-
-        if (digitalRead(HALL_PIN) == HIGH)
-        {
-            homingState = HOMING_FINE_ENTRY_CCW;
-        }
+    case HOMING_CALC_CENTRO:
+        centro = (primerFlanco + segundoFlanco) / 2;
+        Serial.print("Centro calculado en: ");
+        Serial.println(centro);
+        motor.moveTo(centro);
+        estadoHoming = HOMING_MOVER_CENTRO;
         break;
 
-    case HOMING_BACK_OFF_CCW:
-        motor.setSpeed(CCW * HOMING_FINE_SPEED);
-        motor.runSpeed();
-
-        if (digitalRead(HALL_PIN) == HIGH)
-        {
-            homingState = HOMING_FINE_ENTRY_CW;
-        }
-        break;
-
-    case HOMING_FINE_ENTRY_CW:
-        motor.setSpeed(CW * HOMING_FINE_SPEED);
-        motor.runSpeed();
-
-        if (digitalRead(HALL_PIN) == LOW)
-        {
-            posEntrada = motor.currentPosition();
-            homingState = HOMING_FINE_EXIT_CW;
-        }
-        break;
-
-    case HOMING_FINE_ENTRY_CCW:
-        motor.setSpeed(CCW * HOMING_FINE_SPEED);
-        motor.runSpeed();
-
-        if (digitalRead(HALL_PIN) == LOW)
-        {
-            posEntrada = motor.currentPosition();
-            homingState = HOMING_FINE_EXIT_CCW;
-        }
-        break;
-
-    case HOMING_FINE_EXIT_CW:
-        motor.setSpeed(CW * HOMING_FINE_SPEED);
-        motor.runSpeed();
-
-        if (digitalRead(HALL_PIN) == HIGH)
-        {
-            posSalida = motor.currentPosition();
-            centro = (posEntrada + posSalida) / 2;
-            motor.moveTo(centro);
-            homingState = HOMING_MOVE_CENTER;
-        }
-        break;
-
-    case HOMING_FINE_EXIT_CCW:
-        motor.setSpeed(CCW * HOMING_FINE_SPEED);
-        motor.runSpeed();
-
-        if (digitalRead(HALL_PIN) == HIGH)
-        {
-            posSalida = motor.currentPosition();
-            centro = (posEntrada + posSalida) / 2;
-            motor.moveTo(centro);
-            homingState = HOMING_MOVE_CENTER;
-        }
-        break;
-
-    case HOMING_MOVE_CENTER:
+    case HOMING_MOVER_CENTRO:
         motor.run();
         if (motor.distanceToGo() == 0)
         {
             motor.setCurrentPosition(0);
-            homingState = HOMING_DONE;
+            estadoHoming = HOMING_OK;
+            digitalWrite(MOTOR_ENABLE, HIGH); // deshabilita motor
         }
         break;
 
-    case HOMING_DONE:
+    case HOMING_OK:
         Serial.println("✅ Homing OK. Centro = 0");
         digitalWrite(LED_PIN, HIGH);
-        homingState = HOMING_IDLE;
+        estadoHoming = HOMING_INACTIVO;
         digitalWrite(MOTOR_ENABLE, HIGH); // deshabilita motor
         break;
 
     case HOMING_ERROR:
         Serial.println("❌ ERROR de homing");
         digitalWrite(MOTOR_ENABLE, HIGH); // deshabilita motor
-        homingFault = true;               // marca la falla
-        homingState = HOMING_IDLE;        // vuelve a IDLE
+        homingFallo = true;               // marca la falla
+        estadoHoming = HOMING_INACTIVO;   // vuelve a IDLE
         break;
 
     default:
         break;
     }
 }
+
