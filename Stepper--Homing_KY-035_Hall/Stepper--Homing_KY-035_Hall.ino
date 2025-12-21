@@ -23,7 +23,6 @@
 //  -----------------------------------------------------------------------
 //   • MCU        : Nano / (opcion para RP2040 cambiando pins)
 //   • Driver     : Step/Dir compatible con AccelStepper
-//   • estadoAnteriorSensor     : KY-035 (Hall, salida digital, LOW = imán)
 //   • Botón      : Inicio de homing (con debounce)
 //   • LED        : Estado del homing
 //
@@ -33,13 +32,11 @@
 //   • NO usa AS5600 (este archivo es solo para KY-035)
 //   • No se usan interrupciones para el estadoAnteriorSensor Hall
 //   • No se usa moveTo() durante la búsqueda (solo runSpeed())
-//   • El valor STEPS_90_DEG debe ajustarse a la mecánica real
 //
 //  -----------------------------------------------------------------------
 //  ESTADO
 //  -----------------------------------------------------------------------
 //   ✔ Funcional
-//   ⚠ Ajuste fino pendiente (velocidades / pasos de retroceso)
 // =======================================================================
 
 #include <Arduino.h>
@@ -64,7 +61,8 @@ const float HOMING_VEL_RAPIDA = 500.0;
 const float HOMING_VEL_LENTA = 100.0;
 const float HOMING_ACCEL = 1000.0;
 
-const long STEPS_90_DEG = MICROSTEPPING * REDUCCION * PASOS_POR_VUELTA_MOTOR / 4; // 200 pasos por vuelta, 1/4 de vuelta = 90 grados
+// 200 pasos por vuelta, 1/4 de vuelta = 90 grados
+const long STEPS_90_DEG = MICROSTEPPING * REDUCCION * PASOS_POR_VUELTA_MOTOR / 4;
 const unsigned long HOMING_TIMEOUT = 15000;
 
 // ------------------ Objetos ------------------
@@ -72,11 +70,12 @@ AccelStepper motor(AccelStepper::DRIVER, MOTOR_STEP, MOTOR_DIR);
 Bounce debouncer;
 
 // ------------------ Estado de Homing ------------------
-// A partir de ahora, existe un tipo llamado EstadoHoming que solo puede tomar uno de estos valores
+// A partir de ahora, existe un tipo llamado EstadoHoming
+// que solo puede tomar uno de estos valores
 // enum EstadoHoming { ... }	Definición de un tipo
-// EstadoHoming	            El tipo de dato
-// HOMING_INACTIVO	            Un valor válido de ese tipo
-// estadoHoming	            Variable de ese tipo
+// EstadoHoming	                El tipo de dato
+// HOMING_INACTIVO, ...         Valores posibles del tipo EstadoHoming
+// estadoHoming	                Variable de ese tipo
 enum EstadoHoming
 {
     HOMING_INACTIVO,
@@ -104,7 +103,7 @@ long primerFlanco = 0;  // posición de entrada al imán
 long segundoFlanco = 0; // posición de salida del imán
 long centro = 0;        // posición central calculada
 
-// ⚠ bandera de error latched
+// ⚠️ bandera de error
 bool homingFallo = false;
 
 // ======================================================
@@ -162,7 +161,7 @@ void loop()
         digitalWrite(LED_PIN, LOW);
         Serial.println("🔹 Iniciando homing...");
         motor.setCurrentPosition(0);
-        homingStartTime = millis();
+        homingStartTime = millis(); // guarda tiempo de inicio de homing al momento de presionar el botón
         estadoHoming = HOMING_BUSCAR_RAPIDO_CW;
     }
 
@@ -177,9 +176,11 @@ void loop()
 // ======================================================
 void homingStep()
 {
+    // invierte la logica del KY-035 (LOW = imán presente)
     bool imanPresente = (digitalRead(HALL_PIN) == LOW);
 
-    if (millis() - homingStartTime > HOMING_TIMEOUT)
+    // ⏱️ Timeout de homing (si tiempo de homing excede el límite)
+    if (millis() - homingStartTime > HOMING_TIMEOUT) //
     {
         estadoHoming = HOMING_ERROR;
     }
@@ -189,7 +190,7 @@ void homingStep()
     case HOMING_BUSCAR_RAPIDO_CW:
         motor.setSpeed(CW * HOMING_VEL_RAPIDA);
         motor.runSpeed();
-        if (imanPresente) // iman presente
+        if (imanPresente)
         {
             estadoHoming = HOMING_BUSCAR_PRIMER_FLANCO_CW;
         }
