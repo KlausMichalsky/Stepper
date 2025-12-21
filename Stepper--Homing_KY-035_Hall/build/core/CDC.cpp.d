@@ -1,4 +1,4 @@
-C:\Users\Benutzer1\Documents\Arduino\Stepper\Stepper--Homing_single_magnet\build\core\CDC.cpp.o: \
+C:\Users\Benutzer1\Documents\Arduino\Stepper\Stepper--Homing_KY-035_Hall\build\core\CDC.cpp.o: \
  C:\Users\Benutzer1\AppData\Local\Arduino15\packages\arduino\hardware\avr\1.8.6\cores\arduino\CDC.cpp \
  C:\Users\Benutzer1\AppData\Local\Arduino15\packages\arduino\hardware\avr\1.8.6\cores\arduino\USBAPI.h \
  C:\Users\Benutzer1\AppData\Local\Arduino15\packages\arduino\hardware\avr\1.8.6\cores\arduino\Arduino.h \

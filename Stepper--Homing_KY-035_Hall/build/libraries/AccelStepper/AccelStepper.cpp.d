@@ -1,4 +1,4 @@
-C:\Users\Benutzer1\Documents\Arduino\Stepper\Stepper--Homing_single_magnet\build\libraries\AccelStepper\AccelStepper.cpp.o: \
+C:\Users\Benutzer1\Documents\Arduino\Stepper\Stepper--Homing_KY-035_Hall\build\libraries\AccelStepper\AccelStepper.cpp.o: \
  C:\Users\Benutzer1\Documents\Arduino\libraries\AccelStepper\src\AccelStepper.cpp \
  C:\Users\Benutzer1\Documents\Arduino\libraries\AccelStepper\src\AccelStepper.h \
  C:\Users\Benutzer1\AppData\Local\Arduino15\packages\arduino\hardware\avr\1.8.6\cores\arduino/Arduino.h \

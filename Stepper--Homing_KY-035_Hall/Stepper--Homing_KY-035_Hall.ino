@@ -15,6 +15,8 @@
 //   • Detecta flancos de entrada y salida del imán
 //   • Calcula el centro geométrico del imán
 //   • Define ese centro como posición 0 (referencia absoluta)
+//   • Usa velocidades rápidas y lentas para optimizar tiempo y precisión
+//   • Implementa un timeout y manejo de errores
 //
 //  -----------------------------------------------------------------------
 //  HARDWARE
@@ -71,12 +73,10 @@ Bounce debouncer;
 
 // ------------------ Estado de Homing ------------------
 // A partir de ahora, existe un tipo llamado HomingState que solo puede tomar uno de estos valores
-// 🧠 Entonces, formalmente:
-// Elemento	Qué es
 // enum HomingState { ... }	Definición de un tipo
-// HomingState	El tipo de dato
-// HOMING_IDLE	Un valor válido de ese tipo
-// homingState	Variable de ese tipo
+// HomingState	            El tipo de dato
+// HOMING_IDLE	            Un valor válido de ese tipo
+// homingState	            Variable de ese tipo
 enum HomingState
 {
     HOMING_IDLE,
@@ -99,6 +99,9 @@ long posEntrada = 0;
 long posSalida = 0;
 long centro = 0;
 
+// ⚠ bandera de error latched
+bool homingFault = false;
+
 // ======================================================
 //                        SETUP
 // ======================================================
@@ -106,12 +109,17 @@ void setup()
 {
     Serial.begin(115200);
 
+    // setPinsInverted(bool directionInvert, bool stepInvert, bool enableInvert);
+    // true significa que la señal se invierte lógicamente
+    // Ejemplo: si enableInvert = true, entonces LOW habilita el motor y HIGH lo deshabilita
+    motor.setPinsInverted(true, false, false);
+
     pinMode(HALL_PIN, INPUT_PULLUP);
     pinMode(LED_PIN, OUTPUT);
     pinMode(MOTOR_ENABLE, OUTPUT);
     pinMode(BTN_HOME, INPUT_PULLUP);
 
-    digitalWrite(MOTOR_ENABLE, LOW);
+    digitalWrite(MOTOR_ENABLE, HIGH); // deshabilita motor
     digitalWrite(LED_PIN, LOW);
 
     debouncer.attach(BTN_HOME);
@@ -130,8 +138,23 @@ void loop()
 {
     debouncer.update();
 
+    // 🔄 Reset de homingFault al soltar el botón
+    if (debouncer.rose() && digitalRead(BTN_HOME) == HIGH)
+    {
+        homingFault = false;
+        Serial.println("🔄 Homing reset");
+    }
+
+    // 🔒 si hay error latched, no hacemos nada
+    if (homingFault)
+    {
+        return;
+    }
+    // 🔹 Inicia homing al apretar el botón
     if (debouncer.fell() && homingState == HOMING_IDLE)
     {
+        digitalWrite(MOTOR_ENABLE, LOW); // habilita motor
+        digitalWrite(LED_PIN, LOW);
         Serial.println("🔹 Iniciando homing...");
         motor.setCurrentPosition(0);
         homingStartTime = millis();
@@ -243,13 +266,14 @@ void homingStep()
         Serial.println("✅ Homing OK. Centro = 0");
         digitalWrite(LED_PIN, HIGH);
         homingState = HOMING_IDLE;
-        // digitalWrite(MOTOR_ENABLE, HIGH); // deshabilita motor
+        digitalWrite(MOTOR_ENABLE, HIGH); // deshabilita motor
         break;
 
     case HOMING_ERROR:
         Serial.println("❌ ERROR de homing");
-        while (1)
-            ; // bloqueo seguro
+        digitalWrite(MOTOR_ENABLE, HIGH); // deshabilita motor
+        homingFault = true;               // marca la falla
+        homingState = HOMING_IDLE;        // vuelve a IDLE
         break;
 
     default:
