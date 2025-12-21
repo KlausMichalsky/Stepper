@@ -16,6 +16,8 @@
 //   • Detecta flancos de entrada y salida del imán
 //   • Calcula el centro geométrico del imán
 //   • Define ese centro como posición 0 (referencia absoluta)
+//   • Usa velocidades rápidas y lentas para optimizar tiempo y precisión
+//   • Implementa un timeout y manejo de errores
 //
 //  -----------------------------------------------------------------------
 //  HARDWARE
@@ -72,12 +74,10 @@ Bounce debouncer;
 
 // ------------------ Estado de Homing ------------------
 // A partir de ahora, existe un tipo llamado HomingState que solo puede tomar uno de estos valores
-// 🧠 Entonces, formalmente:
-// Elemento	Qué es
 // enum HomingState { ... }	Definición de un tipo
-// HomingState	El tipo de dato
-// HOMING_IDLE	Un valor válido de ese tipo
-// homingState	Variable de ese tipo
+// HomingState	            El tipo de dato
+// HOMING_IDLE	            Un valor válido de ese tipo
+// homingState	            Variable de ese tipo
 enum HomingState
 {
     HOMING_IDLE,
@@ -228,7 +228,7 @@ void homingStep()
         break;
 
     case HOMING_BACK_OFF:
-        motor.setSpeed(-HOMING_FINE_SPEED);
+        motor.setSpeed(-HOMING_FINE_SPEED / 4);
         motor.runSpeed();
 
         if (digitalRead(HALL_PIN) == HIGH)
