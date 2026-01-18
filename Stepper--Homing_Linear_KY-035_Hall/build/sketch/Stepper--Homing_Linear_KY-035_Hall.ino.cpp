@@ -1,3 +1,4 @@
+#line 1 "C:\\Users\\Benutzer1\\Documents\\Arduino\\Stepper\\Stepper--Homing_Linear_KY-035_Hall\\Stepper--Homing_Linear_KY-035_Hall.ino"
 #include <Arduino.h>
 #include <AccelStepper.h>
 #include <Bounce2.h>
@@ -23,6 +24,11 @@ const unsigned long HOMING_TIMEOUT = 10000; // 10 segundos
 AccelStepper motor(AccelStepper::DRIVER, MOTOR_STEP, MOTOR_DIR);
 Bounce debouncer;
 
+#line 26 "C:\\Users\\Benutzer1\\Documents\\Arduino\\Stepper\\Stepper--Homing_Linear_KY-035_Hall\\Stepper--Homing_Linear_KY-035_Hall.ino"
+void setup();
+#line 51 "C:\\Users\\Benutzer1\\Documents\\Arduino\\Stepper\\Stepper--Homing_Linear_KY-035_Hall\\Stepper--Homing_Linear_KY-035_Hall.ino"
+void loop();
+#line 26 "C:\\Users\\Benutzer1\\Documents\\Arduino\\Stepper\\Stepper--Homing_Linear_KY-035_Hall\\Stepper--Homing_Linear_KY-035_Hall.ino"
 void setup()
 {
     Serial.begin(115200);
@@ -72,3 +78,4 @@ void loop()
         }
     }
 }
+
