@@ -1,9 +1,11 @@
+#include <Arduino.h>
+#line 1 "C:\\Users\\Benutzer1\\Documents\\Arduino\\Stepper\\Stepper--Motor_Linear\\Stepper--Motor_Linear.ino"
 /************************************************************************************************************
  🔹 CONTROL PARA CENTRADO MANUAL DEL BLOQUE (SIRVE PARA EVITAR DAÑO DEL MOTOR)🔹
   - Motor paso a paso controlado con driver STEP1/DIR1.
   - Pines usados: DIR = 10, STEP = 11, ENABLE = 12.
   - Usa AccelStepper con velocidad y aceleración configuradas.
-  - Ejecuta movimiento en ambas direcciones empezando en direccion opuesta al motor (~1cm)
+  - Ejecuta movimiento en ambas direcciones empezando en direccion opuesta al motor (mas o menos 1cm)
   - Ciclo continuo con pausa de 3 segundo entre movimientos.
 
   Hardware usado
@@ -27,11 +29,17 @@
 AccelStepper motor(AccelStepper::DRIVER, STEP, DIR);
 
 // ==== CONFIGURACIÓN DE MOTORES ====
-// 200 pasos (~1cm) con microstepping 1/8
+// Motores de 200 pasos por vuelta con microstepping 1/16
+// 200 * 16 = 3200 pasos por vuelta
 const int microstepping = 8;
-const int pasos = 200 * microstepping;
-const int direccion = -1;
+const int pasosPorVuelta = 200 * microstepping;
+const int vueltas = -1;
 
+#line 36 "C:\\Users\\Benutzer1\\Documents\\Arduino\\Stepper\\Stepper--Motor_Linear\\Stepper--Motor_Linear.ino"
+void setup();
+#line 47 "C:\\Users\\Benutzer1\\Documents\\Arduino\\Stepper\\Stepper--Motor_Linear\\Stepper--Motor_Linear.ino"
+void loop();
+#line 36 "C:\\Users\\Benutzer1\\Documents\\Arduino\\Stepper\\Stepper--Motor_Linear\\Stepper--Motor_Linear.ino"
 void setup()
 {
     pinMode(ENABLE, OUTPUT);
@@ -46,7 +54,7 @@ void setup()
 void loop()
 {
     // --- Motor: 1cm direccion opuesta al motor ---
-    motor.moveTo(direccion * pasos);
+    motor.moveTo(vueltas * pasosPorVuelta);
     while (motor.distanceToGo() != 0)
     {
         motor.run();
@@ -54,10 +62,11 @@ void loop()
     delay(3000);
 
     // --- Motor: volver a 0 ---
-    motor.moveTo(-direccion * pasos);
+    motor.moveTo(-vueltas * pasosPorVuelta);
     while (motor.distanceToGo() != 0)
     {
         motor.run();
     }
     delay(3000);
 }
+
