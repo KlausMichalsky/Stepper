@@ -4,7 +4,7 @@
 //  Archivo    : Stepper--Homing_Angular_KY-035_Hall.ino
 //  Autor      : Klaus Michalsky
 //  Fecha      : 2025-12-11
-// -----------------------------------------------------------------------
+//
 //  DESCRIPCIÓN
 //  -----------------------------------------------------------------------
 //  Rutina de homing para UN motor paso a paso usando AccelStepper
@@ -18,7 +18,6 @@
 //   • Usa velocidades rápidas y lentas para optimizar tiempo y precisión
 //   • Implementa un timeout y manejo de errores
 //
-//  -----------------------------------------------------------------------
 //  HARDWARE
 //  -----------------------------------------------------------------------
 //   • MCU        : Nano / (opcion para RP2040 cambiando pins)
@@ -26,14 +25,12 @@
 //   • Botón      : Inicio de homing (con debounce)
 //   • LED        : Estado del homing
 //
-//  -----------------------------------------------------------------------
 //  NOTAS IMPORTANTES
 //  -----------------------------------------------------------------------
 //   • NO usa AS5600 (este archivo es solo para KY-035)
 //   • No se usan interrupciones para el estadoAnteriorSensor Hall
 //   • No se usa moveTo() durante la búsqueda (solo runSpeed())
 //
-//  -----------------------------------------------------------------------
 //  ESTADO
 //  -----------------------------------------------------------------------
 //  ✅ Funcional
