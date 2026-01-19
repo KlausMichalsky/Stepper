@@ -9,6 +9,7 @@
   Hardware usado
     - DC 5V/12V 15mm/20mm Schrittmotor 55mm Hub (Aliexpress: Motor-house Store)
     - Driver TMC2209 en modo UART
+    - Arduino Nano
     - TMC2209 A2->rojo, A1->negro, B1->amarillo, B2->azul
     - TMC2209 MS1, MS2, -> GND
 
@@ -18,9 +19,9 @@
 #include <AccelStepper.h>
 
 // ==== PINES ====
-#define DIR 10
-#define STEP 11
-#define ENABLE 12
+#define DIR 5
+#define STEP 4
+#define ENABLE 3
 
 // ==== OBJETOS ====
 // AccelStepper motor1(AccelStepper::DRIVER, STEP1, DIR1);

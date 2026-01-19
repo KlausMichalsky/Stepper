@@ -1,20 +1,23 @@
 #line 1 "C:\\Users\\Benutzer1\\Documents\\Arduino\\Stepper\\Stepper--Homing_Linear_KY-035_Hall\\.vscode\\arduino.json"
 {
-  "port": "COM20",
-  "configuration": "flash=2097152_0,freq=200,opt=Small,profile=Disabled,rtti=Disabled,stackprotect=Disabled,exceptions=Disabled,dbgport=Disabled,dbglvl=None,usbstack=picosdk,ipbtstack=ipv4only,uploadmethod=default",
+  "port": "COM3",
+  "configuration": "cpu=atmega328",
   "output": "build",
-  "board": "rp2040:rp2040:waveshare_rp2040_zero",
-  "programmer": "",
+  "board": "arduino:avr:nano",
+  "programmer": "arduinoasisp",
   "useProgrammer": false,
   "optimize_for_debug": false,
   "configurationRequired": true,
   "compile_profile": "",
   "monitorPortSettings": {
-    "port": "COM20",
-    "baudRate": 115200,
-    "lineEnding": "\r\n",
-    "dataBits": 8,
-    "parity": "none",
-    "stopBits": "one"
+    "settings": {
+      "port": "COM3",
+      "baudRate": 115200,
+      "lineEnding": "\r\n",
+      "dataBits": 8,
+      "parity": "none",
+      "stopBits": "one"
+    },
+    "profile_name": ""
   }
 }

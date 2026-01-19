@@ -6,11 +6,11 @@
 #include <Bounce2.h>
 
 // ------------------ Pines ------------------
-#define MOTOR_DIR 10
-#define MOTOR_STEP 11
-#define MOTOR_ENABLE 12
-#define HALL_PIN 3
-#define BOTON_PIN 2
+#define MOTOR_DIR 5
+#define MOTOR_STEP 4
+#define MOTOR_ENABLE 3
+#define HALL_PIN 2
+#define BOTON_PIN A0
 
 // ------------------ Parámetros ------------------
 const int MICROSTEPPING = 8;

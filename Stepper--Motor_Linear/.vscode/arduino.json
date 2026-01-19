@@ -1,8 +1,8 @@
 {
-  "port": "COM15",
-  "configuration": "flash=2097152_0,freq=200,opt=Small,profile=Disabled,rtti=Disabled,stackprotect=Disabled,exceptions=Disabled,dbgport=Disabled,dbglvl=None,usbstack=picosdk,ipbtstack=ipv4only,uploadmethod=default",
+  "port": "COM3",
+  "configuration": "cpu=atmega328",
   "output": "build",
-  "board": "rp2040:rp2040:waveshare_rp2040_zero",
+  "board": "arduino:avr:nano",
   "programmer": "",
   "useProgrammer": false,
   "optimize_for_debug": false,
@@ -10,7 +10,7 @@
   "compile_profile": "",
   "monitorPortSettings": {
     "settings": {
-      "port": "COM15",
+      "port": "COM3",
       "baudRate": 115200,
       "lineEnding": "\r\n",
       "dataBits": 8,
