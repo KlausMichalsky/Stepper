@@ -1,4 +1,43 @@
-
+// =======================================================================
+//                    🔸 P I C O  —  H O M I N G  (SCARA) 🔸
+// =======================================================================
+//  Archivo    : Stepper--Homing_Linear_KY-035_Hall.ino
+//  Autor      : Klaus Michalsky
+//  Fecha      : 2025-01-19
+// -----------------------------------------------------------------------
+//  DESCRIPCIÓN
+//  -----------------------------------------------------------------------
+//  Rutina de homing para UN motor paso a paso usando AccelStepper
+//  y un estadoAnteriorSensor Hall KY-035 (activo en LOW) y activando el homing con un botón
+//
+//  El algoritmo:
+//   • Limita la búsqueda a ±10mm mecánicos durante el homing
+//   • Arriba flancos de entrada del imán, abajo flanco de salida
+//   • Calcula flanco de entrada del imán
+//   • Define ese flanco como posición 0 (referencia absoluta)
+//   • Usa velocidades rápidas y lentas para optimizar tiempo y precisión
+//   • Implementa un timeout y manejo de errores
+//
+//  -----------------------------------------------------------------------
+//  HARDWARE
+//  -----------------------------------------------------------------------
+//   • MCU        : Nano / (opcion para RP2040 cambiando pins)
+//   • Driver     : Step/Dir compatible con AccelStepper
+//   • Botón      : Inicio de homing (con debounce)
+//   • LED        : Estado del homing
+//
+//  -----------------------------------------------------------------------
+//  NOTAS IMPORTANTES
+//  -----------------------------------------------------------------------
+//   • NO usa AS5600 (este archivo es solo para KY-035)
+//   • No se usan interrupciones para el estadoAnteriorSensor Hall
+//   • No se usa moveTo() durante la búsqueda (solo runSpeed())
+//
+//  -----------------------------------------------------------------------
+//  ESTADO
+//  -----------------------------------------------------------------------
+//   ‼ en desarrollo
+// =======================================================================
 
 #include <Arduino.h>
 #include <AccelStepper.h>

@@ -1,5 +1,5 @@
 // =======================================================================
-//                    🔸 P I C O  —  H O M I N G  (SCARA) 🔸
+//                    🔹 P I C O  —  H O M I N G  (SCARA) 🔹
 // =======================================================================
 //  Archivo    : Stepper--Homing_Angular_KY-035_Hall.ino
 //  Autor      : Klaus Michalsky
@@ -8,7 +8,7 @@
 //  DESCRIPCIÓN
 //  -----------------------------------------------------------------------
 //  Rutina de homing para UN motor paso a paso usando AccelStepper
-//  y UN estadoAnteriorSensor Hall KY-035 (activo en LOW) y ctivando el homing con un botón
+//  y un estadoAnteriorSensor Hall KY-035 (activo en LOW) y activando el homing con un botón
 //
 //  El algoritmo:
 //   • Limita la búsqueda a ±90° mecánicos durante el homing
@@ -36,7 +36,7 @@
 //  -----------------------------------------------------------------------
 //  ESTADO
 //  -----------------------------------------------------------------------
-//   ✔ Funcional
+//   ✅ Funcional
 // =======================================================================
 
 #include <Arduino.h>
