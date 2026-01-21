@@ -47,7 +47,7 @@
 
 #define HALL_PIN 3
 #define LED_PIN 2
-#define BOTON_HOME A0 // A0 Nano -> cambiar para el Pico
+#define BOTON_PIN A0 // A0 Nano -> cambiar para el Pico
 
 // ------------------ Parámetros ------------------
 const int MICROSTEPPING = 16;
@@ -117,12 +117,12 @@ void setup()
     pinMode(HALL_PIN, INPUT_PULLUP);
     pinMode(LED_PIN, OUTPUT);
     pinMode(MOTOR_ENABLE, OUTPUT);
-    pinMode(BOTON_HOME, INPUT_PULLUP);
+    pinMode(BOTON_PIN, INPUT_PULLUP);
 
     digitalWrite(MOTOR_ENABLE, HIGH); // deshabilita motor
     digitalWrite(LED_PIN, LOW);
 
-    debouncer.attach(BOTON_HOME);
+    debouncer.attach(BOTON_PIN);
     debouncer.interval(25);
 
     motor.setMaxSpeed(HOMING_VEL_RAPIDA);
@@ -139,7 +139,15 @@ void loop()
     debouncer.update();
 
     // 🔄 Reset de homingFallo al soltar el botón
-    if (debouncer.rose() && digitalRead(BOTON_HOME) == HIGH)
+    // fell() → el botón pasó de HIGH → LOW
+    // rose() → el botón pasó de LOW → HIGH
+    // ⚠️ Importante: por qué no resetear en fell()
+    // Si lo hicieras al presionar:
+    // podrías borrar el error sin intención
+    // incluso mientras el botón sigue apretado
+    // creando estados raros
+    // 👉 Resetear al soltar es lo correcto.
+    if (debouncer.rose() && digitalRead(BOTON_PIN) == HIGH)
     {
         homingFallo = false;
         Serial.println("🔄 Homing reset");
@@ -172,8 +180,8 @@ void loop()
 // ======================================================
 void homingStep()
 {
-    // invierte la logica del KY-035 (LOW = imán presente)
-    bool imanPresente = (digitalRead(HALL_PIN) == LOW);
+    // invierte la logica del HAll (imán presente = LOW)
+    bool imanPresente = !digitalRead(HALL_PIN);
 
     // ⏱️ Timeout de homing (si tiempo de homing excede el límite)
     if (millis() - homingStartTime > HOMING_TIMEOUT) //

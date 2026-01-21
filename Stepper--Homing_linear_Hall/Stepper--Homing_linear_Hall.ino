@@ -74,8 +74,8 @@ Bounce debouncer;
 enum EstadoHoming
 {
     HOMING_INACTIVO,
-    HOMING_BUSCAR_FLANCO_SALIDA,
-    HOMING_BUSCAR_FLANCO_ENTRADA,
+    HOMING_BUSCAR_RAPIDO_ABAJO,
+    HOMING_BUSCAR_RAPIDO_ARRIBA,
     HOMING_MOVER_REFERENCIA,
     HOMING_OK,
     HOMING_ERROR
@@ -85,12 +85,10 @@ enum EstadoHoming
 EstadoHoming estadoHoming = HOMING_INACTIVO; // estado inicial
 unsigned long homingStartTime = 0;           // tiempo de inicio de homing
 
-long flancoEntrada = 0; // posición de entrada al imán
-long flancoSalida = 0;  // posición de salida del imán
+long referencia = 0; // posición de homing
+long flanco = 0;     // posición de salida del imán
 
-// Hall es activo en LOW -> 0:
-bool imanPresente = !digitalRead(HALL_PIN); // negacion logica, activo -> 1
-bool homingFallo = false;                   // marca si hubo falla en homing
+bool homingFallo = false; // marca si hubo falla en homing
 
 // ======================================================
 //                        SETUP
@@ -107,12 +105,12 @@ void setup()
     pinMode(HALL_PIN, INPUT_PULLUP);
     pinMode(LED_PIN, OUTPUT);
     pinMode(MOTOR_ENABLE, OUTPUT);
-    pinMode(BOTON_HOME, INPUT_PULLUP);
+    pinMode(BOTON_PIN, INPUT_PULLUP);
 
     digitalWrite(MOTOR_ENABLE, HIGH); // deshabilita motor
     digitalWrite(LED_PIN, LOW);
 
-    debouncer.attach(BOTON_HOME);
+    debouncer.attach(BOTON_PIN);
     debouncer.interval(25);
 
     motor.setMaxSpeed(HOMING_VEL_RAPIDA);
@@ -125,40 +123,100 @@ void setup()
 //                         LOOP
 // ======================================================
 
-// seguir codigo desde aqui!!!!!!!!!
 void loop()
 {
     debouncer.update();
-    if (debouncer.fell())
+
+    // 🔄 Reset de homingFallo al soltar el botón
+    // fell() → el botón pasó de HIGH → LOW
+    // rose() → el botón pasó de LOW → HIGH
+    // ⚠️ Importante: por qué no resetear en fell()
+    // Si lo hicieras al presionar:
+    // podrías borrar el error sin intención
+    // incluso mientras el botón sigue apretado
+    // creando estados raros
+    // 👉 Resetear al soltar es lo correcto.
+    if (debouncer.rose() && digitalRead(BOTON_PIN) == HIGH)
     {
-        Serial.println("Iniciando homing...");
+        homingFallo = false;
+        Serial.println("🔄 Homing reset");
+    }
 
-        if (imanPresente)
+    // 🔒 si hay error latched, no hacemos nada
+    if (homingFallo)
+    {
+        return;
+    }
+    // 🔹 Inicia homing al apretar el botón
+    if (debouncer.fell() && estadoHoming == HOMING_INACTIVO)
+    {
+        digitalWrite(MOTOR_ENABLE, LOW); // habilita motor
+        digitalWrite(LED_PIN, LOW);
+        Serial.println("🔹 Iniciando homing...");
+        motor.setCurrentPosition(0);
+
+        HOMING_BUSCAR_RAPIDO_ABAJO, homingStartTime = millis(); // guarda tiempo de inicio de homing al momento de presionar el botón
+        HOMING_I,
+    }
+    estadoHoming = HOMING_MOVER_REFERENCIA;
+    if (estadoHoming != HOMING_INACTIVO)
+    {
+        homingStep();
+    }
+}
+
+// ======================================================
+//                  HOMING STEP (NO BLOQUEA)
+// ======================================================
+
+void homingStep()
+{
+    // invierte la logica del HAll (imán presente = LOW)
+    bool imanPresente = !digitalRead(HALL_PIN);
+
+    // ⏱️ Timeout de homing (si tiempo de homing excede el límite)
+    if (millis() - homingStartTime > HOMING_TIMEOUT) //
+    {
+        estadoHoming = HOMING_ERROR;
+    }
+
+    switch (estadoHoming)
+    {
+    case HOMING_BUSCAR_RAPIDO_ABAJO:
+        motor.setSpeed(-HOMING_VEL_RAPIDA);
+        motor.runSpeed();
+        if (!imanPresente)
         {
-            Serial.println("Imán presente, alejándose...");
-
-            motor.setSpeed(HOMING_VEL_RAPIDA); // velocidad constante
-            unsigned long startTime = millis();
-
-            while (imanPresente)
-            {
-                motor.runSpeed(); // movimiento continuo
-                imanPresente = !digitalRead(HALL_PIN);
-
-                if (millis() - startTime > HOMING_TIMEOUT)
-                {
-                    Serial.println("Error: timeout alejándose del imán");
-                    motor.stop();
-                    return;
-                }
-            }
-
-            motor.stop();
-            Serial.println("Imán liberado");
+            flanco = motor.currentPosition();
+            Serial.print("Flanco de salida en: ");
+            Serial.println(flanco);
+            motor.moveTo(200);
+            estadoHoming = HOMING_MOVER_REFERENCIA;
         }
-        else
+        break;
+
+    case HOMING_MOVER_REFERENCIA:
+        motor.run();
+        if (motor.distanceToGo() == 0)
         {
-            Serial.println("Imán NO detectado");
+            motor.setCurrentPosition(0);
+            estadoHoming = HOMING_OK;
+            digitalWrite(MOTOR_ENABLE, HIGH); // deshabilita motor
         }
+        break;
+
+    case HOMING_OK:
+        Serial.println("✅ Homing OK. Referencia = 0");
+        digitalWrite(LED_PIN, HIGH);
+        estadoHoming = HOMING_INACTIVO;
+        digitalWrite(MOTOR_ENABLE, HIGH); // deshabilita motor
+        break;
+
+    case HOMING_ERROR:
+        Serial.println("❌ ERROR de homing");
+        digitalWrite(MOTOR_ENABLE, HIGH); // deshabilita motor
+        homingFallo = true;               // latch error
+        estadoHoming = HOMING_INACTIVO;
+        break;
     }
 }
