@@ -1,4 +1,4 @@
-C:\Users\Benutzer1\Documents\Arduino\Stepper\Stepper--Motor_Linear\build\libraries\AccelStepper\AccelStepper.cpp.o: \
+C:\Users\Benutzer1\Documents\Arduino\Stepper\Stepper--Motor_linear\build\libraries\AccelStepper\AccelStepper.cpp.o: \
  C:\Users\Benutzer1\Documents\Arduino\libraries\AccelStepper\src\AccelStepper.cpp \
  C:\Users\Benutzer1\Documents\Arduino\libraries\AccelStepper\src\AccelStepper.h \
  C:\Users\Benutzer1\AppData\Local\Arduino15\packages\arduino\hardware\avr\1.8.6\cores\arduino/Arduino.h \

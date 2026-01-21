@@ -47,7 +47,7 @@
 
 #define HALL_PIN 3
 #define LED_PIN 2
-#define BTN_HOME A0 // A0 Nano -> cambiar para el Pico
+#define BOTON_HOME A0 // A0 Nano -> cambiar para el Pico
 
 // ------------------ Parámetros ------------------
 const int MICROSTEPPING = 16;
@@ -90,9 +90,9 @@ enum EstadoHoming
     HOMING_ERROR
 };
 
-// ------------------ Control y variables de Homing ------------------
-EstadoHoming estadoHoming = HOMING_INACTIVO;
-unsigned long homingStartTime = 0;
+// ------------------ Variables ------------------
+EstadoHoming estadoHoming = HOMING_INACTIVO; // estado inicial
+unsigned long homingStartTime = 0;           // tiempo de inicio de homing
 
 int8_t CW = 1;          // sentido horario
 int8_t CCW = -1;        // sentido antihorario
@@ -100,8 +100,7 @@ long primerFlanco = 0;  // posición de entrada al imán
 long segundoFlanco = 0; // posición de salida del imán
 long centro = 0;        // posición central calculada
 
-// ⚠️ bandera de error
-bool homingFallo = false;
+bool homingFallo = false; // marca si hubo falla en homing
 
 // ======================================================
 //                        SETUP
@@ -118,12 +117,12 @@ void setup()
     pinMode(HALL_PIN, INPUT_PULLUP);
     pinMode(LED_PIN, OUTPUT);
     pinMode(MOTOR_ENABLE, OUTPUT);
-    pinMode(BTN_HOME, INPUT_PULLUP);
+    pinMode(BOTON_HOME, INPUT_PULLUP);
 
     digitalWrite(MOTOR_ENABLE, HIGH); // deshabilita motor
     digitalWrite(LED_PIN, LOW);
 
-    debouncer.attach(BTN_HOME);
+    debouncer.attach(BOTON_HOME);
     debouncer.interval(25);
 
     motor.setMaxSpeed(HOMING_VEL_RAPIDA);
@@ -140,7 +139,7 @@ void loop()
     debouncer.update();
 
     // 🔄 Reset de homingFallo al soltar el botón
-    if (debouncer.rose() && digitalRead(BTN_HOME) == HIGH)
+    if (debouncer.rose() && digitalRead(BOTON_HOME) == HIGH)
     {
         homingFallo = false;
         Serial.println("🔄 Homing reset");

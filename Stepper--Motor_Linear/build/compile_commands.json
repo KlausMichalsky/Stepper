@@ -24,11 +24,11 @@
    "-IC:\\Users\\Benutzer1\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.6\\cores\\arduino",
    "-IC:\\Users\\Benutzer1\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.6\\variants\\eightanaloginputs",
    "-IC:\\Users\\Benutzer1\\Documents\\Arduino\\libraries\\AccelStepper\\src",
-   "C:\\Users\\Benutzer1\\Documents\\Arduino\\Stepper\\Stepper--Motor_Linear\\build\\sketch\\Stepper--Motor_Linear.ino.cpp",
+   "C:\\Users\\Benutzer1\\Documents\\Arduino\\Stepper\\Stepper--Motor_linear\\build\\sketch\\Stepper--Motor_linear.ino.cpp",
    "-o",
-   "C:\\Users\\Benutzer1\\Documents\\Arduino\\Stepper\\Stepper--Motor_Linear\\build\\sketch\\Stepper--Motor_Linear.ino.cpp.o"
+   "C:\\Users\\Benutzer1\\Documents\\Arduino\\Stepper\\Stepper--Motor_linear\\build\\sketch\\Stepper--Motor_linear.ino.cpp.o"
   ],
-  "file": "C:\\Users\\Benutzer1\\Documents\\Arduino\\Stepper\\Stepper--Motor_Linear\\build\\sketch\\Stepper--Motor_Linear.ino.cpp"
+  "file": "C:\\Users\\Benutzer1\\Documents\\Arduino\\Stepper\\Stepper--Motor_linear\\build\\sketch\\Stepper--Motor_linear.ino.cpp"
  },
  {
   "directory": "C:\\Users\\Benutzer1\\AppData\\Local\\Programs\\Microsoft VS Code",
@@ -57,7 +57,7 @@
    "-IC:\\Users\\Benutzer1\\Documents\\Arduino\\libraries\\AccelStepper\\src",
    "C:\\Users\\Benutzer1\\Documents\\Arduino\\libraries\\AccelStepper\\src\\AccelStepper.cpp",
    "-o",
-   "C:\\Users\\Benutzer1\\Documents\\Arduino\\Stepper\\Stepper--Motor_Linear\\build\\libraries\\AccelStepper\\AccelStepper.cpp.o"
+   "C:\\Users\\Benutzer1\\Documents\\Arduino\\Stepper\\Stepper--Motor_linear\\build\\libraries\\AccelStepper\\AccelStepper.cpp.o"
   ],
   "file": "C:\\Users\\Benutzer1\\Documents\\Arduino\\libraries\\AccelStepper\\src\\AccelStepper.cpp"
  },
@@ -88,7 +88,7 @@
    "-IC:\\Users\\Benutzer1\\Documents\\Arduino\\libraries\\AccelStepper\\src",
    "C:\\Users\\Benutzer1\\Documents\\Arduino\\libraries\\AccelStepper\\src\\MultiStepper.cpp",
    "-o",
-   "C:\\Users\\Benutzer1\\Documents\\Arduino\\Stepper\\Stepper--Motor_Linear\\build\\libraries\\AccelStepper\\MultiStepper.cpp.o"
+   "C:\\Users\\Benutzer1\\Documents\\Arduino\\Stepper\\Stepper--Motor_linear\\build\\libraries\\AccelStepper\\MultiStepper.cpp.o"
   ],
   "file": "C:\\Users\\Benutzer1\\Documents\\Arduino\\libraries\\AccelStepper\\src\\MultiStepper.cpp"
  },
@@ -116,159 +116,9 @@
    "-DARDUINO_ARCH_AVR",
    "-IC:\\Users\\Benutzer1\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.6\\cores\\arduino",
    "-IC:\\Users\\Benutzer1\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.6\\variants\\eightanaloginputs",
-   "C:\\Users\\Benutzer1\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.6\\cores\\arduino\\CDC.cpp",
-   "-o",
-   "C:\\Users\\Benutzer1\\Documents\\Arduino\\Stepper\\Stepper--Motor_Linear\\build\\core\\CDC.cpp.o"
-  ],
-  "file": "C:\\Users\\Benutzer1\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.6\\cores\\arduino\\CDC.cpp"
- },
- {
-  "directory": "C:\\Users\\Benutzer1\\AppData\\Local\\Programs\\Microsoft VS Code",
-  "arguments": [
-   "C:\\Users\\Benutzer1\\AppData\\Local\\Arduino15\\packages\\arduino\\tools\\avr-gcc\\7.3.0-atmel3.6.1-arduino7/bin/avr-g++",
-   "-c",
-   "-g",
-   "-Os",
-   "-w",
-   "-std=gnu++11",
-   "-fpermissive",
-   "-fno-exceptions",
-   "-ffunction-sections",
-   "-fdata-sections",
-   "-fno-threadsafe-statics",
-   "-Wno-error=narrowing",
-   "-MMD",
-   "-flto",
-   "-mmcu=atmega328p",
-   "-DF_CPU=16000000L",
-   "-DARDUINO=10607",
-   "-DARDUINO_AVR_NANO",
-   "-DARDUINO_ARCH_AVR",
-   "-IC:\\Users\\Benutzer1\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.6\\cores\\arduino",
-   "-IC:\\Users\\Benutzer1\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.6\\variants\\eightanaloginputs",
-   "C:\\Users\\Benutzer1\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.6\\cores\\arduino\\HardwareSerial2.cpp",
-   "-o",
-   "C:\\Users\\Benutzer1\\Documents\\Arduino\\Stepper\\Stepper--Motor_Linear\\build\\core\\HardwareSerial2.cpp.o"
-  ],
-  "file": "C:\\Users\\Benutzer1\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.6\\cores\\arduino\\HardwareSerial2.cpp"
- },
- {
-  "directory": "C:\\Users\\Benutzer1\\AppData\\Local\\Programs\\Microsoft VS Code",
-  "arguments": [
-   "C:\\Users\\Benutzer1\\AppData\\Local\\Arduino15\\packages\\arduino\\tools\\avr-gcc\\7.3.0-atmel3.6.1-arduino7/bin/avr-g++",
-   "-c",
-   "-g",
-   "-Os",
-   "-w",
-   "-std=gnu++11",
-   "-fpermissive",
-   "-fno-exceptions",
-   "-ffunction-sections",
-   "-fdata-sections",
-   "-fno-threadsafe-statics",
-   "-Wno-error=narrowing",
-   "-MMD",
-   "-flto",
-   "-mmcu=atmega328p",
-   "-DF_CPU=16000000L",
-   "-DARDUINO=10607",
-   "-DARDUINO_AVR_NANO",
-   "-DARDUINO_ARCH_AVR",
-   "-IC:\\Users\\Benutzer1\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.6\\cores\\arduino",
-   "-IC:\\Users\\Benutzer1\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.6\\variants\\eightanaloginputs",
-   "C:\\Users\\Benutzer1\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.6\\cores\\arduino\\HardwareSerial.cpp",
-   "-o",
-   "C:\\Users\\Benutzer1\\Documents\\Arduino\\Stepper\\Stepper--Motor_Linear\\build\\core\\HardwareSerial.cpp.o"
-  ],
-  "file": "C:\\Users\\Benutzer1\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.6\\cores\\arduino\\HardwareSerial.cpp"
- },
- {
-  "directory": "C:\\Users\\Benutzer1\\AppData\\Local\\Programs\\Microsoft VS Code",
-  "arguments": [
-   "C:\\Users\\Benutzer1\\AppData\\Local\\Arduino15\\packages\\arduino\\tools\\avr-gcc\\7.3.0-atmel3.6.1-arduino7/bin/avr-g++",
-   "-c",
-   "-g",
-   "-Os",
-   "-w",
-   "-std=gnu++11",
-   "-fpermissive",
-   "-fno-exceptions",
-   "-ffunction-sections",
-   "-fdata-sections",
-   "-fno-threadsafe-statics",
-   "-Wno-error=narrowing",
-   "-MMD",
-   "-flto",
-   "-mmcu=atmega328p",
-   "-DF_CPU=16000000L",
-   "-DARDUINO=10607",
-   "-DARDUINO_AVR_NANO",
-   "-DARDUINO_ARCH_AVR",
-   "-IC:\\Users\\Benutzer1\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.6\\cores\\arduino",
-   "-IC:\\Users\\Benutzer1\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.6\\variants\\eightanaloginputs",
-   "C:\\Users\\Benutzer1\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.6\\cores\\arduino\\PluggableUSB.cpp",
-   "-o",
-   "C:\\Users\\Benutzer1\\Documents\\Arduino\\Stepper\\Stepper--Motor_Linear\\build\\core\\PluggableUSB.cpp.o"
-  ],
-  "file": "C:\\Users\\Benutzer1\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.6\\cores\\arduino\\PluggableUSB.cpp"
- },
- {
-  "directory": "C:\\Users\\Benutzer1\\AppData\\Local\\Programs\\Microsoft VS Code",
-  "arguments": [
-   "C:\\Users\\Benutzer1\\AppData\\Local\\Arduino15\\packages\\arduino\\tools\\avr-gcc\\7.3.0-atmel3.6.1-arduino7/bin/avr-g++",
-   "-c",
-   "-g",
-   "-Os",
-   "-w",
-   "-std=gnu++11",
-   "-fpermissive",
-   "-fno-exceptions",
-   "-ffunction-sections",
-   "-fdata-sections",
-   "-fno-threadsafe-statics",
-   "-Wno-error=narrowing",
-   "-MMD",
-   "-flto",
-   "-mmcu=atmega328p",
-   "-DF_CPU=16000000L",
-   "-DARDUINO=10607",
-   "-DARDUINO_AVR_NANO",
-   "-DARDUINO_ARCH_AVR",
-   "-IC:\\Users\\Benutzer1\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.6\\cores\\arduino",
-   "-IC:\\Users\\Benutzer1\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.6\\variants\\eightanaloginputs",
-   "C:\\Users\\Benutzer1\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.6\\cores\\arduino\\HardwareSerial0.cpp",
-   "-o",
-   "C:\\Users\\Benutzer1\\Documents\\Arduino\\Stepper\\Stepper--Motor_Linear\\build\\core\\HardwareSerial0.cpp.o"
-  ],
-  "file": "C:\\Users\\Benutzer1\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.6\\cores\\arduino\\HardwareSerial0.cpp"
- },
- {
-  "directory": "C:\\Users\\Benutzer1\\AppData\\Local\\Programs\\Microsoft VS Code",
-  "arguments": [
-   "C:\\Users\\Benutzer1\\AppData\\Local\\Arduino15\\packages\\arduino\\tools\\avr-gcc\\7.3.0-atmel3.6.1-arduino7/bin/avr-g++",
-   "-c",
-   "-g",
-   "-Os",
-   "-w",
-   "-std=gnu++11",
-   "-fpermissive",
-   "-fno-exceptions",
-   "-ffunction-sections",
-   "-fdata-sections",
-   "-fno-threadsafe-statics",
-   "-Wno-error=narrowing",
-   "-MMD",
-   "-flto",
-   "-mmcu=atmega328p",
-   "-DF_CPU=16000000L",
-   "-DARDUINO=10607",
-   "-DARDUINO_AVR_NANO",
-   "-DARDUINO_ARCH_AVR",
-   "-IC:\\Users\\Benutzer1\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.6\\cores\\arduino",
-   "-IC:\\Users\\Benutzer1\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.6\\variants\\eightanaloginputs",
    "C:\\Users\\Benutzer1\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.6\\cores\\arduino\\HardwareSerial3.cpp",
    "-o",
-   "C:\\Users\\Benutzer1\\Documents\\Arduino\\Stepper\\Stepper--Motor_Linear\\build\\core\\HardwareSerial3.cpp.o"
+   "C:\\Users\\Benutzer1\\Documents\\Arduino\\Stepper\\Stepper--Motor_linear\\build\\core\\HardwareSerial3.cpp.o"
   ],
   "file": "C:\\Users\\Benutzer1\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.6\\cores\\arduino\\HardwareSerial3.cpp"
  },
@@ -296,9 +146,99 @@
    "-DARDUINO_ARCH_AVR",
    "-IC:\\Users\\Benutzer1\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.6\\cores\\arduino",
    "-IC:\\Users\\Benutzer1\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.6\\variants\\eightanaloginputs",
+   "C:\\Users\\Benutzer1\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.6\\cores\\arduino\\HardwareSerial2.cpp",
+   "-o",
+   "C:\\Users\\Benutzer1\\Documents\\Arduino\\Stepper\\Stepper--Motor_linear\\build\\core\\HardwareSerial2.cpp.o"
+  ],
+  "file": "C:\\Users\\Benutzer1\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.6\\cores\\arduino\\HardwareSerial2.cpp"
+ },
+ {
+  "directory": "C:\\Users\\Benutzer1\\AppData\\Local\\Programs\\Microsoft VS Code",
+  "arguments": [
+   "C:\\Users\\Benutzer1\\AppData\\Local\\Arduino15\\packages\\arduino\\tools\\avr-gcc\\7.3.0-atmel3.6.1-arduino7/bin/avr-g++",
+   "-c",
+   "-g",
+   "-Os",
+   "-w",
+   "-std=gnu++11",
+   "-fpermissive",
+   "-fno-exceptions",
+   "-ffunction-sections",
+   "-fdata-sections",
+   "-fno-threadsafe-statics",
+   "-Wno-error=narrowing",
+   "-MMD",
+   "-flto",
+   "-mmcu=atmega328p",
+   "-DF_CPU=16000000L",
+   "-DARDUINO=10607",
+   "-DARDUINO_AVR_NANO",
+   "-DARDUINO_ARCH_AVR",
+   "-IC:\\Users\\Benutzer1\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.6\\cores\\arduino",
+   "-IC:\\Users\\Benutzer1\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.6\\variants\\eightanaloginputs",
+   "C:\\Users\\Benutzer1\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.6\\cores\\arduino\\CDC.cpp",
+   "-o",
+   "C:\\Users\\Benutzer1\\Documents\\Arduino\\Stepper\\Stepper--Motor_linear\\build\\core\\CDC.cpp.o"
+  ],
+  "file": "C:\\Users\\Benutzer1\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.6\\cores\\arduino\\CDC.cpp"
+ },
+ {
+  "directory": "C:\\Users\\Benutzer1\\AppData\\Local\\Programs\\Microsoft VS Code",
+  "arguments": [
+   "C:\\Users\\Benutzer1\\AppData\\Local\\Arduino15\\packages\\arduino\\tools\\avr-gcc\\7.3.0-atmel3.6.1-arduino7/bin/avr-g++",
+   "-c",
+   "-g",
+   "-Os",
+   "-w",
+   "-std=gnu++11",
+   "-fpermissive",
+   "-fno-exceptions",
+   "-ffunction-sections",
+   "-fdata-sections",
+   "-fno-threadsafe-statics",
+   "-Wno-error=narrowing",
+   "-MMD",
+   "-flto",
+   "-mmcu=atmega328p",
+   "-DF_CPU=16000000L",
+   "-DARDUINO=10607",
+   "-DARDUINO_AVR_NANO",
+   "-DARDUINO_ARCH_AVR",
+   "-IC:\\Users\\Benutzer1\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.6\\cores\\arduino",
+   "-IC:\\Users\\Benutzer1\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.6\\variants\\eightanaloginputs",
+   "C:\\Users\\Benutzer1\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.6\\cores\\arduino\\HardwareSerial0.cpp",
+   "-o",
+   "C:\\Users\\Benutzer1\\Documents\\Arduino\\Stepper\\Stepper--Motor_linear\\build\\core\\HardwareSerial0.cpp.o"
+  ],
+  "file": "C:\\Users\\Benutzer1\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.6\\cores\\arduino\\HardwareSerial0.cpp"
+ },
+ {
+  "directory": "C:\\Users\\Benutzer1\\AppData\\Local\\Programs\\Microsoft VS Code",
+  "arguments": [
+   "C:\\Users\\Benutzer1\\AppData\\Local\\Arduino15\\packages\\arduino\\tools\\avr-gcc\\7.3.0-atmel3.6.1-arduino7/bin/avr-g++",
+   "-c",
+   "-g",
+   "-Os",
+   "-w",
+   "-std=gnu++11",
+   "-fpermissive",
+   "-fno-exceptions",
+   "-ffunction-sections",
+   "-fdata-sections",
+   "-fno-threadsafe-statics",
+   "-Wno-error=narrowing",
+   "-MMD",
+   "-flto",
+   "-mmcu=atmega328p",
+   "-DF_CPU=16000000L",
+   "-DARDUINO=10607",
+   "-DARDUINO_AVR_NANO",
+   "-DARDUINO_ARCH_AVR",
+   "-IC:\\Users\\Benutzer1\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.6\\cores\\arduino",
+   "-IC:\\Users\\Benutzer1\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.6\\variants\\eightanaloginputs",
    "C:\\Users\\Benutzer1\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.6\\cores\\arduino\\HardwareSerial1.cpp",
    "-o",
-   "C:\\Users\\Benutzer1\\Documents\\Arduino\\Stepper\\Stepper--Motor_Linear\\build\\core\\HardwareSerial1.cpp.o"
+   "C:\\Users\\Benutzer1\\Documents\\Arduino\\Stepper\\Stepper--Motor_linear\\build\\core\\HardwareSerial1.cpp.o"
   ],
   "file": "C:\\Users\\Benutzer1\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.6\\cores\\arduino\\HardwareSerial1.cpp"
  },
@@ -326,9 +266,69 @@
    "-DARDUINO_ARCH_AVR",
    "-IC:\\Users\\Benutzer1\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.6\\cores\\arduino",
    "-IC:\\Users\\Benutzer1\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.6\\variants\\eightanaloginputs",
+   "C:\\Users\\Benutzer1\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.6\\cores\\arduino\\PluggableUSB.cpp",
+   "-o",
+   "C:\\Users\\Benutzer1\\Documents\\Arduino\\Stepper\\Stepper--Motor_linear\\build\\core\\PluggableUSB.cpp.o"
+  ],
+  "file": "C:\\Users\\Benutzer1\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.6\\cores\\arduino\\PluggableUSB.cpp"
+ },
+ {
+  "directory": "C:\\Users\\Benutzer1\\AppData\\Local\\Programs\\Microsoft VS Code",
+  "arguments": [
+   "C:\\Users\\Benutzer1\\AppData\\Local\\Arduino15\\packages\\arduino\\tools\\avr-gcc\\7.3.0-atmel3.6.1-arduino7/bin/avr-g++",
+   "-c",
+   "-g",
+   "-Os",
+   "-w",
+   "-std=gnu++11",
+   "-fpermissive",
+   "-fno-exceptions",
+   "-ffunction-sections",
+   "-fdata-sections",
+   "-fno-threadsafe-statics",
+   "-Wno-error=narrowing",
+   "-MMD",
+   "-flto",
+   "-mmcu=atmega328p",
+   "-DF_CPU=16000000L",
+   "-DARDUINO=10607",
+   "-DARDUINO_AVR_NANO",
+   "-DARDUINO_ARCH_AVR",
+   "-IC:\\Users\\Benutzer1\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.6\\cores\\arduino",
+   "-IC:\\Users\\Benutzer1\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.6\\variants\\eightanaloginputs",
+   "C:\\Users\\Benutzer1\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.6\\cores\\arduino\\HardwareSerial.cpp",
+   "-o",
+   "C:\\Users\\Benutzer1\\Documents\\Arduino\\Stepper\\Stepper--Motor_linear\\build\\core\\HardwareSerial.cpp.o"
+  ],
+  "file": "C:\\Users\\Benutzer1\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.6\\cores\\arduino\\HardwareSerial.cpp"
+ },
+ {
+  "directory": "C:\\Users\\Benutzer1\\AppData\\Local\\Programs\\Microsoft VS Code",
+  "arguments": [
+   "C:\\Users\\Benutzer1\\AppData\\Local\\Arduino15\\packages\\arduino\\tools\\avr-gcc\\7.3.0-atmel3.6.1-arduino7/bin/avr-g++",
+   "-c",
+   "-g",
+   "-Os",
+   "-w",
+   "-std=gnu++11",
+   "-fpermissive",
+   "-fno-exceptions",
+   "-ffunction-sections",
+   "-fdata-sections",
+   "-fno-threadsafe-statics",
+   "-Wno-error=narrowing",
+   "-MMD",
+   "-flto",
+   "-mmcu=atmega328p",
+   "-DF_CPU=16000000L",
+   "-DARDUINO=10607",
+   "-DARDUINO_AVR_NANO",
+   "-DARDUINO_ARCH_AVR",
+   "-IC:\\Users\\Benutzer1\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.6\\cores\\arduino",
+   "-IC:\\Users\\Benutzer1\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.6\\variants\\eightanaloginputs",
    "C:\\Users\\Benutzer1\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.6\\cores\\arduino\\IPAddress.cpp",
    "-o",
-   "C:\\Users\\Benutzer1\\Documents\\Arduino\\Stepper\\Stepper--Motor_Linear\\build\\core\\IPAddress.cpp.o"
+   "C:\\Users\\Benutzer1\\Documents\\Arduino\\Stepper\\Stepper--Motor_linear\\build\\core\\IPAddress.cpp.o"
   ],
   "file": "C:\\Users\\Benutzer1\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.6\\cores\\arduino\\IPAddress.cpp"
  },
@@ -358,7 +358,7 @@
    "-IC:\\Users\\Benutzer1\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.6\\variants\\eightanaloginputs",
    "C:\\Users\\Benutzer1\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.6\\cores\\arduino\\Print.cpp",
    "-o",
-   "C:\\Users\\Benutzer1\\Documents\\Arduino\\Stepper\\Stepper--Motor_Linear\\build\\core\\Print.cpp.o"
+   "C:\\Users\\Benutzer1\\Documents\\Arduino\\Stepper\\Stepper--Motor_linear\\build\\core\\Print.cpp.o"
   ],
   "file": "C:\\Users\\Benutzer1\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.6\\cores\\arduino\\Print.cpp"
  },
@@ -388,7 +388,7 @@
    "-IC:\\Users\\Benutzer1\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.6\\variants\\eightanaloginputs",
    "C:\\Users\\Benutzer1\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.6\\cores\\arduino\\Stream.cpp",
    "-o",
-   "C:\\Users\\Benutzer1\\Documents\\Arduino\\Stepper\\Stepper--Motor_Linear\\build\\core\\Stream.cpp.o"
+   "C:\\Users\\Benutzer1\\Documents\\Arduino\\Stepper\\Stepper--Motor_linear\\build\\core\\Stream.cpp.o"
   ],
   "file": "C:\\Users\\Benutzer1\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.6\\cores\\arduino\\Stream.cpp"
  },
@@ -418,9 +418,39 @@
    "-IC:\\Users\\Benutzer1\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.6\\variants\\eightanaloginputs",
    "C:\\Users\\Benutzer1\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.6\\cores\\arduino\\Tone.cpp",
    "-o",
-   "C:\\Users\\Benutzer1\\Documents\\Arduino\\Stepper\\Stepper--Motor_Linear\\build\\core\\Tone.cpp.o"
+   "C:\\Users\\Benutzer1\\Documents\\Arduino\\Stepper\\Stepper--Motor_linear\\build\\core\\Tone.cpp.o"
   ],
   "file": "C:\\Users\\Benutzer1\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.6\\cores\\arduino\\Tone.cpp"
+ },
+ {
+  "directory": "C:\\Users\\Benutzer1\\AppData\\Local\\Programs\\Microsoft VS Code",
+  "arguments": [
+   "C:\\Users\\Benutzer1\\AppData\\Local\\Arduino15\\packages\\arduino\\tools\\avr-gcc\\7.3.0-atmel3.6.1-arduino7/bin/avr-g++",
+   "-c",
+   "-g",
+   "-Os",
+   "-w",
+   "-std=gnu++11",
+   "-fpermissive",
+   "-fno-exceptions",
+   "-ffunction-sections",
+   "-fdata-sections",
+   "-fno-threadsafe-statics",
+   "-Wno-error=narrowing",
+   "-MMD",
+   "-flto",
+   "-mmcu=atmega328p",
+   "-DF_CPU=16000000L",
+   "-DARDUINO=10607",
+   "-DARDUINO_AVR_NANO",
+   "-DARDUINO_ARCH_AVR",
+   "-IC:\\Users\\Benutzer1\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.6\\cores\\arduino",
+   "-IC:\\Users\\Benutzer1\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.6\\variants\\eightanaloginputs",
+   "C:\\Users\\Benutzer1\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.6\\cores\\arduino\\USBCore.cpp",
+   "-o",
+   "C:\\Users\\Benutzer1\\Documents\\Arduino\\Stepper\\Stepper--Motor_linear\\build\\core\\USBCore.cpp.o"
+  ],
+  "file": "C:\\Users\\Benutzer1\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.6\\cores\\arduino\\USBCore.cpp"
  },
  {
   "directory": "C:\\Users\\Benutzer1\\AppData\\Local\\Programs\\Microsoft VS Code",
@@ -445,7 +475,7 @@
    "-IC:\\Users\\Benutzer1\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.6\\variants\\eightanaloginputs",
    "C:\\Users\\Benutzer1\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.6\\cores\\arduino\\WInterrupts.c",
    "-o",
-   "C:\\Users\\Benutzer1\\Documents\\Arduino\\Stepper\\Stepper--Motor_Linear\\build\\core\\WInterrupts.c.o"
+   "C:\\Users\\Benutzer1\\Documents\\Arduino\\Stepper\\Stepper--Motor_linear\\build\\core\\WInterrupts.c.o"
   ],
   "file": "C:\\Users\\Benutzer1\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.6\\cores\\arduino\\WInterrupts.c"
  },
@@ -475,7 +505,7 @@
    "-IC:\\Users\\Benutzer1\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.6\\variants\\eightanaloginputs",
    "C:\\Users\\Benutzer1\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.6\\cores\\arduino\\WMath.cpp",
    "-o",
-   "C:\\Users\\Benutzer1\\Documents\\Arduino\\Stepper\\Stepper--Motor_Linear\\build\\core\\WMath.cpp.o"
+   "C:\\Users\\Benutzer1\\Documents\\Arduino\\Stepper\\Stepper--Motor_linear\\build\\core\\WMath.cpp.o"
   ],
   "file": "C:\\Users\\Benutzer1\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.6\\cores\\arduino\\WMath.cpp"
  },
@@ -503,39 +533,9 @@
    "-DARDUINO_ARCH_AVR",
    "-IC:\\Users\\Benutzer1\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.6\\cores\\arduino",
    "-IC:\\Users\\Benutzer1\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.6\\variants\\eightanaloginputs",
-   "C:\\Users\\Benutzer1\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.6\\cores\\arduino\\USBCore.cpp",
-   "-o",
-   "C:\\Users\\Benutzer1\\Documents\\Arduino\\Stepper\\Stepper--Motor_Linear\\build\\core\\USBCore.cpp.o"
-  ],
-  "file": "C:\\Users\\Benutzer1\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.6\\cores\\arduino\\USBCore.cpp"
- },
- {
-  "directory": "C:\\Users\\Benutzer1\\AppData\\Local\\Programs\\Microsoft VS Code",
-  "arguments": [
-   "C:\\Users\\Benutzer1\\AppData\\Local\\Arduino15\\packages\\arduino\\tools\\avr-gcc\\7.3.0-atmel3.6.1-arduino7/bin/avr-g++",
-   "-c",
-   "-g",
-   "-Os",
-   "-w",
-   "-std=gnu++11",
-   "-fpermissive",
-   "-fno-exceptions",
-   "-ffunction-sections",
-   "-fdata-sections",
-   "-fno-threadsafe-statics",
-   "-Wno-error=narrowing",
-   "-MMD",
-   "-flto",
-   "-mmcu=atmega328p",
-   "-DF_CPU=16000000L",
-   "-DARDUINO=10607",
-   "-DARDUINO_AVR_NANO",
-   "-DARDUINO_ARCH_AVR",
-   "-IC:\\Users\\Benutzer1\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.6\\cores\\arduino",
-   "-IC:\\Users\\Benutzer1\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.6\\variants\\eightanaloginputs",
    "C:\\Users\\Benutzer1\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.6\\cores\\arduino\\WString.cpp",
    "-o",
-   "C:\\Users\\Benutzer1\\Documents\\Arduino\\Stepper\\Stepper--Motor_Linear\\build\\core\\WString.cpp.o"
+   "C:\\Users\\Benutzer1\\Documents\\Arduino\\Stepper\\Stepper--Motor_linear\\build\\core\\WString.cpp.o"
   ],
   "file": "C:\\Users\\Benutzer1\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.6\\cores\\arduino\\WString.cpp"
  },
@@ -565,7 +565,7 @@
    "-IC:\\Users\\Benutzer1\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.6\\variants\\eightanaloginputs",
    "C:\\Users\\Benutzer1\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.6\\cores\\arduino\\abi.cpp",
    "-o",
-   "C:\\Users\\Benutzer1\\Documents\\Arduino\\Stepper\\Stepper--Motor_Linear\\build\\core\\abi.cpp.o"
+   "C:\\Users\\Benutzer1\\Documents\\Arduino\\Stepper\\Stepper--Motor_linear\\build\\core\\abi.cpp.o"
   ],
   "file": "C:\\Users\\Benutzer1\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.6\\cores\\arduino\\abi.cpp"
  },
@@ -592,7 +592,7 @@
    "-IC:\\Users\\Benutzer1\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.6\\variants\\eightanaloginputs",
    "C:\\Users\\Benutzer1\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.6\\cores\\arduino\\hooks.c",
    "-o",
-   "C:\\Users\\Benutzer1\\Documents\\Arduino\\Stepper\\Stepper--Motor_Linear\\build\\core\\hooks.c.o"
+   "C:\\Users\\Benutzer1\\Documents\\Arduino\\Stepper\\Stepper--Motor_linear\\build\\core\\hooks.c.o"
   ],
   "file": "C:\\Users\\Benutzer1\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.6\\cores\\arduino\\hooks.c"
  },
@@ -622,7 +622,7 @@
    "-IC:\\Users\\Benutzer1\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.6\\variants\\eightanaloginputs",
    "C:\\Users\\Benutzer1\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.6\\cores\\arduino\\main.cpp",
    "-o",
-   "C:\\Users\\Benutzer1\\Documents\\Arduino\\Stepper\\Stepper--Motor_Linear\\build\\core\\main.cpp.o"
+   "C:\\Users\\Benutzer1\\Documents\\Arduino\\Stepper\\Stepper--Motor_linear\\build\\core\\main.cpp.o"
   ],
   "file": "C:\\Users\\Benutzer1\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.6\\cores\\arduino\\main.cpp"
  },
@@ -652,7 +652,7 @@
    "-IC:\\Users\\Benutzer1\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.6\\variants\\eightanaloginputs",
    "C:\\Users\\Benutzer1\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.6\\cores\\arduino\\new.cpp",
    "-o",
-   "C:\\Users\\Benutzer1\\Documents\\Arduino\\Stepper\\Stepper--Motor_Linear\\build\\core\\new.cpp.o"
+   "C:\\Users\\Benutzer1\\Documents\\Arduino\\Stepper\\Stepper--Motor_linear\\build\\core\\new.cpp.o"
   ],
   "file": "C:\\Users\\Benutzer1\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.6\\cores\\arduino\\new.cpp"
  },
@@ -679,7 +679,7 @@
    "-IC:\\Users\\Benutzer1\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.6\\variants\\eightanaloginputs",
    "C:\\Users\\Benutzer1\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.6\\cores\\arduino\\wiring.c",
    "-o",
-   "C:\\Users\\Benutzer1\\Documents\\Arduino\\Stepper\\Stepper--Motor_Linear\\build\\core\\wiring.c.o"
+   "C:\\Users\\Benutzer1\\Documents\\Arduino\\Stepper\\Stepper--Motor_linear\\build\\core\\wiring.c.o"
   ],
   "file": "C:\\Users\\Benutzer1\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.6\\cores\\arduino\\wiring.c"
  },
@@ -706,7 +706,7 @@
    "-IC:\\Users\\Benutzer1\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.6\\variants\\eightanaloginputs",
    "C:\\Users\\Benutzer1\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.6\\cores\\arduino\\wiring_analog.c",
    "-o",
-   "C:\\Users\\Benutzer1\\Documents\\Arduino\\Stepper\\Stepper--Motor_Linear\\build\\core\\wiring_analog.c.o"
+   "C:\\Users\\Benutzer1\\Documents\\Arduino\\Stepper\\Stepper--Motor_linear\\build\\core\\wiring_analog.c.o"
   ],
   "file": "C:\\Users\\Benutzer1\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.6\\cores\\arduino\\wiring_analog.c"
  },
@@ -733,7 +733,7 @@
    "-IC:\\Users\\Benutzer1\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.6\\variants\\eightanaloginputs",
    "C:\\Users\\Benutzer1\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.6\\cores\\arduino\\wiring_digital.c",
    "-o",
-   "C:\\Users\\Benutzer1\\Documents\\Arduino\\Stepper\\Stepper--Motor_Linear\\build\\core\\wiring_digital.c.o"
+   "C:\\Users\\Benutzer1\\Documents\\Arduino\\Stepper\\Stepper--Motor_linear\\build\\core\\wiring_digital.c.o"
   ],
   "file": "C:\\Users\\Benutzer1\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.6\\cores\\arduino\\wiring_digital.c"
  },
@@ -756,7 +756,7 @@
    "-IC:\\Users\\Benutzer1\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.6\\variants\\eightanaloginputs",
    "C:\\Users\\Benutzer1\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.6\\cores\\arduino\\wiring_pulse.S",
    "-o",
-   "C:\\Users\\Benutzer1\\Documents\\Arduino\\Stepper\\Stepper--Motor_Linear\\build\\core\\wiring_pulse.S.o"
+   "C:\\Users\\Benutzer1\\Documents\\Arduino\\Stepper\\Stepper--Motor_linear\\build\\core\\wiring_pulse.S.o"
   ],
   "file": "C:\\Users\\Benutzer1\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.6\\cores\\arduino\\wiring_pulse.S"
  },
@@ -783,7 +783,7 @@
    "-IC:\\Users\\Benutzer1\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.6\\variants\\eightanaloginputs",
    "C:\\Users\\Benutzer1\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.6\\cores\\arduino\\wiring_pulse.c",
    "-o",
-   "C:\\Users\\Benutzer1\\Documents\\Arduino\\Stepper\\Stepper--Motor_Linear\\build\\core\\wiring_pulse.c.o"
+   "C:\\Users\\Benutzer1\\Documents\\Arduino\\Stepper\\Stepper--Motor_linear\\build\\core\\wiring_pulse.c.o"
   ],
   "file": "C:\\Users\\Benutzer1\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.6\\cores\\arduino\\wiring_pulse.c"
  },
@@ -810,7 +810,7 @@
    "-IC:\\Users\\Benutzer1\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.6\\variants\\eightanaloginputs",
    "C:\\Users\\Benutzer1\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.6\\cores\\arduino\\wiring_shift.c",
    "-o",
-   "C:\\Users\\Benutzer1\\Documents\\Arduino\\Stepper\\Stepper--Motor_Linear\\build\\core\\wiring_shift.c.o"
+   "C:\\Users\\Benutzer1\\Documents\\Arduino\\Stepper\\Stepper--Motor_linear\\build\\core\\wiring_shift.c.o"
   ],
   "file": "C:\\Users\\Benutzer1\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.6\\cores\\arduino\\wiring_shift.c"
  }

@@ -7,9 +7,9 @@
   },
   {
     "compile": {
-      "source_path": "C:\\Users\\Benutzer1\\Documents\\Arduino\\Stepper\\Stepper--Motor_Linear\\build\\sketch\\Stepper--Motor_Linear.ino.cpp",
-      "object_path": "C:\\Users\\Benutzer1\\Documents\\Arduino\\Stepper\\Stepper--Motor_Linear\\build\\sketch\\Stepper--Motor_Linear.ino.cpp.o",
-      "depfile_path": "C:\\Users\\Benutzer1\\Documents\\Arduino\\Stepper\\Stepper--Motor_Linear\\build\\sketch\\Stepper--Motor_Linear.ino.cpp.d"
+      "source_path": "C:\\Users\\Benutzer1\\Documents\\Arduino\\Stepper\\Stepper--Motor_linear\\build\\sketch\\Stepper--Motor_linear.ino.cpp",
+      "object_path": "C:\\Users\\Benutzer1\\Documents\\Arduino\\Stepper\\Stepper--Motor_linear\\build\\sketch\\Stepper--Motor_linear.ino.cpp.o",
+      "depfile_path": "C:\\Users\\Benutzer1\\Documents\\Arduino\\Stepper\\Stepper--Motor_linear\\build\\sketch\\Stepper--Motor_linear.ino.cpp.d"
     },
     "compile_task": {
       "args": [
@@ -38,7 +38,7 @@
         "-DARDUINO_ARCH_AVR",
         "-IC:\\Users\\Benutzer1\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.6\\cores\\arduino",
         "-IC:\\Users\\Benutzer1\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.6\\variants\\eightanaloginputs",
-        "C:\\Users\\Benutzer1\\Documents\\Arduino\\Stepper\\Stepper--Motor_Linear\\build\\sketch\\Stepper--Motor_Linear.ino.cpp",
+        "C:\\Users\\Benutzer1\\Documents\\Arduino\\Stepper\\Stepper--Motor_linear\\build\\sketch\\Stepper--Motor_linear.ino.cpp",
         "-o",
         "nul"
       ]
@@ -52,9 +52,9 @@
   },
   {
     "compile": {
-      "source_path": "C:\\Users\\Benutzer1\\Documents\\Arduino\\Stepper\\Stepper--Motor_Linear\\build\\sketch\\Stepper--Motor_Linear.ino.cpp",
-      "object_path": "C:\\Users\\Benutzer1\\Documents\\Arduino\\Stepper\\Stepper--Motor_Linear\\build\\sketch\\Stepper--Motor_Linear.ino.cpp.o",
-      "depfile_path": "C:\\Users\\Benutzer1\\Documents\\Arduino\\Stepper\\Stepper--Motor_Linear\\build\\sketch\\Stepper--Motor_Linear.ino.cpp.d"
+      "source_path": "C:\\Users\\Benutzer1\\Documents\\Arduino\\Stepper\\Stepper--Motor_linear\\build\\sketch\\Stepper--Motor_linear.ino.cpp",
+      "object_path": "C:\\Users\\Benutzer1\\Documents\\Arduino\\Stepper\\Stepper--Motor_linear\\build\\sketch\\Stepper--Motor_linear.ino.cpp.o",
+      "depfile_path": "C:\\Users\\Benutzer1\\Documents\\Arduino\\Stepper\\Stepper--Motor_linear\\build\\sketch\\Stepper--Motor_linear.ino.cpp.d"
     },
     "compile_task": {
       "args": [
@@ -84,7 +84,7 @@
         "-IC:\\Users\\Benutzer1\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.6\\cores\\arduino",
         "-IC:\\Users\\Benutzer1\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.6\\variants\\eightanaloginputs",
         "-IC:\\Users\\Benutzer1\\Documents\\Arduino\\libraries\\AccelStepper\\src",
-        "C:\\Users\\Benutzer1\\Documents\\Arduino\\Stepper\\Stepper--Motor_Linear\\build\\sketch\\Stepper--Motor_Linear.ino.cpp",
+        "C:\\Users\\Benutzer1\\Documents\\Arduino\\Stepper\\Stepper--Motor_linear\\build\\sketch\\Stepper--Motor_linear.ino.cpp",
         "-o",
         "nul"
       ]
@@ -96,8 +96,8 @@
   {
     "compile": {
       "source_path": "C:\\Users\\Benutzer1\\Documents\\Arduino\\libraries\\AccelStepper\\src\\AccelStepper.cpp",
-      "object_path": "C:\\Users\\Benutzer1\\Documents\\Arduino\\Stepper\\Stepper--Motor_Linear\\build\\libraries\\AccelStepper\\AccelStepper.cpp.o",
-      "depfile_path": "C:\\Users\\Benutzer1\\Documents\\Arduino\\Stepper\\Stepper--Motor_Linear\\build\\libraries\\AccelStepper\\AccelStepper.cpp.d"
+      "object_path": "C:\\Users\\Benutzer1\\Documents\\Arduino\\Stepper\\Stepper--Motor_linear\\build\\libraries\\AccelStepper\\AccelStepper.cpp.o",
+      "depfile_path": "C:\\Users\\Benutzer1\\Documents\\Arduino\\Stepper\\Stepper--Motor_linear\\build\\libraries\\AccelStepper\\AccelStepper.cpp.d"
     },
     "compile_task": {
       "args": [
@@ -139,8 +139,8 @@
   {
     "compile": {
       "source_path": "C:\\Users\\Benutzer1\\Documents\\Arduino\\libraries\\AccelStepper\\src\\MultiStepper.cpp",
-      "object_path": "C:\\Users\\Benutzer1\\Documents\\Arduino\\Stepper\\Stepper--Motor_Linear\\build\\libraries\\AccelStepper\\MultiStepper.cpp.o",
-      "depfile_path": "C:\\Users\\Benutzer1\\Documents\\Arduino\\Stepper\\Stepper--Motor_Linear\\build\\libraries\\AccelStepper\\MultiStepper.cpp.d"
+      "object_path": "C:\\Users\\Benutzer1\\Documents\\Arduino\\Stepper\\Stepper--Motor_linear\\build\\libraries\\AccelStepper\\MultiStepper.cpp.o",
+      "depfile_path": "C:\\Users\\Benutzer1\\Documents\\Arduino\\Stepper\\Stepper--Motor_linear\\build\\libraries\\AccelStepper\\MultiStepper.cpp.d"
     },
     "compile_task": {
       "args": [

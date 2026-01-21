@@ -1,3 +1,4 @@
+#line 1 "C:\\Users\\Benutzer1\\Documents\\Arduino\\Stepper\\Stepper--Homing_linear_Hall\\Stepper--Homing_linear_Hall.ino"
 // =======================================================================
 //                🔸 H O M I N G  —  L I N E A R (SCARA) 🔸
 // =======================================================================
@@ -44,10 +45,8 @@
 #define MOTOR_DIR 5
 #define MOTOR_STEP 4
 #define MOTOR_ENABLE 3
-
 #define HALL_PIN 2
-#define LED_PIN 6
-#define BOTON_PIN A0 // A0 Nano -> cambiar para el Pico
+#define BOTON_PIN A0
 
 // ------------------ Parámetros ------------------
 const int MICROSTEPPING = 8;
@@ -55,46 +54,23 @@ const int REDUCCION = 1;
 const int PASOS_POR_VUELTA_MOTOR = 200;
 
 const float HOMING_VEL_RAPIDA = 1000.0;
-const float HOMING_VEL_LENTA = 500.0;
+const float HOMING_VEL_LENTA = 1000.0;
 const float HOMING_ACCEL = 1000.0;
-
 const unsigned long HOMING_TIMEOUT = 3000; // 3 segundos
 
 // ------------------ Objetos ------------------
 AccelStepper motor(AccelStepper::DRIVER, MOTOR_STEP, MOTOR_DIR);
 Bounce debouncer;
 
-// ------------------ Estado de Homing ------------------
-// A partir de ahora, existe un tipo llamado EstadoHoming
-// que solo puede tomar uno de estos valores
-// enum EstadoHoming { ... }	Definición de un tipo
-// EstadoHoming	                El tipo de dato
-// HOMING_INACTIVO, ...         Valores posibles del tipo EstadoHoming
-// estadoHoming	                Variable de ese tipo
-enum EstadoHoming
-{
-    HOMING_INACTIVO,
-    HOMING_BUSCAR_FLANCO_SALIDA,
-    HOMING_BUSCAR_FLANCO_ENTRADA,
-    HOMING_MOVER_REFERENCIA,
-    HOMING_OK,
-    HOMING_ERROR
-};
-
 // ------------------ Variables ------------------
-EstadoHoming estadoHoming = HOMING_INACTIVO; // estado inicial
-unsigned long homingStartTime = 0;           // tiempo de inicio de homing
-
-long flancoEntrada = 0; // posición de entrada al imán
-long flancoSalida = 0;  // posición de salida del imán
-
 // Hall es activo en LOW -> 0:
 bool imanPresente = !digitalRead(HALL_PIN); // negacion logica, activo -> 1
-bool homingFallo = false;                   // marca si hubo falla en homing
 
-// ======================================================
-//                        SETUP
-// ======================================================
+#line 68 "C:\\Users\\Benutzer1\\Documents\\Arduino\\Stepper\\Stepper--Homing_linear_Hall\\Stepper--Homing_linear_Hall.ino"
+void setup();
+#line 93 "C:\\Users\\Benutzer1\\Documents\\Arduino\\Stepper\\Stepper--Homing_linear_Hall\\Stepper--Homing_linear_Hall.ino"
+void loop();
+#line 68 "C:\\Users\\Benutzer1\\Documents\\Arduino\\Stepper\\Stepper--Homing_linear_Hall\\Stepper--Homing_linear_Hall.ino"
 void setup()
 {
     Serial.begin(115200);
@@ -104,33 +80,28 @@ void setup()
     // Ejemplo: si enableInvert = true, entonces LOW habilita el motor y HIGH lo deshabilita
     motor.setPinsInverted(true, false, false);
 
-    pinMode(HALL_PIN, INPUT_PULLUP);
-    pinMode(LED_PIN, OUTPUT);
     pinMode(MOTOR_ENABLE, OUTPUT);
-    pinMode(BOTON_HOME, INPUT_PULLUP);
+    digitalWrite(MOTOR_ENABLE, LOW); // Desactivar driver
 
-    digitalWrite(MOTOR_ENABLE, HIGH); // deshabilita motor
-    digitalWrite(LED_PIN, LOW);
-
-    debouncer.attach(BOTON_HOME);
+    pinMode(HALL_PIN, INPUT_PULLUP);
+    pinMode(BOTON_PIN, INPUT_PULLUP);
+    debouncer.attach(BOTON_PIN);
     debouncer.interval(25);
 
     motor.setMaxSpeed(HOMING_VEL_RAPIDA);
     motor.setAcceleration(HOMING_ACCEL);
+    motor.setCurrentPosition(0);
 
     Serial.println("Sistema listo. Presiona el botón para homing.");
+    digitalWrite(MOTOR_ENABLE, HIGH); // Activar driver
 }
 
-// ======================================================
-//                         LOOP
-// ======================================================
-
-// seguir codigo desde aqui!!!!!!!!!
 void loop()
 {
     debouncer.update();
     if (debouncer.fell())
     {
+        Serial.println("Iniciando homing...");
         Serial.println("Iniciando homing...");
 
         if (imanPresente)
@@ -162,3 +133,4 @@ void loop()
         }
     }
 }
+

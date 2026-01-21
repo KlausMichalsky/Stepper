@@ -1,4 +1,4 @@
-#line 1 "C:\\Users\\Benutzer1\\Documents\\Arduino\\Stepper\\Stepper--Homing_Linear_KY-035_Hall\\.vscode\\arduino.json"
+#line 1 "C:\\Users\\Benutzer1\\Documents\\Arduino\\Stepper\\Stepper--Homing_linear_Hall\\.vscode\\arduino.json"
 {
   "port": "COM3",
   "configuration": "cpu=atmega328",

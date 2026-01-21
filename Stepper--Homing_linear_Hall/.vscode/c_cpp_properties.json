@@ -4,7 +4,7 @@
       "name": "Arduino",
       "includePath": [
         "C:\\Users\\Benutzer1\\Documents\\Arduino\\libraries/**",
-        "C:\\Users\\Benutzer1\\Documents\\Arduino\\Stepper\\Stepper--Homing_Linear_KY-035_Hall/**",
+        "C:\\Users\\Benutzer1\\Documents\\Arduino\\Stepper\\Stepper--Homing_linear_Hall/**",
         "C:\\Users\\Benutzer1\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.6\\cores\\arduino/**",
         "C:\\Users\\Benutzer1\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.6\\variants\\eightanaloginputs/**",
         "C:\\Users\\Benutzer1\\Documents\\Arduino\\libraries\\AccelStepper\\src/**",
@@ -38,9 +38,9 @@
         "-IC:\\Users\\Benutzer1\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.6\\variants\\eightanaloginputs",
         "-IC:\\Users\\Benutzer1\\Documents\\Arduino\\libraries\\AccelStepper\\src",
         "-IC:\\Users\\Benutzer1\\Documents\\Arduino\\libraries\\Bounce2\\src",
-        "C:\\Users\\Benutzer1\\Documents\\Arduino\\Stepper\\Stepper--Homing_Linear_KY-035_Hall\\build\\sketch\\Stepper--Homing_Linear_KY-035_Hall.ino.cpp",
+        "C:\\Users\\Benutzer1\\Documents\\Arduino\\Stepper\\Stepper--Homing_linear_Hall\\build\\sketch\\Stepper--Homing_linear_Hall.ino.cpp",
         "-o",
-        "C:\\Users\\Benutzer1\\Documents\\Arduino\\Stepper\\Stepper--Homing_Linear_KY-035_Hall\\build\\sketch\\Stepper--Homing_Linear_KY-035_Hall.ino.cpp.o"
+        "C:\\Users\\Benutzer1\\Documents\\Arduino\\Stepper\\Stepper--Homing_linear_Hall\\build\\sketch\\Stepper--Homing_linear_Hall.ino.cpp.o"
       ],
       "defines": [
         "F_CPU=16000000L",

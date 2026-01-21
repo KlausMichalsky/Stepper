@@ -1,22 +1,38 @@
 #include <Arduino.h>
-#line 1 "C:\\Users\\Benutzer1\\Documents\\Arduino\\Stepper\\Stepper--Motor_Linear\\Stepper--Motor_Linear.ino"
-/************************************************************************************************************
- 🔹 CONTROL PARA CENTRADO MANUAL DEL BLOQUE (SIRVE PARA EVITAR DAÑO DEL MOTOR)🔹
-  - Motor paso a paso controlado con driver STEP1/DIR1.
-  - Pines usados: DIR = 10, STEP = 11, ENABLE = 12.
-  - Usa AccelStepper con velocidad y aceleración configuradas.
-  - Ejecuta movimiento en ambas direcciones empezando en direccion opuesta al motor (~1cm)
-  - Ciclo continuo con pausa de 3 segundo entre movimientos.
-
-  Hardware usado
-    - DC 5V/12V 15mm/20mm Schrittmotor 55mm Hub (Aliexpress: Motor-house Store)
-    - Driver TMC2209 en modo UART
-    - Arduino Nano
-    - TMC2209 A2->rojo, A1->negro, B1->amarillo, B2->azul
-    - TMC2209 MS1, MS2, -> GND
-
-    K. Michalsky – 11.2025
-************************************************************************************************************/
+#line 1 "C:\\Users\\Benutzer1\\Documents\\Arduino\\Stepper\\Stepper--Motor_linear\\Stepper--Motor_linear.ino"
+// =======================================================================
+//          🔹 S T E P P E R  —  L I N E A R  (CENTRADO MANUAL) 🔹
+// =======================================================================
+//  Archivo    : Stepper--Motor_Linear.ino
+//  Autor      : Klaus Michalsky
+//  Fecha      : 2025-01-19
+//
+//  DESCRIPCIÓN
+//  -----------------------------------------------------------------------
+//   • Mueve un motor paso a paso lineal (~1cm) hacia ambos lados.
+//   • Motor paso a paso controlado con driver STEP1/DIR1.
+//   • Pines usados: DIR = 10, STEP = 11, ENABLE = 12.
+//   • Usa AccelStepper con velocidad y aceleración configuradas.
+//   • Ejecuta movimiento en ambas direcciones empezando en direccion opuesta al motor (~1cm)
+//   • Ciclo continuo con pausa de 3 segundo entre movimientos.
+//
+//  HARDWARE
+//  -----------------------------------------------------------------------
+//   • DC 5V/12V 15mm/20mm Schrittmotor 55mm Hub (Aliexpress: Motor-house Store)
+//   • Driver TMC2209 en modo UART
+//   • Arduino Nano
+//   • TMC2209 A2->rojo, A1->negro, B1->amarillo, B2->azul
+//   • TMC2209 MS1, MS2, -> GND
+//
+//  NOTAS IMPORTANTES
+//  -----------------------------------------------------------------------
+//   • Sirve para evitar daño del motor
+//   • Probar con pasos cortos
+//
+//  ESTADO
+//  -----------------------------------------------------------------------
+//  ✅ Funcional
+// =======================================================================
 
 #include <AccelStepper.h>
 
@@ -35,11 +51,11 @@ const int microstepping = 8;
 const int pasos = 200 * microstepping;
 const int direccion = -1;
 
-#line 36 "C:\\Users\\Benutzer1\\Documents\\Arduino\\Stepper\\Stepper--Motor_Linear\\Stepper--Motor_Linear.ino"
+#line 52 "C:\\Users\\Benutzer1\\Documents\\Arduino\\Stepper\\Stepper--Motor_linear\\Stepper--Motor_linear.ino"
 void setup();
-#line 47 "C:\\Users\\Benutzer1\\Documents\\Arduino\\Stepper\\Stepper--Motor_Linear\\Stepper--Motor_Linear.ino"
+#line 63 "C:\\Users\\Benutzer1\\Documents\\Arduino\\Stepper\\Stepper--Motor_linear\\Stepper--Motor_linear.ino"
 void loop();
-#line 36 "C:\\Users\\Benutzer1\\Documents\\Arduino\\Stepper\\Stepper--Motor_Linear\\Stepper--Motor_Linear.ino"
+#line 52 "C:\\Users\\Benutzer1\\Documents\\Arduino\\Stepper\\Stepper--Motor_linear\\Stepper--Motor_linear.ino"
 void setup()
 {
     pinMode(ENABLE, OUTPUT);

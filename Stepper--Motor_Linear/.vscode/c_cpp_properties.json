@@ -4,7 +4,7 @@
       "name": "Arduino",
       "includePath": [
         "C:\\Users\\Benutzer1\\Documents\\Arduino\\libraries/**",
-        "C:\\Users\\Benutzer1\\Documents\\Arduino\\Stepper\\Stepper--Motor_Linear/**",
+        "C:\\Users\\Benutzer1\\Documents\\Arduino\\Stepper\\Stepper--Motor_linear/**",
         "C:\\Users\\Benutzer1\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.6\\cores\\arduino/**",
         "C:\\Users\\Benutzer1\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.6\\variants\\eightanaloginputs/**",
         "C:\\Users\\Benutzer1\\Documents\\Arduino\\libraries\\AccelStepper\\src/**"
@@ -36,9 +36,9 @@
         "-IC:\\Users\\Benutzer1\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.6\\cores\\arduino",
         "-IC:\\Users\\Benutzer1\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.6\\variants\\eightanaloginputs",
         "-IC:\\Users\\Benutzer1\\Documents\\Arduino\\libraries\\AccelStepper\\src",
-        "C:\\Users\\Benutzer1\\Documents\\Arduino\\Stepper\\Stepper--Motor_Linear\\build\\sketch\\Stepper--Motor_Linear.ino.cpp",
+        "C:\\Users\\Benutzer1\\Documents\\Arduino\\Stepper\\Stepper--Motor_linear\\build\\sketch\\Stepper--Motor_linear.ino.cpp",
         "-o",
-        "C:\\Users\\Benutzer1\\Documents\\Arduino\\Stepper\\Stepper--Motor_Linear\\build\\sketch\\Stepper--Motor_Linear.ino.cpp.o"
+        "C:\\Users\\Benutzer1\\Documents\\Arduino\\Stepper\\Stepper--Motor_linear\\build\\sketch\\Stepper--Motor_linear.ino.cpp.o"
       ],
       "defines": [
         "F_CPU=16000000L",

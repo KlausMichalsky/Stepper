@@ -1,4 +1,4 @@
-C:\Users\Benutzer1\Documents\Arduino\Stepper\Stepper--Motor_Linear\build\core\HardwareSerial2.cpp.o: \
+C:\Users\Benutzer1\Documents\Arduino\Stepper\Stepper--Motor_linear\build\core\HardwareSerial2.cpp.o: \
  C:\Users\Benutzer1\AppData\Local\Arduino15\packages\arduino\hardware\avr\1.8.6\cores\arduino\HardwareSerial2.cpp \
  C:\Users\Benutzer1\AppData\Local\Arduino15\packages\arduino\hardware\avr\1.8.6\cores\arduino\Arduino.h \
  C:\Users\Benutzer1\AppData\Local\Arduino15\packages\arduino\hardware\avr\1.8.6\cores\arduino\binary.h \

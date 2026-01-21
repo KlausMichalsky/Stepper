@@ -1,5 +1,5 @@
-C:\Users\Benutzer1\Documents\Arduino\Stepper\Stepper--Motor_Linear\build\sketch\Stepper--Motor_Linear.ino.cpp.o: \
- C:\Users\Benutzer1\Documents\Arduino\Stepper\Stepper--Motor_Linear\build\sketch\Stepper--Motor_Linear.ino.cpp \
+C:\Users\Benutzer1\Documents\Arduino\Stepper\Stepper--Motor_linear\build\sketch\Stepper--Motor_linear.ino.cpp.o: \
+ C:\Users\Benutzer1\Documents\Arduino\Stepper\Stepper--Motor_linear\build\sketch\Stepper--Motor_linear.ino.cpp \
  C:\Users\Benutzer1\AppData\Local\Arduino15\packages\arduino\hardware\avr\1.8.6\cores\arduino/Arduino.h \
  C:\Users\Benutzer1\AppData\Local\Arduino15\packages\arduino\hardware\avr\1.8.6\cores\arduino/binary.h \
  C:\Users\Benutzer1\AppData\Local\Arduino15\packages\arduino\hardware\avr\1.8.6\cores\arduino/WCharacter.h \

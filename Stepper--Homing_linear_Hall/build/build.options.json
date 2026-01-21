@@ -5,5 +5,5 @@
   "fqbn": "arduino:avr:nano:cpu=atmega328",
   "hardwareFolders": "C:\\Users\\Benutzer1\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.6,C:\\Users\\Benutzer1\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.6",
   "otherLibrariesFolders": "C:\\Users\\Benutzer1\\Documents\\Arduino\\libraries",
-  "sketchLocation": "C:\\Users\\Benutzer1\\Documents\\Arduino\\Stepper\\Stepper--Homing_Linear_KY-035_Hall"
+  "sketchLocation": "C:\\Users\\Benutzer1\\Documents\\Arduino\\Stepper\\Stepper--Homing_linear_Hall"
 }
