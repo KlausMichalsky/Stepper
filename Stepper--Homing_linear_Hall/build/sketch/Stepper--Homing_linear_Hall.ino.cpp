@@ -45,8 +45,10 @@
 #define MOTOR_DIR 5
 #define MOTOR_STEP 4
 #define MOTOR_ENABLE 3
+
 #define HALL_PIN 2
-#define BOTON_PIN A0
+#define LED_PIN 6
+#define BOTON_PIN A0 // A0 Nano -> cambiar para el Pico
 
 // ------------------ Parámetros ------------------
 const int MICROSTEPPING = 8;
@@ -54,23 +56,51 @@ const int REDUCCION = 1;
 const int PASOS_POR_VUELTA_MOTOR = 200;
 
 const float HOMING_VEL_RAPIDA = 1000.0;
-const float HOMING_VEL_LENTA = 1000.0;
+const float HOMING_VEL_LENTA = 500.0;
 const float HOMING_ACCEL = 1000.0;
+
 const unsigned long HOMING_TIMEOUT = 3000; // 3 segundos
 
 // ------------------ Objetos ------------------
 AccelStepper motor(AccelStepper::DRIVER, MOTOR_STEP, MOTOR_DIR);
 Bounce debouncer;
 
-// ------------------ Variables ------------------
-// Hall es activo en LOW -> 0:
-bool imanPresente = !digitalRead(HALL_PIN); // negacion logica, activo -> 1
+// ------------------ Estado de Homing ------------------
+// A partir de ahora, existe un tipo llamado EstadoHoming
+// que solo puede tomar uno de estos valores
+// enum EstadoHoming { ... }	Definición de un tipo
+// EstadoHoming	                El tipo de dato
+// HOMING_INACTIVO, ...         Valores posibles del tipo EstadoHoming
+// estadoHoming	                Variable de ese tipo
+enum EstadoHoming
+{
+    HOMING_INACTIVO,
+    HOMING_BUSCAR_RAPIDO_ABAJO,
+    HOMING_BUSCAR_RAPIDO_ARRIBA,
+    HOMING_MOVER_REFERENCIA,
+    HOMING_OK,
+    HOMING_ERROR
+};
 
-#line 68 "C:\\Users\\Benutzer1\\Documents\\Arduino\\Stepper\\Stepper--Homing_linear_Hall\\Stepper--Homing_linear_Hall.ino"
+// ------------------ Variables ------------------
+EstadoHoming estadoHoming = HOMING_INACTIVO; // estado inicial
+unsigned long homingStartTime = 0;           // tiempo de inicio de homing
+
+long referencia = 0; // posición de homing
+long flanco = 0;     // posición de salida del imán
+
+bool homingFallo = false; // marca si hubo falla en homing
+
+// ======================================================
+//                        SETUP
+// ======================================================
+#line 96 "C:\\Users\\Benutzer1\\Documents\\Arduino\\Stepper\\Stepper--Homing_linear_Hall\\Stepper--Homing_linear_Hall.ino"
 void setup();
-#line 93 "C:\\Users\\Benutzer1\\Documents\\Arduino\\Stepper\\Stepper--Homing_linear_Hall\\Stepper--Homing_linear_Hall.ino"
+#line 126 "C:\\Users\\Benutzer1\\Documents\\Arduino\\Stepper\\Stepper--Homing_linear_Hall\\Stepper--Homing_linear_Hall.ino"
 void loop();
-#line 68 "C:\\Users\\Benutzer1\\Documents\\Arduino\\Stepper\\Stepper--Homing_linear_Hall\\Stepper--Homing_linear_Hall.ino"
+#line 171 "C:\\Users\\Benutzer1\\Documents\\Arduino\\Stepper\\Stepper--Homing_linear_Hall\\Stepper--Homing_linear_Hall.ino"
+void homingStep();
+#line 96 "C:\\Users\\Benutzer1\\Documents\\Arduino\\Stepper\\Stepper--Homing_linear_Hall\\Stepper--Homing_linear_Hall.ino"
 void setup()
 {
     Serial.begin(115200);
@@ -80,57 +110,120 @@ void setup()
     // Ejemplo: si enableInvert = true, entonces LOW habilita el motor y HIGH lo deshabilita
     motor.setPinsInverted(true, false, false);
 
-    pinMode(MOTOR_ENABLE, OUTPUT);
-    digitalWrite(MOTOR_ENABLE, LOW); // Desactivar driver
-
     pinMode(HALL_PIN, INPUT_PULLUP);
+    pinMode(LED_PIN, OUTPUT);
+    pinMode(MOTOR_ENABLE, OUTPUT);
     pinMode(BOTON_PIN, INPUT_PULLUP);
+
+    digitalWrite(MOTOR_ENABLE, HIGH); // deshabilita motor
+    digitalWrite(LED_PIN, LOW);
+
     debouncer.attach(BOTON_PIN);
     debouncer.interval(25);
 
     motor.setMaxSpeed(HOMING_VEL_RAPIDA);
     motor.setAcceleration(HOMING_ACCEL);
-    motor.setCurrentPosition(0);
 
     Serial.println("Sistema listo. Presiona el botón para homing.");
-    digitalWrite(MOTOR_ENABLE, HIGH); // Activar driver
 }
+
+// ======================================================
+//                         LOOP
+// ======================================================
 
 void loop()
 {
     debouncer.update();
-    if (debouncer.fell())
+
+    // 🔄 Reset de homingFallo al soltar el botón
+    // fell() → el botón pasó de HIGH → LOW
+    // rose() → el botón pasó de LOW → HIGH
+    // ⚠️ Importante: por qué no resetear en fell()
+    // Si lo hicieras al presionar:
+    // podrías borrar el error sin intención
+    // incluso mientras el botón sigue apretado
+    // creando estados raros
+    // 👉 Resetear al soltar es lo correcto.
+    if (debouncer.rose() && digitalRead(BOTON_PIN) == HIGH)
     {
-        Serial.println("Iniciando homing...");
-        Serial.println("Iniciando homing...");
+        homingFallo = false;
+        Serial.println("🔄 Homing reset");
+    }
 
-        if (imanPresente)
-        {
-            Serial.println("Imán presente, alejándose...");
+    // 🔒 si hay error latched, no hacemos nada
+    if (homingFallo)
+    {
+        return;
+    }
+    // 🔹 Inicia homing al apretar el botón
+    if (debouncer.fell() && estadoHoming == HOMING_INACTIVO)
+    {
+        digitalWrite(MOTOR_ENABLE, LOW); // habilita motor
+        digitalWrite(LED_PIN, LOW);
+        Serial.println("🔹 Iniciando homing...");
+        motor.setCurrentPosition(0);
+        homingStartTime = millis(); // guarda tiempo de inicio de homing al momento de presionar el botón
+        estadoHoming = HOMING_BUSCAR_RAPIDO_ABAJO;
+    }
 
-            motor.setSpeed(HOMING_VEL_RAPIDA); // velocidad constante
-            unsigned long startTime = millis();
-
-            while (imanPresente)
-            {
-                motor.runSpeed(); // movimiento continuo
-                imanPresente = !digitalRead(HALL_PIN);
-
-                if (millis() - startTime > HOMING_TIMEOUT)
-                {
-                    Serial.println("Error: timeout alejándose del imán");
-                    motor.stop();
-                    return;
-                }
-            }
-
-            motor.stop();
-            Serial.println("Imán liberado");
-        }
-        else
-        {
-            Serial.println("Imán NO detectado");
-        }
+    if (estadoHoming != HOMING_INACTIVO)
+    {
+        homingStep();
     }
 }
 
+// ======================================================
+//                  HOMING STEP (NO BLOQUEA)
+// ======================================================
+
+void homingStep()
+{
+    // invierte la logica del HAll (imán presente = LOW)
+    bool imanPresente = !digitalRead(HALL_PIN);
+
+    // ⏱️ Timeout de homing (si tiempo de homing excede el límite)
+    if (millis() - homingStartTime > HOMING_TIMEOUT) //
+    {
+        estadoHoming = HOMING_ERROR;
+    }
+
+    switch (estadoHoming)
+    {
+    case HOMING_BUSCAR_RAPIDO_ABAJO:
+        motor.setSpeed(-HOMING_VEL_RAPIDA);
+        motor.runSpeed();
+        if (!imanPresente)
+        {
+            flanco = motor.currentPosition();
+            Serial.print("Flanco de salida en: ");
+            Serial.println(flanco);
+            motor.moveTo(200);
+            estadoHoming = HOMING_MOVER_REFERENCIA;
+        }
+        break;
+
+    case HOMING_MOVER_REFERENCIA:
+        motor.run();
+        if (motor.distanceToGo() == 0)
+        {
+            motor.setCurrentPosition(0);
+            estadoHoming = HOMING_OK;
+            digitalWrite(MOTOR_ENABLE, HIGH); // deshabilita motor
+        }
+        break;
+
+    case HOMING_OK:
+        Serial.println("✅ Homing OK. Referencia = 0");
+        digitalWrite(LED_PIN, HIGH);
+        estadoHoming = HOMING_INACTIVO;
+        digitalWrite(MOTOR_ENABLE, HIGH); // deshabilita motor
+        break;
+
+    case HOMING_ERROR:
+        Serial.println("❌ ERROR de homing");
+        digitalWrite(MOTOR_ENABLE, HIGH); // deshabilita motor
+        homingFallo = true;               // latch error
+        estadoHoming = HOMING_INACTIVO;
+        break;
+    }
+}

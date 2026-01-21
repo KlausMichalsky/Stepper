@@ -154,11 +154,10 @@ void loop()
         digitalWrite(LED_PIN, LOW);
         Serial.println("🔹 Iniciando homing...");
         motor.setCurrentPosition(0);
-
-        HOMING_BUSCAR_RAPIDO_ABAJO, homingStartTime = millis(); // guarda tiempo de inicio de homing al momento de presionar el botón
-        HOMING_I,
+        homingStartTime = millis(); // guarda tiempo de inicio de homing al momento de presionar el botón
+        estadoHoming = HOMING_BUSCAR_RAPIDO_ABAJO;
     }
-    estadoHoming = HOMING_MOVER_REFERENCIA;
+
     if (estadoHoming != HOMING_INACTIVO)
     {
         homingStep();
