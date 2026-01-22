@@ -59,7 +59,7 @@ const float HOMING_VEL_RAPIDA = 1000.0;
 const float HOMING_VEL_LENTA = 500.0;
 const float HOMING_ACCEL = 1000.0;
 
-const unsigned long HOMING_TIMEOUT = 3000; // 3 segundos
+const unsigned long HOMING_TIMEOUT = 12000; // 12 segundos
 
 // ------------------ Objetos ------------------
 AccelStepper motor(AccelStepper::DRIVER, MOTOR_STEP, MOTOR_DIR);
@@ -144,7 +144,7 @@ void loop()
     // incluso mientras el botón sigue apretado
     // creando estados raros
     // 👉 Resetear al soltar es lo correcto.
-    if (debouncer.rose() && digitalRead(BOTON_PIN) == HIGH)
+    if (debouncer.rose() && homingFallo)
     {
         homingFallo = false;
         Serial.println("🔄 Homing reset");
@@ -156,7 +156,7 @@ void loop()
         return;
     }
     // 🔹 Inicia homing al apretar el botón
-    if (debouncer.fell() && estadoHoming == HOMING_INACTIVO)
+    if (!homingFallo && debouncer.fell() && estadoHoming == HOMING_INACTIVO)
     {
         digitalWrite(MOTOR_ENABLE, LOW); // habilita motor
         digitalWrite(LED_PIN, LOW);
@@ -190,14 +190,14 @@ void homingStep()
     switch (estadoHoming)
     {
     case HOMING_BUSCAR_RAPIDO_ABAJO:
-        motor.setSpeed(-HOMING_VEL_RAPIDA);
+        motor.setSpeed(HOMING_VEL_RAPIDA);
         motor.runSpeed();
         if (!imanPresente)
         {
             flanco = motor.currentPosition();
             Serial.print("Flanco de salida en: ");
             Serial.println(flanco);
-            motor.moveTo(200);
+            motor.moveTo(flanco - 3000);
             estadoHoming = HOMING_MOVER_REFERENCIA;
         }
         break;

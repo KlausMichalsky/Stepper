@@ -147,7 +147,7 @@ void loop()
     // incluso mientras el botón sigue apretado
     // creando estados raros
     // 👉 Resetear al soltar es lo correcto.
-    if (debouncer.rose() && digitalRead(BOTON_PIN) == HIGH)
+    if (debouncer.rose() && homingFallo)
     {
         homingFallo = false;
         Serial.println("🔄 Homing reset");
@@ -158,8 +158,9 @@ void loop()
     {
         return;
     }
+
     // 🔹 Inicia homing al apretar el botón
-    if (debouncer.fell() && estadoHoming == HOMING_INACTIVO)
+    if (!homingFallo && debouncer.fell() && estadoHoming == HOMING_INACTIVO)
     {
         digitalWrite(MOTOR_ENABLE, LOW); // habilita motor
         digitalWrite(LED_PIN, LOW);
