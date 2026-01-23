@@ -17,6 +17,7 @@
 //   • Define ese flanco como posición 0 (referencia absoluta)
 //   • Usa velocidades rápidas y lentas para optimizar tiempo y precisión
 //   • Implementa un timeout y manejo de errores
+//   • Pasos negativos para buscar alejandose del motor (flanco de salida)
 //
 //  HARDWARE
 //  -----------------------------------------------------------------------
@@ -30,10 +31,11 @@
 //   • NO usa AS5600 (este archivo es solo para KY-035)
 //   • No se usan interrupciones para el estadoAnteriorSensor Hall
 //   • No se usa moveTo() durante la búsqueda (solo runSpeed())
+//   • El homing NO bloquea el loop principal (se hace en pasos)
 //
 //  ESTADO
 //  -----------------------------------------------------------------------
-//  ✅ Funcional
+//  ✅ funcional básico probado y operativo (optimizable)
 // =======================================================================
 
 #include <Arduino.h>
@@ -60,6 +62,10 @@ const float HOMING_ACCEL = 1000.0;
 
 const unsigned long HOMING_TIMEOUT = 12000; // 12 segundos
 
+const long LIMITE_BUSQUEDA_CORTA = -100; // pasos máximos si arranca fuera del imán
+
+int dir = 1; // dirección inicial
+
 // ------------------ Objetos ------------------
 AccelStepper motor(AccelStepper::DRIVER, MOTOR_STEP, MOTOR_DIR);
 Bounce debouncer;
@@ -74,9 +80,10 @@ Bounce debouncer;
 enum EstadoHoming
 {
     HOMING_INACTIVO,
-    HOMING_BUSCAR_RAPIDO_ABAJO,
-    HOMING_BUSCAR_RAPIDO_ARRIBA,
-    HOMING_MOVER_REFERENCIA,
+    HOMING_BUSCAR_FLANCO_DE_SALIDA,
+    HOMING_BUSCAR_FLANCO_DE_ENTRADA,
+    HOMING_MOVER_HASTA_REFERENCIA,
+    // HOMING_VOLVER_A_INICIO,
     HOMING_OK,
     HOMING_ERROR
 };
@@ -85,8 +92,9 @@ enum EstadoHoming
 EstadoHoming estadoHoming = HOMING_INACTIVO; // estado inicial
 unsigned long homingStartTime = 0;           // tiempo de inicio de homing
 
-long referencia = 0; // posición de homing
-long flanco = 0;     // posición de salida del imán
+long referencia = 0;       // posición de homing
+long flanco = 0;           // posición de salida del imán
+long posicionDeInicio = 0; // posición al iniciar homing
 
 bool homingFallo = false; // marca si hubo falla en homing
 
@@ -153,8 +161,14 @@ void loop()
         digitalWrite(LED_PIN, LOW);
         Serial.println("🔹 Iniciando homing...");
         motor.setCurrentPosition(0);
+        posicionDeInicio = motor.currentPosition();
         homingStartTime = millis(); // guarda tiempo de inicio de homing al momento de presionar el botón
-        estadoHoming = HOMING_BUSCAR_RAPIDO_ABAJO;
+        bool imanPresente = !digitalRead(HALL_PIN);
+        if (!imanPresente)
+        {
+            Serial.println("⚠️ Arranque fuera del imán (búsqueda limitada)");
+        }
+        estadoHoming = HOMING_BUSCAR_FLANCO_DE_SALIDA;
     }
     if (estadoHoming != HOMING_INACTIVO)
     {
@@ -179,7 +193,8 @@ void homingStep()
 
     switch (estadoHoming)
     {
-    case HOMING_BUSCAR_RAPIDO_ABAJO:
+    case HOMING_BUSCAR_FLANCO_DE_SALIDA:
+
         motor.setSpeed(HOMING_VEL_RAPIDA);
         motor.runSpeed();
         if (!imanPresente)
@@ -187,18 +202,57 @@ void homingStep()
             flanco = motor.currentPosition();
             Serial.print("Flanco de salida en: ");
             Serial.println(flanco);
-            motor.moveTo(flanco - 3000);
-            estadoHoming = HOMING_MOVER_REFERENCIA;
+            motor.moveTo(flanco + 500); // avanza 500 pasos para alejarse un poquito del imán
+            estadoHoming = HOMING_BUSCAR_FLANCO_DE_ENTRADA;
         }
         break;
 
-    case HOMING_MOVER_REFERENCIA:
-        motor.run();
-        if (motor.distanceToGo() == 0)
+        // Volver a inicio no es necesario
+        // case HOMING_VOLVER_A_INICIO:
+        //     if (motor.currentPosition() < 0)
+        //     {
+        //         dir = -1;
+        //     }
+        //     else
+        //     {
+        //         dir = 1;
+        //     }
+        //     motor.setSpeed(dir * (-HOMING_VEL_RAPIDA));
+        //     motor.runSpeed();
+        //     if (abs(motor.currentPosition() - posicionDeInicio) <= 2)
+        //     {
+        //         estadoHoming = HOMING_ERROR;
+        //     }
+        //     break;
+
+    case HOMING_BUSCAR_FLANCO_DE_ENTRADA:
+        motor.setSpeed(-HOMING_VEL_LENTA);
+        motor.runSpeed();
+        if (imanPresente)
         {
-            motor.setCurrentPosition(0);
+            flanco = motor.currentPosition();
+            Serial.print("Flanco de entrada en: ");
+            Serial.println(flanco);
+            estadoHoming = HOMING_MOVER_HASTA_REFERENCIA;
+        }
+        // Probar esto:
+        else if (motor.currentPosition() <= LIMITE_BUSQUEDA_CORTA)
+        {
+            Serial.println("⚠️ Homing error: límite de búsqueda corta alcanzado");
+            estadoHoming = HOMING_ERROR;
+        }
+        break;
+
+    case HOMING_MOVER_HASTA_REFERENCIA:
+        motor.setSpeed(-HOMING_VEL_LENTA); // acá podés bajar velocidad
+        motor.runSpeed();
+
+        if (motor.currentPosition() <= flanco - 500)
+        {
+            motor.stop();
+            motor.setCurrentPosition(0); // ESTE es el cero
             estadoHoming = HOMING_OK;
-            digitalWrite(MOTOR_ENABLE, HIGH); // deshabilita motor
+            digitalWrite(MOTOR_ENABLE, HIGH);
         }
         break;
 
