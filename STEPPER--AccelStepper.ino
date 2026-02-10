@@ -57,13 +57,14 @@ const int motor2_vueltas  = 6;
 // SETUP
 // =======================================================================
 void setup() {
+  // Antes de la configuracion deshabilitar motores para evitar pasos indeseados mientras se ejecuta el setup()
   pinMode(ENABLE1, OUTPUT);
   pinMode(ENABLE2, OUTPUT);
   digitalWrite(ENABLE1, LOW);
   digitalWrite(ENABLE2, LOW);
 
-  motor1.setMaxSpeed(2000);
-  motor1.setAcceleration(2000);
+  motor1.setMaxSpeed(2000);     // pasos/seg
+  motor1.setAcceleration(2000); // pasos/seg^2
   motor2.setMaxSpeed(2000);
   motor2.setAcceleration(2000);
 
