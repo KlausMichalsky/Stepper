@@ -1,5 +1,5 @@
 // ========================================================================
-//             🔸A C C E L S T E P P E R  -  O N E   T U R N 🔸
+//            🔸 A C C E L S T E P P E R  -  O N E   T U R N 🔸
 // ========================================================================
 //  Archivo    : STEPPER.ino
 //  Autor      : Klaus Michalsky
@@ -7,11 +7,11 @@
 //
 //  DESCRIPCION
 //  -----------------------------------------------------------------------
-//  - Ejecuta una “vuelta” (definida como motorX_vueltas) 
+//  - Ejecuta una “vuelta” (definida como motorX_vueltas)
 //    hacia un lado y regresa a la posición 0.
 //  - Pasos por vuelta definidos como (200 * microstepping).
 //  - Ciclo continuo con pausa de 1 segundo entre movimientos.
-// 
+//
 //  HARDWARE
 //  -----------------------------------------------------------------------
 //  MCU     : RP2040-Zero
@@ -27,12 +27,12 @@
 
 //  DEFINICION DE PINES
 //  -----------------------------------------------------------------------
-#define DIR1    7
-#define STEP1   8
+#define DIR1 7
+#define STEP1 8
 #define ENABLE1 6
 
-#define DIR2    13
-#define STEP2   14
+#define DIR2 13
+#define STEP2 14
 #define ENABLE2 12
 
 // OBJETOS
@@ -48,15 +48,16 @@ AccelStepper motor2(AccelStepper::DRIVER, STEP2, DIR2);
 // Motores de 200 pasos por vuelta con microstepping 1/16
 // 200 * 16 = 3200 pasos por vuelta
 // ENABLE LOW = driver activado
-const int microstepping   = 16;
-const int pasosPorVuelta  = 200 * microstepping;
-const int motor1_vueltas  = 9;
-const int motor2_vueltas  = 6;
+const int microstepping = 16;
+const int pasosPorVuelta = 200 * microstepping;
+const int motor1_vueltas = 9;
+const int motor2_vueltas = 6;
 
 // =======================================================================
 // SETUP
 // =======================================================================
-void setup() {
+void setup()
+{
   // Antes de la configuracion deshabilitar motores para evitar pasos indeseados mientras se ejecuta el setup()
   pinMode(ENABLE1, OUTPUT);
   pinMode(ENABLE2, OUTPUT);
@@ -75,31 +76,36 @@ void setup() {
 // =======================================================================
 // LOOP
 // =======================================================================
-void loop() {
+void loop()
+{
   // Motor1: 1 vuelta adelante
   motor1.moveTo(motor1_vueltas * pasosPorVuelta);
-  while (motor1.distanceToGo() != 0) {
+  while (motor1.distanceToGo() != 0)
+  {
     motor1.run();
   }
   delay(1000);
 
   // Motor1: volver a origen
   motor1.moveTo(0);
-  while (motor1.distanceToGo() != 0) {
+  while (motor1.distanceToGo() != 0)
+  {
     motor1.run();
   }
   delay(1000);
 
   // Motor2: 1 vuelta adelante
   motor2.moveTo(motor2_vueltas * pasosPorVuelta);
-  while (motor2.distanceToGo() != 0) {
+  while (motor2.distanceToGo() != 0)
+  {
     motor2.run();
   }
   delay(1000);
 
   // Motor2: volver a origen
   motor2.moveTo(0);
-  while (motor2.distanceToGo() != 0) {
+  while (motor2.distanceToGo() != 0)
+  {
     motor2.run();
   }
   delay(1000);
