@@ -12,6 +12,12 @@
 //  - Pasos por vuelta definidos como (200 * microstepping).
 //  - Ciclo continuo con pausa de 1 segundo entre movimientos.
 // 
+//  HARDWARE
+//  -----------------------------------------------------------------------
+//  MCU     : RP2040-Zero / (opcion para Arduino-Nano cambiando pins)
+//  Motor   : NEMA17
+//  Driver  : TMC2209
+//
 //  ESTADO
 //  -----------------------------------------------------------------------
 //  ✅ Funcional
@@ -60,28 +66,28 @@ void setup() {
 }
 
 void loop() {
-  // --- Motor1: 1 vuelta adelante ---
+  // Motor1: 1 vuelta adelante
   motor1.moveTo(motor1_vueltas * pasosPorVuelta);
   while (motor1.distanceToGo() != 0) {
     motor1.run();
   }
   delay(1000);
 
-  // --- Motor1: volver a 0 ---
+  // Motor1: volver a 0
   motor1.moveTo(0);
   while (motor1.distanceToGo() != 0) {
     motor1.run();
   }
   delay(1000);
 
-  // --- Motor2: 1 vuelta adelante ---
+  // Motor2: 1 vuelta adelante
   motor2.moveTo(motor2_vueltas * pasosPorVuelta);
   while (motor2.distanceToGo() != 0) {
     motor2.run();
   }
   delay(1000);
 
-  // --- Motor2: volver a 0 ---
+  // Motor2: volver a 0
   motor2.moveTo(0);
   while (motor2.distanceToGo() != 0) {
     motor2.run();
