@@ -37,6 +37,9 @@
 
 // OBJETOS
 //  -----------------------------------------------------------------------
+// Crea una instancia: selecciona la versión que quieras usar y descomentándola. Ese es el único cambio necesario.
+// AccelStepper myStepper(AccelStepper::FULL4WIRE, AIn1, AIn2, BIn1, BIn2); // funciona para TB6612 (controlador de motor bipolar, de voltaje constante y puente H)
+// AccelStepper myStepper(AccelStepper::FULL4WIRE, In1, In3, In2, In4);    // funciona para ULN2003 (controlador de motor unipolar)
 AccelStepper motor1(AccelStepper::DRIVER, STEP1, DIR1);
 AccelStepper motor2(AccelStepper::DRIVER, STEP2, DIR2);
 
