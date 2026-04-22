@@ -1,9 +1,0 @@
-{
-  "additionalFiles": "..\\..\\..,..\\..\\..",
-  "compiler.optimization_flags": "",
-  "customBuildProperties": "",
-  "fqbn": "rp2040:rp2040:waveshare_rp2040_zero:flash=2097152_0,freq=200,opt=Small,profile=Disabled,rtti=Disabled,stackprotect=Disabled,exceptions=Disabled,dbgport=Disabled,dbglvl=None,usbstack=picosdk,ipbtstack=ipv4only,uploadmethod=default",
-  "hardwareFolders": "C:\\Users\\Benutzer1\\AppData\\Local\\Arduino15\\packages\\rp2040\\hardware\\rp2040\\4.5.2,C:\\Users\\Benutzer1\\AppData\\Local\\Arduino15\\packages\\rp2040\\hardware\\rp2040\\4.5.2",
-  "otherLibrariesFolders": "C:\\Users\\Benutzer1\\Documents\\Arduino\\libraries",
-  "sketchLocation": "C:\\Users\\Benutzer1\\Documents\\# Github repositories\\STEPPER--AccelStepper\\STEPPER--AccelStepper_linear_movement"
-}
