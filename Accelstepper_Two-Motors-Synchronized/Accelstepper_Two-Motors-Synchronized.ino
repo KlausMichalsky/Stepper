@@ -1,7 +1,7 @@
 // ========================================================================
 //         🔸 A C C E L S T E P P E R  -  S Y N C H R O N I Z E D 🔸
 // ========================================================================
-//  Archivo    : STEPPER--AccelStepper_two_motors_synchronized.ino
+//  Archivo    : AccelStepper_Two-Motors-Synchronized.ino
 //  Autor      : Klaus Michalsky
 //  Fecha      : Mar-2026
 //

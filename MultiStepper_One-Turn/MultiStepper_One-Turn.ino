@@ -1,7 +1,7 @@
 // ========================================================================
-//            🔸 A C C E L S T E P P E R  -  O N E   T U R N 🔸 
+//            🔸 A C C E L S T E P P E R  -  O N E   T U R N 🔸
 // ========================================================================
-//  Archivo    : STEPPER--AccelStepper_one_turn.ino
+//  Archivo    : MultiStepper_One-Turn.ino
 //  Autor      : Klaus Michalsky
 //  Fecha      : Feb-2026
 //
